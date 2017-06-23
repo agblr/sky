@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmbl.ops.model.house.BaseDistrict" >
+  <resultMap id="BaseResultMap" type="com.xmbl.ops.model.house.BaseDistrict" >
+    <id column="DistrictCode" property="districtcode" jdbcType="VARCHAR" />
+    <result column="DistrictName" property="districtname" jdbcType="VARCHAR" />
+    <result column="ProvinceCode" property="provincecode" jdbcType="VARCHAR" />
+    <result column="CityCode" property="citycode" jdbcType="VARCHAR" />
+    <result column="AddTime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DistrictCode, DistrictName, ProvinceCode, CityCode, AddTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_district
+    where DistrictCode = #{districtcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_district
+    where DistrictCode = #{districtcode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xmbl.ops.model.house.BaseDistrict" >
+    insert into base_district (DistrictCode, DistrictName, ProvinceCode, 
+      CityCode, AddTime)
+    values (#{districtcode,jdbcType=VARCHAR}, #{districtname,jdbcType=VARCHAR}, #{provincecode,jdbcType=VARCHAR}, 
+      #{citycode,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmbl.ops.model.house.BaseDistrict" >
+    insert into base_district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="districtcode != null" >
+        DistrictCode,
+      </if>
+      <if test="districtname != null" >
+        DistrictName,
+      </if>
+      <if test="provincecode != null" >
+        ProvinceCode,
+      </if>
+      <if test="citycode != null" >
+        CityCode,
+      </if>
+      <if test="addtime != null" >
+        AddTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="districtcode != null" >
+        #{districtcode,jdbcType=VARCHAR},
+      </if>
+      <if test="districtname != null" >
+        #{districtname,jdbcType=VARCHAR},
+      </if>
+      <if test="provincecode != null" >
+        #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null" >
+        #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmbl.ops.model.house.BaseDistrict" >
+    update base_district
+    <set >
+      <if test="districtname != null" >
+        DistrictName = #{districtname,jdbcType=VARCHAR},
+      </if>
+      <if test="provincecode != null" >
+        ProvinceCode = #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null" >
+        CityCode = #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DistrictCode = #{districtcode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmbl.ops.model.house.BaseDistrict" >
+    update base_district
+    set DistrictName = #{districtname,jdbcType=VARCHAR},
+      ProvinceCode = #{provincecode,jdbcType=VARCHAR},
+      CityCode = #{citycode,jdbcType=VARCHAR},
+      AddTime = #{addtime,jdbcType=TIMESTAMP}
+    where DistrictCode = #{districtcode,jdbcType=VARCHAR}
+  </update>
+   <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from base_district
+	   	<where>
+	   	   	<if test="citycode != null and citycode != ''">
+				citycode = #{citycode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

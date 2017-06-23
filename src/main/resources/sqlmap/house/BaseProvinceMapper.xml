@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmbl.ops.model.house.BaseProvince" >
+  <resultMap id="BaseResultMap" type="com.xmbl.ops.model.house.BaseProvince" >
+    <id column="ProvinceCode" property="provincecode" jdbcType="VARCHAR" />
+    <result column="ProvinceName" property="provincename" jdbcType="VARCHAR" />
+    <result column="OpenBusinessFlag" property="openbusinessflag" jdbcType="BIT" />
+    <result column="AddTime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ProvinceCode, ProvinceName, OpenBusinessFlag, AddTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_province
+    where ProvinceCode = #{provincecode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_province
+    where ProvinceCode = #{provincecode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xmbl.ops.model.house.BaseProvince" >
+    insert into base_province (ProvinceCode, ProvinceName, OpenBusinessFlag, 
+      AddTime)
+    values (#{provincecode,jdbcType=VARCHAR}, #{provincename,jdbcType=VARCHAR}, #{openbusinessflag,jdbcType=BIT}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmbl.ops.model.house.BaseProvince" >
+    insert into base_province
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="provincecode != null" >
+        ProvinceCode,
+      </if>
+      <if test="provincename != null" >
+        ProvinceName,
+      </if>
+      <if test="openbusinessflag != null" >
+        OpenBusinessFlag,
+      </if>
+      <if test="addtime != null" >
+        AddTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="provincecode != null" >
+        #{provincecode,jdbcType=VARCHAR},
+      </if>
+      <if test="provincename != null" >
+        #{provincename,jdbcType=VARCHAR},
+      </if>
+      <if test="openbusinessflag != null" >
+        #{openbusinessflag,jdbcType=BIT},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xmbl.ops.model.house.BaseProvince" >
+    update base_province
+    <set >
+      <if test="provincename != null" >
+        ProvinceName = #{provincename,jdbcType=VARCHAR},
+      </if>
+      <if test="openbusinessflag != null" >
+        OpenBusinessFlag = #{openbusinessflag,jdbcType=BIT},
+      </if>
+      <if test="addtime != null" >
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ProvinceCode = #{provincecode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmbl.ops.model.house.BaseProvince" >
+    update base_province
+    set ProvinceName = #{provincename,jdbcType=VARCHAR},
+      OpenBusinessFlag = #{openbusinessflag,jdbcType=BIT},
+      AddTime = #{addtime,jdbcType=TIMESTAMP}
+    where ProvinceCode = #{provincecode,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from base_province
+	</select>
+</mapper>

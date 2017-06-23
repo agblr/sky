@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuexibao.ops.model.UseRecord" >
+  <resultMap id="BaseResultMap" type="com.xuexibao.ops.model.UseRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pro_id" property="proId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="use_status" property="useStatus" jdbcType="INTEGER" />
+    <result column="use_address" property="useAddress" jdbcType="VARCHAR" />
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR" />
+    <result column="adscription_name" property="adscriptionName" jdbcType="VARCHAR" />
+    <result column="operators" property="operators" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+     <association property="assets" column="{id=pro_id}" javaType="com.xuexibao.ops.model.Assets">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="proName" property="proname" jdbcType="VARCHAR" />
+    <result column="proNum" property="pronum" jdbcType="VARCHAR" />
+    <result column="proConfig" property="proconfig" jdbcType="VARCHAR" />
+    <result column="proType" property="protype" jdbcType="INTEGER" />
+    <result column="proPrice" property="proprice" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="buy_time" property="buyTime" jdbcType="TIMESTAMP" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="proDes" property="prodes" jdbcType="VARCHAR" />
+	</association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    use_record.id, pro_id, user_name, use_status, use_address, application_name, adscription_name, 
+    operators, start_time, end_time
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from use_record
+    where use_record.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from use_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xuexibao.ops.model.UseRecord" >
+    insert into use_record (id, pro_id, user_name, 
+      use_status, use_address, application_name, 
+      adscription_name, operators, start_time, 
+      end_time)
+    values (#{id,jdbcType=BIGINT}, #{proId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, 
+      #{useStatus,jdbcType=INTEGER}, #{useAddress,jdbcType=VARCHAR}, #{applicationName,jdbcType=VARCHAR}, 
+      #{adscriptionName,jdbcType=VARCHAR}, #{operators,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xuexibao.ops.model.UseRecord" >
+    insert into use_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="useStatus != null" >
+        use_status,
+      </if>
+      <if test="useAddress != null" >
+        use_address,
+      </if>
+      <if test="applicationName != null" >
+        application_name,
+      </if>
+      <if test="adscriptionName != null" >
+        adscription_name,
+      </if>
+      <if test="operators != null" >
+        operators,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="useStatus != null" >
+        #{useStatus,jdbcType=INTEGER},
+      </if>
+      <if test="useAddress != null" >
+        #{useAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationName != null" >
+        #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="adscriptionName != null" >
+        #{adscriptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null" >
+        #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateUseRecordInfoById" parameterType="com.xuexibao.ops.model.UseRecord" >
+    update use_record
+    <set >
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="useStatus != null" >
+        use_status = #{useStatus,jdbcType=INTEGER},
+      </if>
+      <if test="useAddress != null" >
+        use_address = #{useAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationName != null" >
+        application_name = #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="adscriptionName != null" >
+        adscription_name = #{adscriptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="operators != null" >
+        operators = #{operators,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where use_record.id = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateUseRecordInfoByProId" parameterType="com.xuexibao.ops.model.UseRecord" >
+    update use_record
+    <set >
+      <if test="status != null" >
+        use_status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="endDate != null" >
+        end_time = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pro_id = #{proid,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.xuexibao.ops.model.UseRecord" >
+    update use_record
+    set pro_id = #{proId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      use_status = #{useStatus,jdbcType=INTEGER},
+      use_address = #{useAddress,jdbcType=VARCHAR},
+      application_name = #{applicationName,jdbcType=VARCHAR},
+      adscription_name = #{adscriptionName,jdbcType=VARCHAR},
+      operators = #{operators,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where use_record.id = #{id,jdbcType=BIGINT}
+  </update>
+   <select id="getByUseName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from use_record
+			<where>
+			<if test="proId != null ">
+				AND  pro_id = #{proId,jdbcType=VARCHAR} 
+			</if>
+			<if test="useName != null and useName != ''">
+				AND  user_name = #{useName,jdbcType=VARCHAR} 
+			</if>
+			<if test="status != null ">
+				AND  use_status = #{status,jdbcType=VARCHAR} 
+			</if>
+		</where>
+		order by start_time desc 
+		limit 1
+	</select>
+	  <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 ,assets.proName ,assets.proNum,assets.proType from use_record  
+		 left join assets on use_record.pro_id=assets.id
+			<where>
+		    <if test="proid != null">
+				AND pro_id = #{proid,jdbcType=INTEGER}
+			</if>
+			<if test="proName != null and proName != ''">
+				AND assets.proName = #{proName,jdbcType=VARCHAR}
+			</if>
+			<if test="proType != null">
+				AND assets.proType = #{proType,jdbcType=VARCHAR}
+			</if>
+			<if test="proNum != null and proNum != ''">
+				AND assets.proNum = #{proNum,jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND use_record.user_name = #{userName,jdbcType=INTEGER}
+			</if>
+			<if test="applicationName != null and applicationName != ''">
+				AND use_record.application_name = #{applicationName,jdbcType=INTEGER}
+			</if>
+			<if test="adscriptionName != null and adscriptionName != ''">
+				AND use_record.adscription_name = #{adscriptionName,jdbcType=INTEGER}
+			</if>
+			
+			<if test="status != null">
+				AND use_status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND start_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND start_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by start_time desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		 from use_record  
+		 left join assets on use_record.pro_id=assets.id
+		<where>
+		  	<if test="proid != null">
+				AND pro_id = #{proid,jdbcType=INTEGER}
+			</if>
+			<if test="proName != null and proName != ''">
+				AND assets.proName = #{proName,jdbcType=VARCHAR}
+			</if>
+			<if test="proType != null">
+				AND assets.proType = #{proType,jdbcType=VARCHAR}
+			</if>
+			<if test="proNum != null and proNum != ''">
+				AND assets.proNum = #{proNum,jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND use_record.user_name = #{userName,jdbcType=INTEGER}
+			</if>
+			<if test="applicationName != null and applicationName != ''">
+				AND use_record.application_name = #{applicationName,jdbcType=INTEGER}
+			</if>
+			<if test="adscriptionName != null and adscriptionName != ''">
+				AND use_record.adscription_name = #{adscriptionName,jdbcType=INTEGER}
+			</if>
+			
+			<if test="status != null">
+				AND use_status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND start_time &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND start_time &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+</mapper>
