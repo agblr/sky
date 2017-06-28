@@ -47,16 +47,34 @@
     <bean class="com.xmbl.ops.itstack.InitializationNettyServer"/>
 	<!-- <mvc:interceptors> <bean class="com.xmbl.ops.interceptor.HandleAuthenticationInterceptor" 
 		/> </mvc:interceptors> -->
+ <mvc:interceptors>
+ <bean class="com.xmbl.ops.interceptor.PerformanceSlowInterceptor" ></bean>
+  </mvc:interceptors>
+	
 	<aop:aspectj-autoproxy />
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!--  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass">
 			<value>org.springframework.web.servlet.view.InternalResourceView
 			</value>
 		</property>
-		<!-- 设置前缀，即视图所在的路径 -->
 		<property name="prefix" value="/jsp/" />
-		<!-- 设置后缀，即视图的扩展名 -->
 		<property name="suffix" value=".jsp" />
+	</bean>-->
+	
+	<!-- 定义HTML文件的位置 -->
+	 <bean id="htmlviewResolver"  
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+        <property name="viewClass" value="com.xmbl.ops.interceptor.HtmlResourceView"/>
+        <property name="order" value="0" />
+        <property name="prefix" value="/static/"/>
+        <property name="suffix" value=".html" />  
+        <property name="contentType" value="text/html;charset=UTF-8"></property>  
+    </bean>
+	<!-- 定义JSP文件的位置 -->
+	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
+		<property name="prefix" value="/jsp/"/>
+		<property name="suffix" value=".jsp"/>
 	</bean>
 	<mvc:resources location="/" mapping="/**" />
 </beans>

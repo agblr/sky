@@ -47,10 +47,14 @@ public class LoginFilter extends HttpServlet implements Filter {
         if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(groupName)) {
             if(url.indexOf("login") >= 0
             || url.endsWith(".js") || url.endsWith(".jpg") || url.endsWith(".gif")
-            || url.endsWith(".css") || url.endsWith(".png")) {
+            || url.endsWith(".css") || url.endsWith(".png")|| url.endsWith(".map")
+            || url.endsWith(".woff2")|| url.endsWith(".ttf")|| url.endsWith(".woff")) {
                 filterChain.doFilter(request, response);
                 return ;
             } else if(url.indexOf("/index") >= 0){
+            	filterChain.doFilter(request, response);
+            	return;
+            }else if(url.indexOf("/sky/file") >= 0){
             	filterChain.doFilter(request, response);
             	return;
             }else {
