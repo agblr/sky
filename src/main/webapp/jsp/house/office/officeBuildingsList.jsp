@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.xuexibao.ops.enumeration.EnumRole" %>
-<%@ page import="com.xuexibao.ops.enumeration.EnumPhoneType" %>
-<%@ page import="com.xuexibao.ops.enumeration.EnumVersionStatus" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="/WEB-INF/tlds/Functions" prefix="func"%>
@@ -41,32 +38,12 @@
 		<article class="container-fluid">
 			<form class="form-inline search-form">
 				<div class="form-group">
-					<lable>应用唯一id</lable>
-					<input type="text" class="form-control" value="${ versionId }" name="versionId">
+					<lable>id</lable>
+					<input type="text" class="form-control" value="${ officeBuildingId }" name="versionId">
 				</div>
 				<div class="form-group">
-					<lable>应用名称</lable>
-					<input type="text" class="form-control" value="${ name }" name="name">
-				</div>
-				<div class="form-group">
-					<lable>手机类型</lable>
-					<select name="type" class="form-control">
-						<option value="">全部</option>
-						<c:set var="enumPhoneType" value="<%= EnumPhoneType.values() %>"/>
-						<c:forEach var="enumType" items="${ enumPhoneType }">
-						<option value="${ enumType.id }" <c:if test="${ enumType.id == type }">selected = "selected"</c:if>>${ enumType.desc }</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="form-group">
-					<lable>状态</lable>
-					<select name="status" class="form-control">
-						<option value="">全部</option>
-						<c:set var="enumVersionStatus" value="<%= EnumVersionStatus.values() %>"/>
-						<c:forEach var="enumStatus" items="${ enumVersionStatus }">
-						<option value="${ enumStatus.id }" <c:if test="${ enumStatus.id == status }">selected = "selected"</c:if>>${ enumStatus.desc }</option>
-						</c:forEach>
-					</select>
+					<lable>写字楼名称</lable>
+					<input type="text" class="form-control" value="${ address }" name="name">
 				</div>
 				<div class="form-group">
 					<button class="btn btn-primary">搜索</button>
@@ -79,22 +56,25 @@
 				<thead>
 					<tr class="info">
 						<th>id</th>
-						<th>应用唯一id</th>
-						<th>应用名称</th>
-						<th>应用版本</th>
-						<th>操作人</th>
-						<th>创建时间</th>
-						<th>状态</th>
-						<th>操作</th>
+						<th>address</th>
+						<th>location</th>
+						<th>poitype</th>
+						<th>realaddress</th>
+						<th>areaid</th>
+						<th>status</th>
+						<th>remarks</th>
+						<th>operator</th>
+						<th>createtime</th>
+						<th>updatetime</th>
 					</tr>
 				</thead>
 				<tbody id="version-list">
 					<c:forEach var="versionsInfo" items="${ officeBuildingsList }">
-					<tr data-id="${ versionsInfo.id }" data-app-name="${ versionsInfo.appName }" data-app-version="${ versionsInfo.appVersion }" data-app-use-version="${ versionsInfo.apiVersion }" data-mobile-type="${ versionsInfo.appType }" data-test-download-url="${ versionsInfo.appTestDownUrl }" data-download-url="${ versionsInfo.appDownUrl }" data-app-description="${ versionsInfo.appDesc }" data-app-channel="${ versionsInfo.channel }">
+					<tr data-id="${ versionsInfo.id }">
 						<td>${ versionsInfo.id }</td>
-						<td>${ versionsInfo.uuid }</td>
-						<td>${ versionsInfo.appName }</td>
-						<td>${ versionsInfo.operator }</td>
+						<td>${ versionsInfo.address }</td>
+						<td>${ versionsInfo.location }</td>
+						<td>${ versionsInfo.poitype }</td>
 						<td>${ func:formatDate(versionsInfo.createTime) }</td>
 						<td>
 						    <c:if test="${ versionsInfo.status == 0 }">
