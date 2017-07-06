@@ -35,7 +35,7 @@ import com.xmbl.ops.util.FileUtils;
 import com.xmbl.ops.util.Md5PasswordEncoder;
 
 @Controller
-@RequestMapping(value = "/file")
+@RequestMapping(value = "/static")
 public class FileManagerController extends AbstractController {
 	 /*
      *  文件管理根目录,此处为了方便采用Hard Code
