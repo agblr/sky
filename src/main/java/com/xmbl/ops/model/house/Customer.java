@@ -63,4 +63,26 @@ public class Customer {
 		this.createtime = new Date();
 		this.updatetime = new Date();
     }
+    
+    public Customer(Integer id, String usename,String gender,String mobile,
+    	     String phone,String nickname,String qq,
+    	     String wechat, String email,String source,
+    	     String address,Integer status, 
+    	     String remarks,String operator) {
+    	        this.id = id;
+    			this.usename = usename;
+    			this.gender = gender;
+    			this.mobile = mobile;
+    			this.phone = phone;
+    			this.nickname = nickname;
+    			this.qq = qq;
+    			this.wechat = wechat;
+    			this.email = email;
+    			this.source = source;
+    			this.address = address;
+    			this.status = status;
+    			this.remarks = remarks;
+    			this.operator = operator;
+    			this.updatetime = new Date();
+    	    }
 }

@@ -45,12 +45,17 @@ public class OfficeBuildingController extends AbstractController{
 		List<OfficeBuilding> officeBuildingsList = officeBuildingService.searchList(officeBuildingId, address, location, poitype, realaddress, areaid, status, start, limit);
 		model.addAttribute("officeBuildingId", officeBuildingId);
 	
+		model.addAttribute("address", address);
+		model.addAttribute("location", location);
+		model.addAttribute("poitype", poitype);
+		model.addAttribute("realaddress", realaddress);
+		model.addAttribute("areaid", areaid);
 		model.addAttribute("status", status);
 		model.addAttribute("officeBuildingsList", officeBuildingsList);
 		model.addAttribute("page", page);
 		model.addAttribute("totalNum", totalNum);
 		model.addAttribute("totalpage", totalPageNum);
-		return "office/officeBuildingsList";
+		return "house/office/officeBuildingsList";
 	}
 	
 	/**

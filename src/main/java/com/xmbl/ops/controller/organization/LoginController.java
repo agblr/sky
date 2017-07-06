@@ -64,11 +64,11 @@ public class LoginController extends AbstractController {
 	  	try {
 	  	  	// 验证是否登录成功
 	  	  	String securityCode = (String) request.getSession().getAttribute("securityCode");
-	  	  	if (null == veryCode ||
-	  	  		null == securityCode ||
-	  	  	    !securityCode.equals(veryCode.toLowerCase())) {
-	  	  		return errorJson(EnumResCode.SERVER_ERROR.value(), "验证码错误！");
-	  	    }
+//	  	  	if (null == veryCode ||
+//	  	  		null == securityCode ||
+//	  	  	    !securityCode.equals(veryCode.toLowerCase())) {
+//	  	  		return errorJson(EnumResCode.SERVER_ERROR.value(), "验证码错误！");
+//	  	    }
 	  		if (StringUtils.isEmpty(userKey)) {
 	  			return errorJson(EnumResCode.SERVER_ERROR.value(), "用户名不能为空");
 	  		}
@@ -118,7 +118,7 @@ public class LoginController extends AbstractController {
 				String ip = request.getRemoteAddr().toString();
 				InetAddress addr = InetAddress.getLocalHost();
 				String host=addr.getHostAddress().toString();//获得本机IP
-				UserLog userLog = new UserLog(operator,host,null,null,operator+"登陆成功！",Byte.valueOf("0"));
+				UserLog userLog = new UserLog(operator,ip,null,null,operator+"登陆成功！",Byte.valueOf("0"));
 				userLogService.insertUserLog(userLog);
 				return successJson(result);
 	  		} else {

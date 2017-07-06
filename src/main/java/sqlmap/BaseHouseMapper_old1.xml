@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xmbl.ops.model.house.BaseHouse" >
+  <resultMap id="BaseResultMap" type="com.xmbl.ops.model.house.BaseHouse" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="housename" property="housename" jdbcType="VARCHAR" />
+    <result column="tradetype" property="tradetype" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="rental" property="rental" jdbcType="DOUBLE" />
+    <result column="unitprice" property="unitprice" jdbcType="DOUBLE" />
+    <result column="rentalpricetype" property="rentalpricetype" jdbcType="INTEGER" />
+    <result column="floor" property="floor" jdbcType="INTEGER" />
+    <result column="room" property="room" jdbcType="INTEGER" />
+    <result column="acreage" property="acreage" jdbcType="DOUBLE" />
+    <result column="orientation" property="orientation" jdbcType="VARCHAR" />
+    <result column="officetag" property="officetag" jdbcType="VARCHAR" />
+    <result column="officetype" property="officetype" jdbcType="VARCHAR" />
+    <result column="paymentmethod" property="paymentmethod" jdbcType="VARCHAR" />
+    <result column="seemethod" property="seemethod" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="iskey" property="iskey" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="founder" property="founder" jdbcType="VARCHAR" />
+    <result column="owner" property="owner" jdbcType="VARCHAR" />
+    <result column="ownerphone" property="ownerphone" jdbcType="VARCHAR" />
+    <result column="propertycompany" property="propertycompany" jdbcType="VARCHAR" />
+    <result column="propertphone" property="propertphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, type, housename, tradetype, price, rental, unitprice, rentalpricetype, 
+    floor, room, acreage, orientation, officetag, officetype, paymentmethod, seemethod, 
+    source, iskey, remarks, image, createtime, updatetime, operator, founder, owner, 
+    ownerphone, propertycompany, propertphone
+  </sql>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_house
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from base_house
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xmbl.ops.model.house.BaseHouse" >
+    insert into base_house (id, title, type, 
+      housename, tradetype, price, 
+      rental, unitprice, rentalpricetype, 
+      floor, room, acreage, 
+      orientation, officetag, officetype, 
+      paymentmethod, seemethod, source, 
+      iskey, remarks, image, 
+      createtime, updatetime, operator, 
+      founder, owner, ownerphone, 
+      propertycompany, propertphone)
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{housename,jdbcType=VARCHAR}, #{tradetype,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{rental,jdbcType=DOUBLE}, #{unitprice,jdbcType=DOUBLE}, #{rentalpricetype,jdbcType=INTEGER}, 
+      #{floor,jdbcType=INTEGER}, #{room,jdbcType=INTEGER}, #{acreage,jdbcType=DOUBLE}, 
+      #{orientation,jdbcType=VARCHAR}, #{officetag,jdbcType=VARCHAR}, #{officetype,jdbcType=VARCHAR}, 
+      #{paymentmethod,jdbcType=VARCHAR}, #{seemethod,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{iskey,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, 
+      #{founder,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{ownerphone,jdbcType=VARCHAR}, 
+      #{propertycompany,jdbcType=VARCHAR}, #{propertphone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xmbl.ops.model.house.BaseHouse" >
+    insert into base_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="housename != null" >
+        housename,
+      </if>
+      <if test="tradetype != null" >
+        tradetype,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="rental != null" >
+        rental,
+      </if>
+      <if test="unitprice != null" >
+        unitprice,
+      </if>
+      <if test="rentalpricetype != null" >
+        rentalpricetype,
+      </if>
+      <if test="floor != null" >
+        floor,
+      </if>
+      <if test="room != null" >
+        room,
+      </if>
+      <if test="acreage != null" >
+        acreage,
+      </if>
+      <if test="orientation != null" >
+        orientation,
+      </if>
+      <if test="officetag != null" >
+        officetag,
+      </if>
+      <if test="officetype != null" >
+        officetype,
+      </if>
+      <if test="paymentmethod != null" >
+        paymentmethod,
+      </if>
+      <if test="seemethod != null" >
+        seemethod,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="iskey != null" >
+        iskey,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="founder != null" >
+        founder,
+      </if>
+      <if test="owner != null" >
+        owner,
+      </if>
+      <if test="ownerphone != null" >
+        ownerphone,
+      </if>
+      <if test="propertycompany != null" >
+        propertycompany,
+      </if>
+      <if test="propertphone != null" >
+        propertphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="housename != null" >
+        #{housename,jdbcType=VARCHAR},
+      </if>
+      <if test="tradetype != null" >
+        #{tradetype,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="rental != null" >
+        #{rental,jdbcType=DOUBLE},
+      </if>
+      <if test="unitprice != null" >
+        #{unitprice,jdbcType=DOUBLE},
+      </if>
+      <if test="rentalpricetype != null" >
+        #{rentalpricetype,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="room != null" >
+        #{room,jdbcType=INTEGER},
+      </if>
+      <if test="acreage != null" >
+        #{acreage,jdbcType=DOUBLE},
+      </if>
+      <if test="orientation != null" >
+        #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="officetag != null" >
+        #{officetag,jdbcType=VARCHAR},
+      </if>
+      <if test="officetype != null" >
+        #{officetype,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentmethod != null" >
+        #{paymentmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="seemethod != null" >
+        #{seemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="iskey != null" >
+        #{iskey,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null" >
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerphone != null" >
+        #{ownerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertycompany != null" >
+        #{propertycompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertphone != null" >
+        #{propertphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIfNecessary" parameterType="com.xmbl.ops.model.house.BaseHouse" >
+    update base_house
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="housename != null" >
+        housename = #{housename,jdbcType=VARCHAR},
+      </if>
+      <if test="tradetype != null" >
+        tradetype = #{tradetype,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="rental != null" >
+        rental = #{rental,jdbcType=DOUBLE},
+      </if>
+      <if test="unitprice != null" >
+        unitprice = #{unitprice,jdbcType=DOUBLE},
+      </if>
+      <if test="rentalpricetype != null" >
+        rentalpricetype = #{rentalpricetype,jdbcType=INTEGER},
+      </if>
+      <if test="floor != null" >
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="room != null" >
+        room = #{room,jdbcType=INTEGER},
+      </if>
+      <if test="acreage != null" >
+        acreage = #{acreage,jdbcType=DOUBLE},
+      </if>
+      <if test="orientation != null" >
+        orientation = #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="officetag != null" >
+        officetag = #{officetag,jdbcType=VARCHAR},
+      </if>
+      <if test="officetype != null" >
+        officetype = #{officetype,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentmethod != null" >
+        paymentmethod = #{paymentmethod,jdbcType=VARCHAR},
+      </if>
+      <if test="seemethod != null" >
+        seemethod = #{seemethod,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="iskey != null" >
+        iskey = #{iskey,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null" >
+        founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null" >
+        owner = #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerphone != null" >
+        ownerphone = #{ownerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="propertycompany != null" >
+        propertycompany = #{propertycompany,jdbcType=VARCHAR},
+      </if>
+      <if test="propertphone != null" >
+        propertphone = #{propertphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xmbl.ops.model.house.BaseHouse" >
+    update base_house
+    set title = #{title,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      housename = #{housename,jdbcType=VARCHAR},
+      tradetype = #{tradetype,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      rental = #{rental,jdbcType=DOUBLE},
+      unitprice = #{unitprice,jdbcType=DOUBLE},
+      rentalpricetype = #{rentalpricetype,jdbcType=INTEGER},
+      floor = #{floor,jdbcType=INTEGER},
+      room = #{room,jdbcType=INTEGER},
+      acreage = #{acreage,jdbcType=DOUBLE},
+      orientation = #{orientation,jdbcType=VARCHAR},
+      officetag = #{officetag,jdbcType=VARCHAR},
+      officetype = #{officetype,jdbcType=VARCHAR},
+      paymentmethod = #{paymentmethod,jdbcType=VARCHAR},
+      seemethod = #{seemethod,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      iskey = #{iskey,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      founder = #{founder,jdbcType=VARCHAR},
+      owner = #{owner,jdbcType=VARCHAR},
+      ownerphone = #{ownerphone,jdbcType=VARCHAR},
+      propertycompany = #{propertycompany,jdbcType=VARCHAR},
+      propertphone = #{propertphone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <select id="searchList" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		 from base_house 
+		<where>
+		    <if test="id != null and id != ''">
+			 id = #{id,jdbcType=BIGINT}
+			</if>
+			 <if test="title != null and title != ''">
+				AND title = #{title,jdbcType=VARCHAR}
+			 </if>
+			  <if test="housename != null and housename != ''">
+				AND housename = #{housename,jdbcType=VARCHAR}
+			 </if>
+			 <if test="tradetype != null and tradetype != ''">
+				AND tradetype = #{tradetype,jdbcType=INTEGER}
+			 </if>
+			 <if test="operator != null and operator != ''">
+				AND operator = #{operator,jdbcType=VARCHAR}
+			 </if>
+			<if test="startDate != null">
+				AND createtime &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND createtime &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by createtime desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from base_house 
+		<where>
+		    <if test="id != null and id != ''">
+			 id = #{id,jdbcType=BIGINT}
+			</if>
+			 <if test="title != null and title != ''">
+				AND title = #{title,jdbcType=VARCHAR}
+			 </if>
+			  <if test="housename != null and housename != ''">
+				AND housename = #{housename,jdbcType=VARCHAR}
+			 </if>
+			 <if test="tradetype != null and tradetype != ''">
+				AND tradetype = #{tradetype,jdbcType=INTEGER}
+			 </if>
+		    <if test="operator != null and operator != ''">
+				AND operator = #{operator,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null">
+				AND createtime &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND createtime &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+  
+</mapper>

@@ -21,5 +21,5 @@ public interface ICustomerDao extends IEntityDao<Customer> {
 		    String address,Integer status, 
 		    String remarks,String operator,Date startDate,Date endDate,  Long page, int limit);
 	
-	
+	public int deleteCustomer(Integer id);
 }

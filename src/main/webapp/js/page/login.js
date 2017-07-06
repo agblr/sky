@@ -34,8 +34,6 @@ define('page/login', ['lib/jquery', 'util/ajaxPromise', 'module/Validator'], fun
 		init: function() {
 			this._account = this._body.find('.account').focus();
 			this._password = this._body.find('.password');
-			this._securityCode = this._body.find('.security-code');
-			this._securityImg = this._body.find('.security-img');
 		},
 		/**
 		* 绑定事件
@@ -62,16 +60,13 @@ define('page/login', ['lib/jquery', 'util/ajaxPromise', 'module/Validator'], fun
 		*/
 		submit: function() {
 			var Self = this, data = {}, validator;
-			data.loginId = Self._account.val().trim();
+			data.loginId = Self._account.val();
 			data.password = Self._password.val();
-			data.securityCode = Self._securityCode.val().trim();
 			validator = new Validator();
 			validator.add(data.loginId, 'isNotEmpty', function() {
 				alert('用户名不能为空');
 			}).add(data.password, 'isNotEmpty', function() {
 				alert('密码不能为空');
-			}).add(data.securityCode, 'isNotEmpty', function() {
-				alert('验证码不能为空');
 			});
 			if(!validator.start()) {
 				return false;

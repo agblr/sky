@@ -16,7 +16,7 @@
 	<base href="<%=basePath%>">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title>平台管理系统</title>
+	<title>京诚梁行-平台管理系统</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0
      , maximum-scale=1.0, minimum-scale=1.0">
@@ -172,7 +172,7 @@
 					</a>
 				</li>
 				<li>
-					<a class="navbar-brand" href=""><span class="bold">ERP-平台管理系统</span></a>
+					<a class="navbar-brand" href=""><span class="bold">京诚梁行ERP-平台管理系统</span></a>
 				</li>
 				<li class="dropdown pull-right">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">

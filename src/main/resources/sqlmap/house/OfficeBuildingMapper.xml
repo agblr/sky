@@ -161,4 +161,67 @@
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+      <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+          from office_building 
+          <where>
+		   <if test="id != null and id != ''">
+				id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="location != null and location != ''">
+				AND location = #{location,jdbcType=VARCHAR}
+			</if>
+			<if test="poitype != null and poitype != ''">
+				AND poitype = #{poitype,jdbcType=VARCHAR}
+			</if>
+			<if test="realaddress != null and realaddress != ''">
+				AND realaddress = #{realaddress,jdbcType=VARCHAR}
+			</if>
+			<if test="areaid != null and areaid != ''">
+				AND areaid = #{areaid,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			</where>
+		 order by createtime desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from office_building 
+		<where>
+		 <if test="id != null and id != ''">
+				id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="location != null and location != ''">
+				AND location = #{location,jdbcType=VARCHAR}
+			</if>
+			<if test="poitype != null and poitype != ''">
+				AND poitype = #{poitype,jdbcType=VARCHAR}
+			</if>
+			<if test="realaddress != null and realaddress != ''">
+				AND realaddress = #{realaddress,jdbcType=VARCHAR}
+			</if>
+			<if test="areaid != null and areaid != ''">
+				AND areaid = #{areaid,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+        </where>
+	</select>
+  
+  
 </mapper>

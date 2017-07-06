@@ -16,30 +16,23 @@ public class BaseConfigurationDaoImpl extends EntityDaoMPDBImpl<BaseConfiguratio
     
 	
 	@Override
-	public long searchCount(Long id, String address, String location, String poitype, String realaddress, String areaid, Integer status) {
+	public long searchCount(Long id, String name, String value) {
 		Map<String, Object> para = new HashMap<String, Object>();
 		para.put("id", id);
-		para.put("address", address);
-		para.put("location", location);
-		para.put("poitype", poitype);
-		para.put("realaddress", realaddress);
-		para.put("areaid", areaid);
-		para.put("status", status);
+		para.put("name", name);
+		para.put("value", value);
+
 		long count = getSqlSessionTemplate().selectOne(getNameSpace() + ".searchCount", para);
 		return count;
 	}
 	
 	@Override
-	public List<BaseConfiguration> searchList(Long id, String address, String location, String poitype, String realaddress, String areaid, Integer status, 
+	public List<BaseConfiguration> searchList(Long id, String name, String value, 
 			Long page, int limit){
 		Map<String, Object> para = new HashMap<String, Object>();
 		para.put("id", id);
-		para.put("address", address);
-		para.put("location", location);
-		para.put("poitype", poitype);
-		para.put("realaddress", realaddress);
-		para.put("areaid", areaid);
-		para.put("status", status);
+		para.put("name", name);
+		para.put("value", value);
 		para.put("offset", page);
 		para.put("limit", limit);
 		List<BaseConfiguration> results = getSqlSessionTemplate().selectList(getNameSpace() + ".searchList", para);
@@ -47,12 +40,9 @@ public class BaseConfigurationDaoImpl extends EntityDaoMPDBImpl<BaseConfiguratio
 	}
 	
 	@Override
-	public int deleteBaseConfiguration(Long id, Integer status, String operator) {
+	public int deleteBaseConfiguration(Long id) {
 		Map<String, Object> para = new HashMap<String, Object>();
 		para.put("id", id);
-		para.put("status", status);
-		para.put("operator", operator);
-		para.put("updateTime", new Date());
 		int count = getSqlSessionTemplate().update(getNameSpace() + ".updateBaseConfigurationInfoById", para);
 		return count;
 	}

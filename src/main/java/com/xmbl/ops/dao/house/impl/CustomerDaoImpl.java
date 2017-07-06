@@ -70,8 +70,13 @@ public class CustomerDaoImpl extends EntityDaoMPDBImpl<Customer> implements ICus
 		return results;
 	}
 
-
-	
+	@Override
+	public int deleteCustomer(Integer id) {
+		Map<String, Object> para = new HashMap<String, Object>();
+		para.put("id", id);
+		int count = getSqlSessionTemplate().update(getNameSpace() + ".deleteById", para);
+		return count;
+	}
 }
 
 

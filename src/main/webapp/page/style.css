@@ -1,0 +1,69 @@
+body {
+  	font-family: 'Open Sans', sans-serif;
+  	background-color: #3C464D;
+}
+p,li{
+	font-size: 1.2em;
+	line-height: 1.56em;
+	color: #393b44;
+}
+h2 {
+
+}
+h3 {
+	padding-top: 20px;
+	padding-bottom: 20px;	
+	font-weight: 200;
+}
+.logo {
+	margin: 0 auto;
+	max-width: 230px;
+}
+form{
+	margin: 0 auto;
+	max-width:250px;
+}
+.form-control {
+	background-color: #95a4a4;
+	border: none;
+	height: 40px;
+	color: #202b31;
+}
+input::-webkit-input-placeholder {
+	color: #202b31 !important;
+}
+ 
+input:-moz-placeholder { /* Firefox 18- */
+	color: #202b31 !important;  
+}
+ 
+input::-moz-placeholder {  /* Firefox 19+ */
+	color: #202b31 !important;  
+}
+ 
+input:-ms-input-placeholder {  
+	color: #202b31 !important;  
+}
+.submit {
+	background-color: #13bd9b;
+	border: none;	
+	color:#ffffff;
+	width: 150px;
+	height: 40px;
+}
+.submit:hover {
+	background-color: #91d8a4;
+	border: none;	
+	color:#ffffff;
+}
+.loginUrlContainer{
+	text-align: center;
+}
+.loginUrl {
+	color:#95a4a4;
+	font-size: 1.1em;
+	text-decoration: none;
+}
+.loginUrl:hover{
+	color:#95a4a4;
+}

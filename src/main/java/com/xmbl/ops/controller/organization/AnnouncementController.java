@@ -31,7 +31,7 @@ import com.xmbl.ops.util.HasAdminRight;
 @RequestMapping(value = "/notice")
 public class AnnouncementController extends AbstractController {
 
-	private static final int limit = 2;
+	private static final int limit = 10;
 
 	@Autowired
 	protected AnnouncementService announcementService;
@@ -85,11 +85,12 @@ public class AnnouncementController extends AbstractController {
 			model.addAttribute("page", page);
 			model.addAttribute("totalNum", totalNum);
 			model.addAttribute("totalpage", totalPageNum);	
-			if(HasAdminRight.hasAdminRight(groupName)) {
-				return "management/announcementList";
-			}else{
-				return "management/notice";
-			}
+//			if(HasAdminRight.hasAdminRight(groupName)) {
+//				return "management/announcementList";
+//			}else{
+//				return "management/notice";
+//			}
+			return "management/announcementList";
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -101,7 +102,7 @@ public class AnnouncementController extends AbstractController {
 		try {
 			if (StringUtils.isEmpty(text))
 				return errorJson(EnumResCode.SERVER_ERROR.value(), "内容参数异常");
-			text = new String(text.getBytes("ISO-8859-1"), "UTF-8");
+//			text = new String(text.getBytes("ISO-8859-1"), "UTF-8");
 			HttpSession session = request.getSession();
 			String operator = (String) session.getAttribute(SessionConstant.USER_NAME);
 			if(StringUtils.isNotEmpty(text))

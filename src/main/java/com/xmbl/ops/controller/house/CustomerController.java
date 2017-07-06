@@ -1,5 +1,6 @@
 package com.xmbl.ops.controller.house;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -7,6 +8,8 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import com.xmbl.ops.constant.SessionConstant;
 import com.xmbl.ops.controller.organization.AbstractController;
 import com.xmbl.ops.dto.ResponseResult;
 import com.xmbl.ops.enumeration.EnumResCode;
+import com.xmbl.ops.model.house.BlackAgent;
 import com.xmbl.ops.model.house.Customer;
 import com.xmbl.ops.service.house.CustomerService;
 import com.xmbl.ops.util.DateUtils;
@@ -30,7 +34,7 @@ import com.xmbl.ops.util.DateUtils;
 @RequestMapping(value = "/customer")
 public class CustomerController extends AbstractController {
 
-	private static final int limit = 10;
+	private static final int limit = 30;
 
 	@Autowired
 	protected CustomerService customerService;
@@ -52,27 +56,27 @@ public class CustomerController extends AbstractController {
 
 			Date startDate = DateUtils.parseDate(startTime, "yyyy-MM-dd HH:mm:ss");
 			Date endDate = DateUtils.parseDate(endTime, "yyyy-MM-dd HH:mm:ss");
-			if (StringUtils.isNotEmpty(usename)) {
-				usename = new String(usename.trim().getBytes("ISO-8859-1"), "UTF-8");
-			}
-			if (StringUtils.isNotEmpty(nickname)) {
-				nickname = new String(nickname.trim().getBytes("ISO-8859-1"), "UTF-8");
-			}
-			if (StringUtils.isNotEmpty(email)) {
-				email = new String(email.trim().getBytes("ISO-8859-1"), "UTF-8");
-			}
-			if (StringUtils.isNotEmpty(gender)) {
-				gender = new String(gender.trim().getBytes("ISO-8859-1"), "UTF-8");
-			}
-			if (StringUtils.isNotEmpty(source)) {
-				source = new String(source.trim().getBytes("ISO-8859-1"), "UTF-8");
-			}
-			if (StringUtils.isNotEmpty(remarks)) {
-				remarks = new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
-			}
-			if (StringUtils.isNotEmpty(address)) {
-				address = new String(address.trim().getBytes("ISO-8859-1"), "UTF-8");
-			}
+//			if (StringUtils.isNotEmpty(usename)) {
+//				usename = new String(usename.trim().getBytes("ISO-8859-1"), "UTF-8");
+//			}
+//			if (StringUtils.isNotEmpty(nickname)) {
+//				nickname = new String(nickname.trim().getBytes("ISO-8859-1"), "UTF-8");
+//			}
+//			if (StringUtils.isNotEmpty(email)) {
+//				email = new String(email.trim().getBytes("ISO-8859-1"), "UTF-8");
+//			}
+//			if (StringUtils.isNotEmpty(gender)) {
+//				gender = new String(gender.trim().getBytes("ISO-8859-1"), "UTF-8");
+//			}
+//			if (StringUtils.isNotEmpty(source)) {
+//				source = new String(source.trim().getBytes("ISO-8859-1"), "UTF-8");
+//			}
+//			if (StringUtils.isNotEmpty(remarks)) {
+//				remarks = new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
+//			}
+//			if (StringUtils.isNotEmpty(address)) {
+//				address = new String(address.trim().getBytes("ISO-8859-1"), "UTF-8");
+//			}
 
 			page = page == null || page < 0 ? 0 : page;
 
@@ -127,7 +131,7 @@ public class CustomerController extends AbstractController {
 		try {
 			if (StringUtils.isEmpty(usename))
 				return errorJson(EnumResCode.SERVER_ERROR.value(), "客户名称不能为空");
-			usename = new String(usename.getBytes("ISO-8859-1"), "UTF-8");
+//			usename = new String(usename.getBytes("ISO-8859-1"), "UTF-8");
 			
 			if (StringUtils.isEmpty(mobile))
 				return errorJson(EnumResCode.SERVER_ERROR.value(), "电话不能为空");
@@ -139,12 +143,12 @@ public class CustomerController extends AbstractController {
 		        	   return errorJson(EnumResCode.SERVER_ERROR.value(), "qq必须是数字"); 
 		        }
 			}		
-			nickname = new String(nickname.getBytes("ISO-8859-1"), "UTF-8");
-			email = new String(email.getBytes("ISO-8859-1"), "UTF-8");
-			gender = new String(gender.getBytes("ISO-8859-1"), "UTF-8");
-			source = new String(source.getBytes("ISO-8859-1"), "UTF-8");
-			remarks = new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
-			address = new String(address.getBytes("ISO-8859-1"), "UTF-8");
+//			nickname = new String(nickname.getBytes("ISO-8859-1"), "UTF-8");
+//			email = new String(email.getBytes("ISO-8859-1"), "UTF-8");
+//			gender = new String(gender.getBytes("ISO-8859-1"), "UTF-8");
+//			source = new String(source.getBytes("ISO-8859-1"), "UTF-8");
+//			remarks = new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
+//			address = new String(address.getBytes("ISO-8859-1"), "UTF-8");
 			
 			HttpSession session = request.getSession();
 			String operator = (String) session.getAttribute(SessionConstant.USER_NAME);
@@ -163,4 +167,73 @@ public class CustomerController extends AbstractController {
 		}
 		return errorJson(EnumResCode.SERVER_ERROR.value(), "新增客户失败");
 	}
+	
+	   //添加客户
+		@RequestMapping(value = "/instertCustomer")
+		public String instertCustomer(HttpServletRequest request, String usename, String gender, String mobile, String phone, String nickname, String qq, String wechat, String email ,String source, String address, String remarks, Integer status) {
+			return "house/customer/addCustomer";
+		}
+	
+		
+		/**
+		 * 编辑
+		 */
+		@RequestMapping(value = "/updateCustomer")
+		public @ResponseBody ResponseResult updateCustomer(HttpServletRequest request,Integer id, String usename,String gender,String mobile,
+	    	     String phone,String nickname,String qq,
+	    	     String wechat, String email,String source,
+	    	     String address,Integer status, 
+	    	     String remarks) throws IOException{
+			if(StringUtils.isEmpty(usename)) {
+				return errorJson(EnumResCode.SERVER_ERROR.value(), "姓名不能为空！");
+			}
+			if(StringUtils.isEmpty(phone)) {
+				return errorJson(EnumResCode.SERVER_ERROR.value(), "电话不能为空！");
+			}
+
+			HttpSession session = request.getSession();
+			String operator = (String) session
+					.getAttribute(SessionConstant.USER_NAME);
+			
+			Customer customerInfo = new Customer(id,usename,gender, mobile,
+				     phone,nickname,qq,
+				     wechat, email,source,
+				     address,status, 
+				     remarks,operator);
+	        
+			int updateNum = customerService.updateCustomer(id, usename,gender, mobile,
+				     phone,nickname,qq,
+				     wechat, email,source,
+				     address,status, 
+				     remarks,operator);
+			if (updateNum == 1) {
+				customerInfo = customerService.getById(id);
+				if( customerInfo != null ){      
+	        	JSONObject result = new JSONObject();
+	    		//result中保存要传给前台的参数
+	        	result.put("id",customerInfo.getId().toString());
+	    		result.put("usename", customerInfo.getUsename());
+	    		result.put("phone", customerInfo.getPhone());
+	    		result.put("remarks", customerInfo.getRemarks());
+	    		result.put("operator", customerInfo.getOperator());
+	    		result.put("createtime", customerInfo.getCreatetime());
+	    		result.put("updatetime", customerInfo.getUpdatetime());
+	        	return successJson(result);
+	        	}
+			}
+			return errorJson(EnumResCode.SERVER_ERROR.value(), "编辑失败！");
+		}
+		
+	/**
+	 * 删除
+	 */
+	@RequestMapping(value = "/deleteCustomer")
+	public @ResponseBody ResponseResult deleteCustomer(HttpServletRequest request, Integer id) throws IOException{
+		    customerService.deleteCustomer(id);
+			JSONObject result = new JSONObject();
+			result.put("id", id);
+			return successJson(result);
+
+	}
+		
 }

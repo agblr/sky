@@ -68,4 +68,33 @@
       value = #{value,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+        <select id="searchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+          from base_configuration 
+	      <where>
+			<if test="name != null and name != ''">
+			name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="value != null and value != ''">
+			AND	value = #{value,jdbcType=VARCHAR}
+			</if>
+		</where>
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	<select id="searchCount" resultType="long">
+		select
+		count(1)
+		from base_configuration 
+		<where>
+			<if test="name != null and name != ''">
+			name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="value != null and value != ''">
+			AND	value = #{value,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
 </mapper>

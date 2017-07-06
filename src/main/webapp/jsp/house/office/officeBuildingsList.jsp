@@ -10,7 +10,7 @@
 %>
 <!doctype html>
 <html lang="zh-CN">
-	<%@ include file = "../inc/version.jsp" %>
+	<%@ include file = "../../inc/version.jsp" %>
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -27,8 +27,8 @@
 		</script>
 	</head>
 	<body>
-		<c:set var="preUrl" value="versionsInfoList
-								?versionId=${ versionId }
+		<c:set var="preUrl" value="officeBuildingInfoList
+								?officeBuildingId=${ officeBuildingId }
 								&type=${ type }
 								&name=${ name }
 								&status=${ status }&" />
@@ -39,11 +39,11 @@
 			<form class="form-inline search-form">
 				<div class="form-group">
 					<lable>id</lable>
-					<input type="text" class="form-control" value="${ officeBuildingId }" name="versionId">
+					<input type="text" class="form-control" value="${ officeBuildingId }" name="officeBuildingId">
 				</div>
 				<div class="form-group">
 					<lable>写字楼名称</lable>
-					<input type="text" class="form-control" value="${ address }" name="name">
+					<input type="text" class="form-control" value="${ address }" name="address">
 				</div>
 				<div class="form-group">
 					<button class="btn btn-primary">搜索</button>
@@ -66,28 +66,33 @@
 						<th>operator</th>
 						<th>createtime</th>
 						<th>updatetime</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody id="version-list">
-					<c:forEach var="versionsInfo" items="${ officeBuildingsList }">
-					<tr data-id="${ versionsInfo.id }">
-						<td>${ versionsInfo.id }</td>
-						<td>${ versionsInfo.address }</td>
-						<td>${ versionsInfo.location }</td>
-						<td>${ versionsInfo.poitype }</td>
-						<td>${ func:formatDate(versionsInfo.createTime) }</td>
+					<c:forEach var="officeBuildingInfo" items="${ officeBuildingsList }">
+					<tr data-id="${ officeBuildingInfo.id }" data-app-name="${ versionsInfo.appName }" data-app-version="${ versionsInfo.appVersion }" data-app-use-version="${ versionsInfo.apiVersion }" data-mobile-type="${ versionsInfo.appType }" data-test-download-url="${ versionsInfo.appTestDownUrl }" data-download-url="${ versionsInfo.appDownUrl }" data-app-description="${ versionsInfo.appDesc }" data-app-channel="${ versionsInfo.channel }">
+						<td>${ officeBuildingInfo.id }</td>
+						<td>${ officeBuildingInfo.address }</td>
+						<td>${ officeBuildingInfo.location }</td>
+						<td>${ officeBuildingInfo.poitype }</td>
+						<td>${ officeBuildingInfo.realaddress }</td>
+						<td>${ officeBuildingInfo.areaid }</td>
+						<td>${ officeBuildingInfo.status }</td>
+						<td>${ officeBuildingInfo.remarks }</td>
+						<td>${ officeBuildingInfo.operator }</td>
+						<td>${ func:formatDate(officeBuildingInfo.createtime) }</td>
+						<td>${ func:formatDate(officeBuildingInfo.updatetime) }</td>
 						<td>
-						    <c:if test="${ versionsInfo.status == 0 }">
 							<button class="btn btn-primary btn-xs btn-edit" data-toggle="modal" data-target=".modal">编辑</button>
 							<button class="btn btn-primary btn-xs ml10 btn-del">删除</button>
-						    </c:if>
 						</td>
 					</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</article>
-		<%@ include file = "../inc/newpage.jsp" %>
+		<%@ include file = "../../inc/newpage.jsp" %>
 		<div id="modal-dialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">

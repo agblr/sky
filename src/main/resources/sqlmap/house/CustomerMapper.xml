@@ -23,13 +23,13 @@
     id, usename, gender, mobile, phone, nickname, qq, wechat, email, source, address, 
     status, createtime, updatetime, remarks, operator
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from customer
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteById" parameterType="java.lang.Integer" >
     delete from customer
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -150,7 +150,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xmbl.ops.model.house.Customer" >
+  <update id="updateIfNecessary" parameterType="com.xmbl.ops.model.house.Customer" >
     update customer
     <set >
       <if test="usename != null" >

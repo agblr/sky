@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.xmbl.ops.enumeration.EnumSourceType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumCustomerStatus" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="com.xmbl.ops.enumeration.EnumPersonStatus" %>
 <%@ taglib uri="/WEB-INF/tlds/Functions" prefix="func"%>
@@ -32,7 +34,7 @@
 </script>
 </head>
 <body>
-<c:set var="preUrl" value="customer/customerList
+<c:set var="preUrl" value="customerList
 							?id=${ id }&
 							usename=${ usename }&
 							mobile=${ mobile }&
@@ -59,35 +61,36 @@
 				<input type="text" class="form-control" value="${ id }" name="id"/>
 			
 				<label>客户姓名</label>
-				<input type="text" class="form-control" value="${ usename }" name="usename"/>
-			
+				<input type="text" class="form-control" value="${ usename }" name="usename"/>		
 				<label>电话</label>
 				<input type="text" class="form-control" value="${ mobile }" name="mobile"/>
-	            </br>
 				<label>昵 称</label>
 				<input type="text" class="form-control" value="${ nickname }" name="nickname"/>
 			    <label>手机</label>
 				<input type="text" class="form-control" value="${ phone }" name="phone"/>
+		        </div>
+			<div class="form-group">
 		        <label>性别</label>
 				<input type="text" class="form-control" value="${ gender }" name="gender"/>
 				<label> QQ </label>
 				<input type="text" class="form-control" value="${ qq }" name="qq"/>
-		
 				<label> 微 信 </label>
 				<input type="text" class="form-control" value="${ wechat }" name="wechat"/>
-
 				<label>email</label>
 				<input type="text" class="form-control" value="${ email }" name="email"/>	
-				</br>	
-			</div>
+		
+		     </div>
 			<div class="form-group">
 				<button class="btn btn-primary">搜索</button>
 			</div>
-			<div class="form-group">
+			<!--  <div class="form-group">
 				<a href="#" class="btn btn-success ml10" id="add-member-btn">创建客户</a>
+			</div>-->
+			<div class="form-group">
+				<a href="<%=basePath%>customer/instertCustomer" class="btn btn-success ml10">创建客户</a>
 			</div>
 		</form>
-		<table class="table table-hover table-bordered table-condensed">
+		<table class="table table-hover table-bordered table-condensed" >
 			<thead>
 				<tr class="info">
 					<th style="min-width:50px">ID</th>
@@ -105,7 +108,7 @@
 					<th style="min-width:90px">备注</th>
 					<th style="min-width:90px">录入时间</th>
 					<th style="min-width:90px">录入人</th>
-					<th style="min-width:90px">操作</th>
+					<th style="min-width:120px">操作</th>
 				</tr>
 			</thead>
 			<tbody id="user-list">
@@ -122,15 +125,25 @@
 				 	    <td>${ customerInfo.qq }</td>
 				 	    <td>${ customerInfo.wechat }</td>
 				 	    <td>${ customerInfo.email }</td>
-				 	    <td>${ customerInfo.source }</td>
-				 	    <td>${ customerInfo.status }</td>
+				 	    <td>${ customerInfo.source }
+				 	    <c:set var="enumTypes" value="<%=EnumSourceType.values()%>"/>
+							<c:forEach var="enumType" items="${ enumTypes }">
+							<c:if test="${ enumType.id == customerInfo.source  }">${ enumType.desc }</c:if>
+						</c:forEach>
+				 	    </td>
+				 	    <td>${ customerInfo.status }
+				 	    <c:set var="enumStatuss" value="<%=EnumCustomerStatus.values()%>"/>
+							<c:forEach var="enumStatus" items="${ enumStatuss }">
+							<c:if test="${ enumStatus.id == customerInfo.status  }">${ enumStatus.desc }</c:if>
+						</c:forEach></td>
 				 	    <td>${ customerInfo.address }</td>
 				 	    <td>${ customerInfo.remarks }</td>
 				 	    <td>${ func:formatDate(customerInfo.createtime ) }</td>
 				 	    <td>${ customerInfo.operator }</td>
 						<td>
 							<button class="btn btn-primary btn-xs ml10 edit-btn">编辑</button>
-							<!-- <button class="btn btn-primary btn-xs ml10 reset-password-btn" data-toggle="modal"  data-target=".modal">重置密码</button>-->
+							<button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ customerInfo.id }">删除</button>
+							<!-- <button class="btn btn-primary btn-xs ml10 reset-password-btn" data-toggle="modal"  data-target=".modal">删除</button> -->
 						</td>
 					</tr>
 				</c:forEach>
@@ -155,7 +168,7 @@
 		js: 'lib/sea',
 		version: '${ JS_LIB_SEA_VERSION }',
 		success: function() {
-			seajs.use(['lib/jquery', 'module/Dialog', 'module/CustomerInfo', 'util/ajaxPromise'], function($, Dialog, userInfo, ajaxPromise) {
+			seajs.use(['lib/jquery', 'module/Dialog', 'module/CustomerInfo', 'util/ajaxPromise' ,'util/deleteRecord'], function($, Dialog, userInfo, ajaxPromise, deleteRecord) {
 				// 加载小组列表
 				var userList, teamId = $('#team-id'), role = $('#role'), identity = $('#identity'), dialog = new Dialog('modal-dialog');
 				//userInfo.initRole(role, '${ groupName }');
@@ -172,14 +185,27 @@
 					data = el.closest('tr').data();
 					userInfo.editMember(data);
 				});
+				$('#user-list').on('click', '.btn-del', function(e) {
+						ajaxPromise({
+							type: 'GET',
+							dataType: 'json',
+							url: window.basePath + 'customer/deleteCustomer',
+							data: {
+								id: $(this).data('id')
+							}
+						}).then(function(obj) {
+							alert(obj.msg);
+							window.location.reload();
+						});
+					});
 				// 重置密码
 				userList.on('click', '.reset-password-btn', function(e) {
 					var el = $(this), id;
 					id = el.closest('tr').data('user-id');
 					dialog.show({
 						sizeClass: 'modal-sm',
-						title: '重置密码',
-						content: '确定要重置密码吗？',
+						title: '删除',
+						content: '确定要删除吗？',
 						source: 'reset-password',
 						renderCall: function() {
 							var Self = this;
@@ -188,7 +214,7 @@
 						confirm: function(e) {
 							var Self = this;
 							ajaxPromise({
-								url: window.basePath + 'user/updateUserPassword',
+								url: window.basePath + 'customer/deleteCustomer',
 								type: 'GET',
 								data: {
 									id: id
@@ -196,7 +222,7 @@
 								dataType: 'json'
 							}).then(function(data) {
 								Self.enableConfirm();
-								alert('重置成功');
+								alert('删除成功');
 								Self.hide();
 							}, function() {
 								Self.enableConfirm();
