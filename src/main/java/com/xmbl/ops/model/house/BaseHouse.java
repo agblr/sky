@@ -152,7 +152,7 @@ public class BaseHouse {
 
         this.operator = operator;
 
-        this.founder = operator;
+//        this.founder = operator;
 
         this.owner = owner;
 
@@ -219,7 +219,7 @@ public class BaseHouse {
 
         this.operator = operator;
 
-//        this.founder = operator;
+        this.founder = operator;
 
         this.owner = owner;
 

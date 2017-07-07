@@ -31,15 +31,12 @@
 		<mapper resource="/sqlmap/organization/Announcement.xml" />
 		
 		<mapper resource="/sqlmap/house/CustomerMapper.xml" />
-		
 	    <mapper resource="/sqlmap/house/BaseDistrictMapper.xml" /> 
 		<mapper resource="/sqlmap/house/BaseProvinceMapper.xml" />
 		<mapper resource="/sqlmap/house/BaseCityMapper.xml" /> 
-		
 		<mapper resource="/sqlmap/house/BlackAgentMapper.xml" />
 	    <mapper resource="/sqlmap/house/OfficeBuildingMapper.xml" /> 
 		<mapper resource="/sqlmap/house/BaseConfigurationMapper.xml" />
-		
 		<mapper resource="/sqlmap/house/BaseHouseMapper.xml" />
 		
 		

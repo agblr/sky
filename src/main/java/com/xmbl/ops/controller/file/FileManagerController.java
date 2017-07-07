@@ -40,8 +40,8 @@ public class FileManagerController extends AbstractController {
 	 /*
      *  文件管理根目录,此处为了方便采用Hard Code
      */
-	 public static String ROOT = "E:/data";
-
+//	 public static String ROOT = "E:/data";
+	 public static String ROOT = "data";
 		@RequestMapping(value = "/")
 		public String officeBuildingSearch(HttpServletRequest request, ModelMap model, Long officeBuildingId, String address, String location, String poitype, String realaddress, String areaid, Integer status, Long page) throws Exception {
 			page = page == null || page < 0 ? 0 : page;

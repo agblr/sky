@@ -30,6 +30,7 @@
 	var basePath = '<%=basePath%>';
 	(function(){MX=window.MX||{};var g=function(a,c){for(var b in c)a.setAttribute(b,c[b])};MX.load=function(a){var c=a.js,b=c?".js":".css",d=-1==location.search.indexOf("jsDebug"),e=a.js||a.css;-1==e.indexOf("http://")?(e=(a.path||window.basePath)+((c?"js/":"css/")+e)+(!d&&!c?".source":""),b=e+(a.version?"_"+a.version:"")+b):b=e;d||(d=b.split("#"),b=d[0],b=b+(-1!=b.indexOf("?")?"&":"?")+"r="+Math.random(),d[1]&&(b=b+"#"+d[1]));if(c){var c=b,h=a.success,f=document.createElement("script");f.onload=function(){h&&h();f=null};g(f,{type:"text/javascript",src:c,async:"true"});document.getElementsByTagName("head")[0].appendChild(f)}else{var c=b,i=a.success,a=document.createElement("link");g(a,{rel:"stylesheet"});document.getElementsByTagName("head")[0].appendChild(a);g(a,{href:c});i&&(a.onload=function(){i()})}}})();
 </script>
+ 
 </head>
 <body>
 <c:set var="preUrl" value="baseHouseList
@@ -90,7 +91,8 @@
 				<a href="<%=basePath%>base/addBaseHouse" class="btn btn-success ml10">添加房源</a>
 			</div>
 		</form>
-		<table data-toggle="table" class="table table-hover table-bordered table-condensed">
+    </div>
+		<table id="table" data-toggle="table" class="table table-hover table-bordered table-condensed">
 			<thead>
 				<tr class="info">
 					<th style="min-width:5%">ID</th>
@@ -115,7 +117,7 @@
 					<th style="min-width:10%">备注说明</th>
 					<th style="min-width:5%">录入时间</th>
 					<th style="min-width:5%">录入人</th>
-					<th style="min-width:5%">操作</th>
+					<th style="min-width:5%">操作 </th>
 				</tr>
 			</thead>
 			<tbody id="user-list">
@@ -144,7 +146,7 @@
 				 	    <td>${ func:formatDate(baseHouseInfo.createtime ) }</td>
 				 	    <td>${ baseHouseInfo.operator }</td>
 						<td>
-						    <c:if test="${ baseHouseInfo.operator ==  userKey}">
+						    <c:if test="${ baseHouseInfo.founder ==  userKey}">
 		                    <a href="<%=basePath%>base/editBaseHouse?id=${baseHouseInfo.id}" class="btn btn-primary btn-xs ml10 edit-btn">编辑</a>
 							<button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ baseHouseInfo.id }">删除</button>
 				            </c:if>
