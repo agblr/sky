@@ -1,0 +1,101 @@
+key		EN		RU		FR		IT		ES		DE		TR		PT	|
+		CREDITS		АВТОРЫ		*		*		*		*		*		*	|
+Credits.site		www.piponga.com		www.piponga.com		*		*		*		*		*		*	|
+Credits.copyright		(c) 2015. Created by Piponga		(c) 2015. Создано Piponga		*		*		*		*		*		*	|
+Credits.m_title		Music and SFX		Музыка и Звуки		*		*		*		*		*		*	|
+Credits.m_name		Ilya Volkov (Vierarmig)		Илья Волков (Vierarmig)		*		*		*		*		*		*	|
+Credits.p_title		Programmer		Программист		*		*		*		*		*		*	|
+Credits.p_name		Nikita Kulikov		Никита Куликов		*		*		*		*		*		*	|
+		HELP		ПОМОЩЬ		*		*		*		*		*		*	|
+HelpIngamePanel.title		How to play		Как играть		*		*		*		*		*		*	|
+Ingame.tf_help,Help.page1.tf_jump,HelpIngamePanel.tf_jump		Jump and collect		Прыгай и \n собирай		*		*		*		*		*		*	|
+HelpIngamePanel.tf_double_jump,Help.page1.tf_double_jump		Use double \n jump		Используй \n двойной \n прыжок		*		*		*		*		*		*	|
+Ingame.finger.c_mouse.tf_or,Help.page1.cont1.finger.c_mouse.tf_or,Help.page1.cont2.finger.c_mouse.tf_or,HelpIngamePanel.cont1.finger.c_mouse.tf_or,HelpIngamePanel.cont2.finger.c_mouse.tf_or		or		или		*		*		*		*		*		*	|
+		SPACE		ПРОБЕЛ		*		*		*		*		*		*	|
+Help.page2.tf_bomb		- Bomb decreases the timer time		- Бомба ворует время таймера		*		*		*		*		*		*	|
+Help.page2.tf_shield		- Shield grants temporary protection from bombs		- Щит временно защищает от бомб		*		*		*		*		*		*	|
+Help.page2.tf_magneto		- Magnet temporarily helps collecting coins and powerups		- Магнит временно помогает собирать монеты и бонусы		*		*		*		*		*		*	|
+Help.page2.tf_right		- Anti-clockwise rotating islets are clockwise temporarily		- Островки, вращающиеся против часовой стрелки временно начинают вращаться по часовой		*		*		*		*		*		*	|
+Help.page2.tf_path		- It temporarily shows the correct jumping trajectories		- Временно показывает правильные траектории для прыжка		*		*		*		*		*		*	|
+Help.page2.tf_combo_title		Combo 99		Комбо 99		*		*		*		*		*		*	|
+Help.page2.tf_combo_descr		In case, you've collected coins, chests and power-ups chain right between isles, you get +1 combo. \n Combos give you extra coins		Если цепочка из монет, сундуков и бонусов между планетами собрана праильно - вы получаете +1 комбо. За комбо даются дополнительные монеты		*		*		*		*		*		*	|
+		ACHIEVEMENTS		ДОСТИЖЕНИЯ		*		*		*		*		*		*	|
+ach_t_1		Best loot		Лучший лут		*		*		*		*		*		*	|
+ach_d_1		Collect # coins		Собери # монет		*		*		*		*		*		*	|
+ach_t_2		Dodger		Ловкач		*		*		*		*		*		*	|
+ach_d_2		Do # combos		Сделай # комбо		*		*		*		*		*		*	|
+ach_t_3		The Sparklet's collection		Коллекция Искорки		*		*		*		*		*		*	|
+ach_d_3		Break # chests with agile Sparklet's blade		Разбей # сундуков проворным клинком Искорки		*		*		*		*		*		*	|
+ach_t_4		Time keeper		Хранитель времени		*		*		*		*		*		*	|
+ach_d_4		Collect # timers as cook Leavened		Собери # таймеров коком Квашеным		*		*		*		*		*		*	|
+ach_t_5		Immortal		Бессмертный		*		*		*		*		*		*	|
+ach_d_5		Resurrect # times as skeleton Crutch		Воскресни # раз скелетом Костылем		*		*		*		*		*		*	|
+ach_t_6		Chests on the hook		Сундуки на крючке		*		*		*		*		*		*	|
+ach_d_6		Collect # treasure chests with pirate Hook's hook		Собери # сундуков крюком пирата Крюка		*		*		*		*		*		*	|
+ach_t_7		After party		После вечеринки		*		*		*		*		*		*	|
+ach_d_7		Skip # coins		Пропусти # монеток		*		*		*		*		*		*	|
+ach_t_8		Stuntman		Трюкач		*		*		*		*		*		*	|
+ach_d_8		Perform # double jumps		Сделай # двойных прыжков		*		*		*		*		*		*	|
+ach_t_9		Magnet for gold		Магнит для золота		*		*		*		*		*		*	|
+ach_d_9		Collect # coins with a magnet		Собери # монет магнитом		*		*		*		*		*		*	|
+ach_t_10		A useful item		Полезный предмет		*		*		*		*		*		*	|
+ach_d_10		Blow up # bombs with a shield		Взорви # бомб со щитом		*		*		*		*		*		*	|
+ach_t_11		The highest level		На высшем уровне		*		*		*		*		*		*	|
+ach_d_11		Level up all characters to the max level 15th		Прокачай всех героев до максимального 15го уровня		*		*		*		*		*		*	|
+ach_t_12		Lunar promenade		Лунный променад		*		*		*		*		*		*	|
+ach_d_12		Get every hero played on the map "The Bay of Truce"		Поиграй каждым героем на карте "Бухта перемирия"		*		*		*		*		*		*	|
+		SHOP		МАГАЗИН		*		*		*		*		*		*	|
+HeroShop1		Captain P		Капитан П		*		*		*		*		*		*	|
+HeroShop2		Sparklet		Искорка		*		*		*		*		*		*	|
+HeroShop3		Hook		Крюк		*		*		*		*		*		*	|
+HeroShop4		Leavened		Квашеный		*		*		*		*		*		*	|
+HeroShop5		Crutch		Костыль		*		*		*		*		*		*	|
+hero		Characters		Герои		*		*		*		*		*		*	|
+bonus		Power-ups		Бонусы		*		*		*		*		*		*	|
+Shop.money_cont.add_btn.tf_free		Free		Беспл.													
+map		Maps		Карты		*		*		*		*		*		*	|
+		INFO		ИНФОРМАЦИЯ		*		*		*		*		*		*	|
+ShopMapItemBg1_title		Sugar beaches		Сахарные пляжи		*		*		*		*		*		*	|
+ShopMapItemBg1_descr		The lonely unhabited islands near equator. They were discovered for the first time by the One-Eyed Joe. \n\n ** More chests on this map		Одинокие необитаемые острова почти на самом экваторе. Впервые их открыл Одноглазый Джо. \n\n ** На этой карте больше сундуков		*		*		*		*		*		*	|
+ShopMapItemBg2_title		Bay of Truce		Бухта перемирия		*		*		*		*		*		*	|
+ShopMapItemBg2_descr		A great place for entertainment and selling loot. A neutral region. \n\n ** This map gives you extra time		Отличное место для развлечний и сбыта лута. Нейтральная территория. \n\n ** Эта карта дает дополнительное время		*		*		*		*		*		*	|
+BonusShopFast_title		Tailwind		Попутный ветер		*		*		*		*		*		*	|
+BonusShopFast_descr		This bonus accelerates isles rotation and by that, you save the time. \n\n ** Used upon start and works until "Time's Up!"		Этот бонус ускоряет вращение всех островков и вы экономите время. \n\n** Расходуется на старте и действует до "Время вышло!"		*		*		*		*		*		*	|
+BonusShopLife_title		Resurrection		Воскрешение		*		*		*		*		*		*	|
+BonusShopLife_descr		A bottle with blue liquid from a forgotten source. \n\n ** Revives the character		Бутолочка с голубой жидкостью из забытого источника.\n\n** Воскрешает персонажа		*		*		*		*		*		*	|
+BonusShopLuck_title		Trefoil		Трилисник		*		*		*		*		*		*	|
+BonusShopLuck_descr		A rare plant from the Papagossky Islands. \n\n ** Retains combo, so you can earn more coins		Редкое растение с папагосских островов.\n\n ** Сохраняет комбо и вы можете заработать больше монет		*		*		*		*		*		*	|
+BonusShopTime_title		Missing Time		Пропавшее время		*		*		*		*		*		*	|
+BonusShopTime_descr		The artefact of the east alchemists. \n\n ** Used upon start and gives you extra time		Артефакт восточных алхимиков.\n\n ** Расходуется на старте и дает дополнительное время		*		*		*		*		*		*	|
+HeroShop1_title		Captain P		Капитан П		*		*		*		*		*		*	|
+HeroShop1_descr		The legendary captain of a legendary ship "The Black Currant" \n\n **		Легендарный капитан легендарного корабля "Черная смородина" \n\n **		*		*		*		*		*		*	|
+HeroShop2_title		The Sparklet		Искорка		*		*		*		*		*		*	|
+HeroShop2_descr		Captain P's niece, lights up all around her. \n\n ** Accelerates all isles not using the "Tailwind"		Племянница Капитана П, зажигает всех вокруг.\n\n ** Ускоряет все островки без использования "Попутного ветра"		*		*		*		*		*		*	|
+HeroShop3_title		The Hook		Крюк		*		*		*		*		*		*	|
+HeroShop3_descr		The Sparklet's querulous uncle. Likes apples. \n\n ** Retains combo not using the "Trefoil"		Ворчливый дядя Искорки. Любит яблоки.\n\n ** Сохраняет комбо без использования "Трилисника"		*		*		*		*		*		*	|
+HeroShop4_title		The Leavened		Квашеный		*		*		*		*		*		*	|
+HeroShop4_descr		A kind cook. Likes to cook sauerkraut for the crew. \n\n ** Gives extra time jointly with the "Vanished time"		Добрый кок. Любит кормить команду квашеной капустой. \n\n ** Дает дополнительное время совместно с "Пропавшим временем"		*		*		*		*		*		*	|
+HeroShop5_title		The Crutch		Костыль		*		*		*		*		*		*	|
+HeroShop5_descr		A skeleton of an old pirate One-Eyed Joe, resurrected by mistake \n\n ** Never dies		По ошибке воскрешенный скелет старого пирата одноглазого Джо \n\n ** Никогда не умирает		*		*		*		*		*		*	|
+		GAME		ИГРА		*		*		*		*		*		*	|
+combo		Combo		Комбо		*		*		*		*		*		*	|
+s		s		с		*		*		*		*		*		*	|
+bomb		Bomb		Бомба		*		*		*		*		*		*	|
+shield		Shield		Щит		*		*		*		*		*		*	|
+magnet		Magnet		Магнит		*		*		*		*		*		*	|
+right		Right turn		Направо		*		*		*		*		*		*	|
+trajectory		Trajectory		Траектория		*		*		*		*		*		*	|
+time_up		Time's Up!		Время вышло!		*		*		*		*		*		*	|
+combo_gone		Combo's gone		Комбо потеряно		*		*		*		*		*		*	|
+combo_saved		Saving the combo		Сохранение комбо		*		*		*		*		*		*	|
+		SCORE PANEL		ПАНЕЛЬ РЕЗУЛЬТАТОВ		*		*		*		*		*		*	|
+Score.main_panel.tf_best		Best:		Лучшее:		*		*		*		*		*		*	|
+Score.main_panel.tf_total		Total		Всего		*		*		*		*		*		*	|
+score_hero_bonus_descr		Hero lvl bonus		За уровень героя		*		*		*		*		*		*	|
+Score.combo_cont.tf_descr		Combo bonus:		Комбо бонус:		*		*		*		*		*		*	|
+IngameBadge.main_panel.tf_title		Unlocked		Открыто		*		*		*		*		*		*	|
+		QUIT TO MENU		ВЫЙТИ В МЕНЮ		*		*		*		*		*		*	|
+Confirm.title		Quit		Выход		*		*		*		*		*		*	|
+Confirm.descr		Are you sure? The progress won't be saved and Power-ups won't be recovered		Вы уверены? Прогресс не сохранится и бонусы не восстановятся		*		*		*		*		*		*	|
+		PAUSE		ПАУЗА		*		*		*		*		*		*	|
+Pause.tf		Pause		Пауза		*		*		*		*		*		*	|

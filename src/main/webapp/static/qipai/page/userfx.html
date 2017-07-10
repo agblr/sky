@@ -1,0 +1,437 @@
+<div class="row">
+    <div class="col-lg-4 ">
+        <ul class="breadcrumb">
+            <li><i class="fa fa-home"></i><a>主页</a></li> <li class="active">代理商管理</li>
+        </ul>
+    </div>
+</div>
+<div class="main-header">
+    <h2>账户管理</h2>
+    <em>对代理商账户进行增,删,改,查,赠送房卡</em>
+</div>
+<div class="main-content">
+    <div class="widget">
+        <div class="widget-content">
+            <form>
+                <div class="input-group input-group-lg">
+                    <input type="search" id="seachText" placeholder="请输入代理商名称...." class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" id="seach-btn" data-loading-text="查询中...">
+                            <i class="fa fa-search"></i> 查询</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="widget">
+        <div class="widget-header">
+            <h3><i class="glyphicon glyphicon-th-list"></i>代理商信息</h3>
+        </div>
+        <div class="widget-content">
+            <div class="flip-scroll">
+                <table class="table table-bordered table-striped table-condensed flip-content" id="simpledatatable">
+                    <thead class="flip-content bordered-palegreen">                  
+                        <tr>
+                            <th>
+                                代理商账号
+                            </th>
+                            <th>
+                                房卡数
+                            </th>
+                            <th>
+                                性别
+                            </th>
+                            <th>
+                                联系方式
+                            </th>
+                            <th>
+                                级别
+                            </th>
+                            <th>
+                                添加时间
+                            </th>
+                            <th>
+                                密码
+                            </th>
+                            <th>
+                                最后登陆时间
+                            </th>
+                            <th>
+                                是否管理员
+                            </th>
+                            <th>
+                                状态
+                            </th>                            
+                            <th>
+                                备注
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">代理商详情</h4>
+				</div>
+				<div class="modal-body">
+					<form id="advanced-form" data-parsley-validate novalidate>
+                        <input type="hidden" name="eidttype" value="add">
+					    <div class="row">
+					    	<div class="col-xs-6">
+								<div class="form-group">
+									<label>代理商账号</label>
+									<input 
+                                        type="text"
+                                        name='name'
+										class="form-control" 
+										required 
+                                        data-parsley-minlength-message="最少8位"                                        
+										data-parsley-minlength="8">
+								</div>					    		
+					    	</div>
+					    	<div class="col-xs-6">
+								<div class="form-group">
+									<label>所属游戏</label>
+                                    <select class="form-control" name='gameTypeId'>
+                                        <option value="0">修水麻将</option>
+                                    </select>
+								</div>					    		
+					    	</div>
+					    </div>
+					    <div class="row">
+					    	<div class="col-xs-6">
+								<div class="form-group">
+									<label>密码</label>
+									<input type="number" class="form-control" name='password'>
+								</div>					    		
+					    	</div>
+					    	<div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>级别</label>
+                                    <input 
+                                        type="number"
+                                        data-parsley-maxlength-message="最多2位"
+                                        name='grade'
+                                        required
+                                        class="form-control" 
+                                        data-parsley-maxlength="2">
+                                </div>  				    		
+					    	</div>
+					    </div>
+					    <div class="row">
+					    	<div class="col-xs-6">
+								<div class="form-group">
+									<label>性别</label>
+                                    <select class="form-control" name='sex'>
+                                        <option value="1">男</option>
+                                        <option value="0">女</option>
+                                    </select>
+								</div>					    		
+					    	</div>
+					    	<div class="col-xs-6">
+								<div class="form-group">
+									<label>联系方式</label>
+									<input type="tel" name="mobile" class="form-control" required>
+								</div>					    		
+					    	</div>
+					    </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>上级代理商</label>
+                                <input name="parent" name='parent' type="text" class="form-control" required>
+                            </div>                          
+                        </div>
+					    <div class="row">
+							<div class="form-group">
+								<label>备注</label>
+                                <textarea class="form-control" name='remark' rows="3"></textarea>
+							</div>					    		
+					    </div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> 关闭</button>
+					<button type="button" class="btn btn-custom-primary" id='formsubmit' data-loading-text="提交中..."><i class="fa fa-check-circle"></i> 保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="modal fade" id="my_cz" tabindex="-1" role="dialog" aria-labelledby="my_czLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="my_czLabel">赠送房卡</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="cz-form" data-parsley-validate novalidate>
+                        <input type="hidden" name="clientType" value="1">
+                        <div class="row">
+                            <div class="form-group">
+                                <label>账户</label>
+                                <input type="text" name='clientId' class="form-control" readonly>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>房卡数</label>
+                                <input type="number" name='cardNum' class="form-control" required>
+                            </div>  
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span id="aerr1" style="margin-right: 30px;color: red;"></span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> 关闭</button>
+                    <button type="button" class="btn btn-custom-primary" id="cz-sbumit" data-loading-text="提交中..."><i class="fa fa-check-circle"></i> 赠送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="my_alert" tabindex="-1" role="dialog" aria-labelledby="my_alertLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p style='color: red;'>是否执行修改代理商状态操作？</p>
+                </div>
+                <div class="modal-footer">
+                    <span id="aerr2" style="margin-right: 30px;color: red;"></span>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> 否</button>
+                    <button type="button" class="btn btn-custom-primary" id="tingyong-sbumit" data-loading-text="提交中..."><i class="fa fa-check-circle"></i> 是</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /main-content -->
+<script src="assets/js/plugins/parsley-validation/parsley.min.js"></script>
+<script src="assets/js/plugins/jquery.form/jquery.form.js"></script>
+<script type="text/javascript">
+    var url=p_url.agent;
+    var stopid={};
+    var fn={
+        give:function(d){
+            $('#aerr1').html('');
+            $('#cz-form').initForm({jsonValue:{clientId:d}});
+            $('#my_cz').modal('show');
+        },
+        edit:function(d){
+            $('#aerr').html('');
+            var table = $('#simpledatatable').DataTable();
+            var rows=table.rows().data();
+            var cur={};
+            $.each(rows,function(a,b){
+                if(b.name==d){
+                    cur=b;
+                }
+            });
+            $('#advanced-form').find('input[name=eidttype]').val('edit');
+            $('#advanced-form').find('input[name=name]').attr('readonly',true);
+            $('#advanced-form').initForm({jsonValue:cur});
+            $('#myModal').modal('show');
+        },//停用/启用代理商
+        stop:function(d,type){
+            $('#my_alert').modal('show');
+            $('#aerr2').html('');
+            stopid={name:d,edittype:type};
+        }
+    }
+
+    $(function () {
+        // $.extend($.gritter.options, {
+        //     class_name: 'gritter-light',
+        //     fade_in_speed: 100,
+        //     fade_out_speed: 100,
+        //     position: 'top-right', // possibilities: bottom-left, bottom-right, top-left, top-right
+        //     time: 1500,
+        // });
+        // $.gritter.add({
+        //     title: 'Sticky Alert!',
+        //     text: 'You have <a href="#">new support message</a>. Click (x) on the top right to close this message.',
+        //     sticky: true
+        // });
+
+        $('#tingyong-sbumit').click(function(){
+            $.post(url.url_4,stopid,function(data){
+                if(data.state){
+                    $('#simpledatatable').DataTable().ajax.reload();
+                    $('#my_alert').modal('hide');
+                }else{
+                    $('#aerr2').html(data.msg);
+                }
+            });
+        });
+        //查询数据
+        $('#seach-btn').click( function() {
+            $('#aerr').html('');
+            var btn = $(this);
+            var seachText=$('#seachText').val();
+            btn.button('loading');
+            var table =$('#simpledatatable').DataTable();
+            table.ajax.url(url.url_1+"?seachText="+seachText);
+            table.ajax.reload(function(j){
+                btn.button('reset');
+            });
+        });
+        //表格初始化
+        $('#simpledatatable').dataTable({
+            "processing": true,
+            //"serverSide": true,
+            "ajax": {
+                "url":url.url_1
+            },
+            columns: [
+                { 
+                	data: "name", 
+                	render: function ( data, type, row ) {
+                        if(type=='display'){
+                            var str=data;
+                            if(row.state=="1"){
+                                str+=" <a class='label label-info' onclick=\"fn.give('"+data+"')\" href='javascript:void(0)'>赠送房卡</a>"
+                                str+=" <a class='label label-warning' onclick=fn.edit('"+data+"') href='javascript:void(0)'>修改</a>"
+                                str+=" <a class='label label-danger' onclick=\"fn.stop('"+data+"',0)\" href='javascript:void(0)'>停用</a>"
+                            }else{
+                                str+=" <a class='label label-danger' onclick=\"fn.stop('"+data+"',1)\" href='javascript:void(0)'>启用</a>"
+                            }
+                            return str;
+                        }
+                        return data;
+                    }
+                },
+                { data: "cardNum" },   
+                { data: "sex",render: function ( data, type, row ) {
+                    if(data=='1')
+                        return'男'
+                    else
+                        return '女'
+                }},  
+                { data: "mobile" },
+                { data: "grade" },   
+                { data: "addTime" },   
+                { data: "password" },   
+                { data: "lastLoginTime" },   
+                { data: "isAdmin" ,render: function ( data, type, row ) {
+                    if(data=='1')
+                        return'是'
+                    else
+                        return '否'
+                }},   
+                { data: "state" ,render: function ( data, type, row ) {
+                    if(data=='1')
+                        return'可用'
+                    else
+                        return '不可用'
+                }},   
+                { data: "remark" }
+            ],
+             dom: 'Bfrtip',
+             buttons: 
+             [
+				{ 
+					text: '增加代理商信息',
+					action: function () {
+                        $("#advanced-form").resetForm();
+                        $('#formsubmit').button('reset');
+						$('#myModal').modal('show');
+                        $('#advanced-form').find('input[name=eidttype]').val('add');
+                        $('#advanced-form').find('input[name=name]').attr('readonly',false);
+					} 
+				}
+				,             
+                {
+                    extend: 'copy',
+                    text: '复制'
+                },
+
+                'excel',
+                {
+                    extend: 'colvis',
+                    text: '设置列'
+                },          
+                'pageLength'
+             ],
+            "oLanguage": $.scParameter.datatable_lang
+        });
+
+        //表单提交
+		$('#advanced-form').parsley().on('field:validated', function() {
+			var ok = $('.parsley-error').length === 0;
+			$('.bs-callout-info').toggleClass('hidden', !ok);
+			$('.bs-callout-warning').toggleClass('hidden', ok);
+		})
+		.on('form:submit', function() {
+            var btn = $('#formsubmit');
+            btn.button('loading');
+
+		 	$('#advanced-form').ajaxSubmit({
+                url: url.url_2,                 //默认是form的action
+                type: 'POST',               //默认是form的method（get or post）
+                dataType: "json",           //html(默认), xml, script, json...接受服务端返回的类型
+                success: function(data,status,xhr,$form){
+                    if(data.state){
+                        $('#simpledatatable').DataTable().ajax.reload()
+                        $('#myModal').modal('hide');
+                    }else{
+                        $('#aerr').html(data.msg);
+                    }
+                },
+                error: function(xhr, status, error, $form){
+                    $('#aerr').html('错误!'+error);
+                },
+                complete: function(xhr, status, $form){
+                    btn.button('reset');
+                }
+            });
+            return false;
+		});
+
+        //赠送充值
+        $('#cz-form').parsley().on('field:validated', function() {
+            var ok = $('.parsley-error').length === 0;
+            $('.bs-callout-info').toggleClass('hidden', !ok);
+            $('.bs-callout-warning').toggleClass('hidden', ok);
+        })
+        .on('form:submit', function() {
+            var btn = $('#cz-sbumit');
+            btn.button('loading');
+
+            $('#cz-form').ajaxSubmit({
+                url: url.url_3,
+                type: 'POST',
+                dataType: "json",
+                success: function(data,status,xhr,$form){
+                    if(data.state){
+                        $('#simpledatatable').DataTable().ajax.reload()
+                        $('#my_cz').modal('hide');
+                    }else{
+                        $('#aerr1').html(data.msg);
+                    }
+                },
+                error: function(xhr, status, error, $form){
+                    $('#aerr1').html('错误!'+error);
+                },
+                complete: function(xhr, status, $form){
+                    $('#simpledatatable').DataTable().ajax.reload()
+                    btn.button('reset');
+                }
+            });
+            return false;
+        });
+        //----------------------
+		$('#myModal').on('hide.bs.modal', function () {
+            $("#advanced-form").resetForm();
+			return true;
+		});
+        $('#formsubmit').click(function(){
+            $('#advanced-form').submit();
+        });
+        $('#cz-sbumit').click(function(){
+            $('#cz-form').submit();
+        });        
+    });   
+</script>

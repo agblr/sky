@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>海盗旋转</title>
+<meta name="keywords" content="海盗旋转" />
+<meta name="description" content="海盗旋转" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.01, minimum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="HandheldFriendly" content="true">
+<meta name="mobile-web-app-capable" content="yes">
+<style type="text/css">
+* {
+padding: 0;
+margin: 0;
+}
+html, body {
+color: #fff;
+touch-action: none;
+-ms-touch-action: none;
+background: 0x00;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+canvas {
+touch-action-delay: none;
+touch-action: none;
+-ms-touch-action: none;
+}
+</style>
+<script>
+// Package-ID
+window.famobi_gameID = "pirates-of-islets";
+window.famobi_gameJS = ['js/all.js',
+function(){
+window.famobi_onload();
+}
+];
+(function (document, url, fgJS, firstJS) {
+fgJS = document.createElement('script');
+firstJS = document.getElementsByTagName('script')[0];
+fgJS.src = url + encodeURIComponent(document.location.href);
+firstJS.parentNode.insertBefore(fgJS, firstJS);
+})(document, './gameapi/v1.js?e=');
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<title>空白页</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="">
+	<meta name="author" content="The Develovers">
+
+	<!-- CSS -->
+	<link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+	<link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
+
+	<link rel="stylesheet" type="text/css" href="assets/css/dataTables.bootstrap.css"/>
+
+
+	<link href="assets/js/mobiscroll/css/mobiscroll.css" rel="stylesheet" type="text/css">
+
+	<!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
+
+</head>
+<body>
+	<!-- WRAPPER -->
+	<div class="wrapper">
+		<!-- TOP BAR -->
+		<div class="top-bar">
+			<div class="container">
+				<div class="row">
+					<!-- logo -->
+					<div class="col-md-2 logo">
+						<!-- <a href="index.html"><img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard" /></a> -->
+					</div>
+					<!-- end logo -->
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">
+							</div>
+							<div class="col-md-9">
+								<div class="top-bar-right">
+									<!-- responsive menu bar icon -->
+									<a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+
+									<!-- logged user and the menu -->
+									<div class="logged-user">
+										<div class="btn-group">
+											<a href="#" class="btn btn-link dropdown-toggle"  style="line-height: 24px;" data-toggle="dropdown">
+												<span class="name">喜利宝</span> <span class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a href="page-login.html">
+														<i class="fa fa-power-off"></i>
+														<span class="text">登出</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- end logged user and the menu -->
+								</div><!-- /top-bar-right -->
+							</div>
+						</div><!-- /row -->
+					</div>
+				</div><!-- /row -->
+			</div><!-- /container -->
+		</div><!-- /top -->
+		
+		<!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+		<div class="bottom">
+			<div class="container">
+				<div class="row">
+					<!-- left sidebar -->
+					<div class="col-md-2 left-sidebar">
+						<!-- main-nav -->
+						<nav class="main-nav">
+							<ul class="main-menu">
+								<li class="active">
+									<a href="#main" data-url='main'><i class="fa fa-dashboard fa-fw"></i><span class="text">基本信息</span></a>
+								</li>
+								<li>
+									<a href="#userfx" data-url='userfx'><i class="fa fa-users"></i><span class="text">账户管理</span></a>
+								</li>
+								<li>
+									<a href="#partnergx" data-url='partnergx'><i class="fa fa-users"></i><span class="text">代理商管理</span></a>
+								</li>								
+								<li>
+									<a href="#hairpinfk" data-url='hairpinfk'><i class="fa fa-credit-card"></i><span class="text">发卡操作</span></a>
+								</li>
+
+								<li>
+									<a href="#recordfk" data-url='recordfk'><i class="fa fa-credit-card"></i><span class="text">发卡记录</span></a>
+								</li>
+
+								<li>
+									<a href="#loginlog" data-url='loginlog'><i class="glyphicon glyphicon-dashboard fa-fw"></i><span class="text">登录日志</span></a>
+								</li>												
+							</ul>
+						</nav><!-- /main-nav -->
+
+						<div class="sidebar-minified js-toggle-minified">
+							<i class="fa fa-angle-left"></i>
+						</div>
+					</div>
+					<!-- end left sidebar -->
+
+					<!-- content-wrapper -->
+					<div class="col-md-10 content-wrapper">
+						<!-- main -->
+						<div id="main-content" class="content">
+
+						</div><!-- /main -->
+					</div><!-- /content-wrapper -->
+				</div><!-- /row -->
+			</div><!-- /container -->
+		</div>
+		<!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+		<div class="push-sticky-footer"></div>
+	</div><!-- /wrapper -->
+
+	<!-- FOOTER -->
+	<footer class="footer">
+		&copy; 2016 开发版
+	</footer>
+	<!-- END FOOTER -->
+
+	<!-- Javascript -->
+	<script src="assets/js/jquery-2.1.0.min.js"></script>
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/modernizr.js"></script><!-- 兼容css3,html5 -->
+	<script src="assets/js/common.js"></script>
+
+
+	<script src="assets/js/jquery.ba-hashchange.min.js"></script><!-- hash值改变事件 -->
+	<script src="assets/js/mobiscroll/js/mobiscroll.js"></script>
+
+	<script type="text/javascript" src="assets/js/datatable/jquery.dataTables.js"></script>
+	<script src="assets/js/jquery.gritter.min.js"></script>
+	<script type="text/javascript">
+		window.p_url={
+			//账户管理
+			agent:{
+				url_1:'jsonData/data1.json',//数据表格url
+				url_2:'12121/ADS',//表单操作url
+				url_3:'dddd/aaa',//赠送房卡url
+				url_4:'dadd/bbb'//启用停用url
+			},
+			//代理商管理
+			partner:{
+				url_1:'jsonData/data1.json',//数据表格url
+				url_3:'12121/ADS',//赠送房卡url
+			},
+			//发卡操作
+			hairpin:{
+				url_1:'jsonData/userinfo.json',//获取游戏账户信息url
+				url_2:'12121/ADS',//给游戏用户充值url
+			},//发卡查询
+			record:{
+				url_1:'jsonData/record.json'
+			}		
+		}
+		$(function(){
+			$.scParameter={
+				theme: 'bootstrap',//mobiscroll
+		        lang: 'zh',
+		        display:$(window).width()<=700?'bottom':'bubble',
+		        mode:'scroller',
+		        datatable_lang:{
+                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                    "sZeroRecords": "抱歉， 没有找到",
+                    "sInfo": "_START_ 到 _END_ /共 _TOTAL_ 条数据",
+                    "sInfoEmpty": "没有数据",
+                    "sInfoFiltered": "(从 _MAX_ 条数据中检索)",
+                    "sZeroRecords": "没有检索到数据",
+                    "sSearch": "",
+                    "oPaginate": {
+                        "sFirst": "首页",
+                        "sPrevious": "上一页",
+                        "sNext": "下一页",
+                        "sLast": "尾页"
+                    },
+                    "buttons": {
+			            pageLength: {
+			                _: "显示 %d 项",
+			                "-1": "显示所有"
+			            }
+			        }
+                }
+			}
+			var url=window.location.hash;
+ 			$(window).hashchange(function() {
+                url=window.location.hash;
+	        	if(url){
+	        		url=url.split('#')[1];
+		      		$("#main-content").load('page/'+url+'.html',{},function(){
+		      			$.fn.initPage();
+				      	var w=$(window).width();
+				      	if(w<=979){
+				      		$('.left-sidebar').slideUp(300);
+				      	}
+		      		});
+	      		}
+            });
+	        if(url)
+	        	url=url.split('#')[1];
+	        else
+	        	url='main';
+
+	        $("#main-content").load('page/'+url+'.html',{},function(){
+		      	$.fn.initPage();
+		    });
+		});
+	</script>
+</body>
+</html>

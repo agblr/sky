@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta name="apple-touch-fullscreen" content="no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title>你有多久没上桌了?</title>
+
+    <style>
+        /*======================================================================
+      Global
+  ======================================================================*/
+        * {
+            padding: 0;
+            margin: 0;
+            outline: none;
+        }
+        html {
+            height: 100%;
+            font-family: "microsoft yahei", Arial, "Helvetica Neue", Helvetica, sans-serif;
+            background: url("assets/images/bg.jpg") no-repeat;
+            background-size: 100% 100%;
+        }
+        body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0  auto;
+            background: url("assets/images/bg-expand.jpg") no-repeat;
+            background-size: 100% 100%;
+        }
+        a {
+            text-decoration: none;
+        }
+        li {
+            list-style: none;
+        }
+        p,
+        a,
+        button,
+        span {
+            -webkit-font-smoothing: antialiased;
+        }
+        input {
+            outline: none;
+        }
+        /* scene */
+        .scene-wrap {
+            position: relative;
+            z-index: 100;
+            background: url("assets/images/bg.jpg") no-repeat;
+            background-size: 100% 100%;
+        }
+        .scene-wrap .title {
+            opacity: 0;
+        }
+        .scene-wrap.active .title {
+            opacity: 1;
+        }
+
+        /* loading */
+        .loading {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 300;
+            transition: all 1.8s .6s;
+            background: url("assets/images/bg.jpg");
+            background-size: cover;
+        }
+        .loading .numbers {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 357.5px;
+            padding: 0 0 0 10px;
+            text-align: center;
+        }
+        .loading .numbers.active {
+            opacity: 1;
+        }
+        .loading .number {
+            display: inline-block;
+            font-size: 0;
+            width: 18px;
+            height: 35.5px;
+            vertical-align: middle;
+            background: url('data:image/png;base64,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') no-repeat;
+            background-size: 215px 35.5px;
+        }
+        .loading .percent {
+            display: inline-block;
+            font-size: 0;
+            width: 24.5px;
+            height: 32px;
+            vertical-align: middle;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAABACAMAAACEPG9KAAAAhFBMVEUAAABkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDJkTDIs/9+vAAAALHRSTlMA88Dj5+vfu9LKxc4N79jVsWDbPqcyb6yhtZaLOHhsWUwekFEmgi0ZmmdEhnDjFGYAAAPASURBVEjH5VXXluIwDI3lbuOSQiqhswPM///fDsHJghP27PveJ7drWdKVnPwj+tXC4iEtb+sPhA1tfsVr5++uYgzk8bDEqBDpo6W0ELqqoBEU8jlhr0wWPWurOpHtkuReCCHuM8aF0/J9JceysOljdOKgdfywHZciWuLYNTwMwfPL++5KKXGKTOhMV8GzLtMKvt5NqL6NTBxZxutdCAHGhJVvUQfRxtFgGMsipOKOsUHwlrzCbpPYb0y0DxnaMEyNeQnlr7qTXxGjxDjz1ZhdZ7GhL69o2y5NItTYwjcfGSAJxcOZMG+/Z5qqsLOgw2TNMCX4j+uFv2ySGIbpTInx2UQ6QSbGyeBrMgP9OV9kEwOzFwZQs6Az4jyAGF/la0HJdpQgh2Myh26uHvjIEIIRcgv6qILIImABUhUjgyJjUBnSycglWQDBgqv2D+MHT+F91SSURQTPVNFMNjKGCcmfXrQ6TZZwdbyt65FhfwjkWcjbmq8WGVtq64qP0WEGBSVetzw2MR6isuUi3LbDCKHB3bxO22QZK9b0CoJ2y8wgNCgf+nSTfEBXlwD3MJaMqcEY60/JJ2yKo87KZ0A9iGwoR+76r+Qjvr1DfnBkKy0Vw+sQuy8fDjcrw/eP2DqwgxcrbORqesOCUs4VFbwuj5iASJ91SUNkUy+1Z343oxTaO2MoLc5D/zBYPsXPiVBMMUTKc8zJt9zgOlx8NGg/XKQRk126q5BpQndfxtrQasjUkRjZPQaAGOF/YXj0rLxTwYjYPDtUq/HuI+GO0HEw0RTMhZsfzd+vPjEUQkM8b7bQtgsp6zyWn4ykKNRgTQrIQsnfLkDVJ2U6RAbzB2yKBuchlAWjIJYJN4TSZxUgVHE6MiQ1Ci8GeKWRC5WGcMPJeuzHlEqcL3ohxnVPnQI8/iKWMM22S6Lk0IVhZa1VeNzIaCZYucC4aDkKSCphuRs3rMmEOy7og2bf41hLoT1METRWymrOqJiaEisdITAxBBEA9dyE1n+KWxGKhJ5mji+17Va+aIdRihxMfhDLYSaTHcWn1xcy4qbfjhKi+C1mAOFv3dUJXXxN/fiHcYqTZ0n+GmhEsS3WgSG1g2YT6QPsNdIwQjwwcgXQ+NiElG9t5vBgwD5sUpbZ6Ps5OB3JRvwwVGD0BGMWudGruCq3lFJZjrKkRL7vnznfz4RvmbwOx35JQsktMiFg/rNkTLbpYK6htInuO3UL5dIzW0CZ55eW4/iH25zPyQJ2ygPDlnt1jAl1ulr+wPY9ONWl69nOYZ/8X/gNXBY6RIEMWtMAAAAASUVORK5CYII=') no-repeat;
+            background-size: 100% 100%;
+        }
+        .loading .hundred {
+            display: none;
+            background-position-x: -21.5px;
+        }
+        .loading .ten {
+            display: none;
+        }
+        .loading .single {
+            background-position-x: 0;
+        }
+        .loading.complete {
+            opacity: 0;
+        }
+        .scene-container {
+        }
+        .scene-container #scene {
+            opacity: 0;
+            transition: opacity 1.2s;
+        }
+        .scene-container.active #scene {
+            opacity: 1;
+        }
+        /* animate scene title */
+        .title-wrap {
+            display: none;
+            position: absolute;
+            left: 16px;
+            top: 30px;
+            width: 338px;
+            height: 63px;
+            padding: 2px;
+            background: url("assets/images/bg-titlewrap.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        .title-wrap.active { display: block; }
+        #scene-touch-area {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .scene01-title {
+            position: absolute;
+            left: 0;
+            top: 190px;
+            width: 375px;
+            opacity: 0;
+            transition: all 1s;
+        }
+
+        .scene01-title.active {
+            opacity: 1;
+        }
+        /* tips arrow */
+        .tips-arrow {
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 50px;
+            text-align: center;
+            z-index: 8;
+            opacity: 0;
+        }
+        .tips-arrow .arrow {
+            width: 375px;
+            vertical-align: top;
+        }
+        .tips-hand {
+            position: absolute;
+            left: 232px;
+            bottom: -50px;
+            width: 60px;
+            opacity: 0;
+            transition: all 1s .3s;
+        }
+        .tips-arrow.active { opacity: 1; }
+        .tips-arrow.active .tips-hand {
+            opacity: 1;
+        }
+        .tips-arrow.animated .tips-hand {
+            -webkit-animation: tips 2s ease infinite;
+            animation: tips 2s ease infinite;
+        }
+        /* main title */
+        .title {
+            position: absolute;
+            left: 0;
+            top: 535px;
+            width: 100%;
+            z-index: 90;
+        }
+        /* scene para */
+        .para {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .para img {
+            width: 100%;
+            position: absolute;
+            left: 0;
+        }
+        .para .desc {
+            top: 17.7%;
+        }
+        .para .title {
+            top: auto;
+            bottom: 3.3%;
+            display: none;
+        }
+        .para.active {
+            opacity: 1;
+        }
+        /* share page */
+        .share {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            background: url('assets/images/bg-share.jpg') no-repeat;
+            background-size: 100% 100%;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .share .btn {
+            overflow: hidden;
+            position: absolute;
+            bottom: 16px;
+            width: 108px;
+            height: 44px;
+            text-indent: -200px;
+        }
+        .share .btn01 {
+            left: 24.5px;
+        }
+        .share .btn02 {
+            right: 133px;
+        }
+        .share .btn03 {
+            right: 16px;
+        }
+        .share .text {
+            position: absolute;
+            left: 0;
+            top: 28.2%;
+        }
+        .share .duff {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 122px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all .6s ease;
+        }
+        .share .duff img {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .share.active {
+            opacity: 1;
+            z-index: 100;
+        }
+        .share.active .duff {
+            opacity: 1;
+            transform: scale(1);
+            transform-origin: center center;
+        }
+        .share.active .duff img {
+            width: 375px;
+        }
+        .share.active .duff .duff01 {
+            animation: upDown 4.5s infinite;
+        }
+        .share.active .duff .duff02 {
+            animation: upDown 5s infinite;
+        }
+        .share.active .duff .duff03 {
+            animation: upDown 6s infinite;
+        }
+        .share.active .duff .duff04 {
+            animation: upDown 7s infinite;
+        }
+        .share.active .duff .duff05 {
+            animation: upDown 5s infinite;
+        }
+        .share.active .duff .duff06 {
+            animation: upDown 6s infinite;
+        }
+        .share.active .duff .duff07 {
+            animation: upDown 7s infinite;
+        }
+        .share-tips {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            background: rgba(0, 0, 0, 0.8) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAu4AAAGDCAMAAABDQWXhAAAAqFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8j1z1tAAAAN3RSTlMAA/gG9EApyZlv7eNoOQ4Jshz8IxUR2cGiiYEv0HaEY+i4jnxUNK2UUBkL3dS9XqhaIPGdTUlF/4clyAAACV9JREFUeNrs3ctaGkEQhuFiGDkGUYQRxBOCICgQgfjf/52l+zEgmOyyq/7e1cy+F93Vf1cZAAAAAAAAAAAAAAAAAAAAAAAAAPyf3mo2NCAJw460Yb0jDU8KHq8MSEBT0WvXAPee9en23ADv7vXHddsA5wrtTUsGuFZR8FZVtDXAtbGCcfdN0cAAz24VVOyyqahugF9XCoq4qWkoWhng1t1hD9PKFXR+GeBVVcGzRR+ZgrxlgE9zBU37NOkoaBCfgVN1BU8nf2q+G+DRUsGZ7d0oKojPwKNuR9JjyQ5mxGfg1oOCmn0prRUtywZ4M1LwYUfKS+Iz8Ok8k9Qo27FFVVHNAF9W/8qFdQtF9wa4MlWws1P7+MyDAY4sMkl52Y6Uhj/6hRR1DHBkomBte/OXwXWuLwsD/FgrmMSvdqu+bupUg2IkHClvJGWLq5+zaqbvRjtersKTnYL8Ud817yosdXiz1d+2Zz0umOBRQ0eoPcI3HWSD1vlO0swAp0aKlpN5yYKupKoBTvVq9WH7pFVkxr4dibiQxLs9JOKGthtIxwtdxJCOXkYlEuk4295xVAUAAAAAAAAAAAAAAEBiKv0akwyQilupb0AaNlJhQBoKKTcgDdeSegYkoS+pYkASBpIYEo9E1Gmch3RMJI0NSEKLkXtIx7ukqQFJaNMWFQnJuVZFOl6ljQFpqEpiLhMScSHp0vCbvXtLiTMKggDcGP+oDzORhCQ6gxdGxFHBG2rtf2e6j/q+NZyH5tDVRYXjJLcDFS6TLAMVbn/nej3QYXtldAcAAAAAAAAAoMvf08eTgQ438h302CVZDVQ4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') no-repeat;
+            background-size: 100%;
+            transition: all 1.4s;
+        }
+        .share-tips.active {
+            opacity: 1;
+            z-index: 1000;
+        }
+        @-webkit-keyframes flash {
+            0% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+        @keyframes flash {
+            0% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+        @-webkit-keyframes upDown {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            50% {
+                transform: translate3d(0, -10px, 0);
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        @keyframes upDown {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            50% {
+                transform: translate3d(0, -10px, 0);
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        @-webkit-keyframes tips {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            95% {
+                transform: translate3d(-120px, 0, 0);
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        @keyframes tips {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            95% {
+                transform: translate3d(-120px, 0, 0);
+            }
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        /*======================================================================
+              Responsive
+          ======================================================================*/
+
+    </style>
+
+    <script>
+        /*
+         * 名称 ：移动端响应式框架
+         * 作者 ：白树 http://peunzhang.cnblogs.com
+         * 版本 ：v1.0
+         * 日期 ：2015.6.23
+         * 兼容 ：ios4+、android2.3+、winphone8+
+         */
+        function pageResponse(opt){function getElementsByClassName(cl){if(document.getElementsByClassName){return document.getElementsByClassName(cl)}else{var ele=[],els=document.getElementsByTagName("*"),i=els.length;cl=cl.replace(/\-/g,"\\-");var pa=new RegExp("(^|\\s)"+cl+"(\\s|$)");while(--i>=0){if(pa.test(els[i].className)){ele.push(els[i])}}return ele}}function template(mode,obj,num){var s=obj.style;s.width=pw+"px";s.height=ph+"px";s.webkitTransformOrigin="left top 0";s.transformOrigin="left top 0";s.webkitTransform="scale("+num+")";s.transform="scale("+num+")";if(mode=="auto"){document.body.style.height=ph*num+"px"}else if(mode=="contain"||mode=="cover"){s.position="absolute";s.left="50%";s.top="50%";s.marginLeft=pw/-2+"px";s.marginTop=ph/-2+"px";s.webkitTransformOrigin="center center 0";s.transformOrigin="center center 0";document.body.style.msTouchAction="none";document.ontouchmove=function(e){e.preventDefault()}}}var dw=document.documentElement.clientWidth,dh=document.documentElement.clientHeight,ds=dw/dh,pw=opt.width||320,ph=opt.height||504,ps=pw/ph,pd=getElementsByClassName(opt.class),sm=opt.mode||"auto",sn=(sm=="contain")?(ds>ps?dh/ph:dw/pw):(sm=="cover")?(ds<ps?dh/ph:dw/pw):dw/pw;for(i=0;i<pd.length;i++){template(sm,pd[i],sn)}}
+    </script>
+</head>
+<body>
+
+<!-- scene -->
+<div class="scene-wrap">
+    <!-- loading -->
+    <div class="loading">
+        <h1 id="n"></h1>
+        <canvas id="loading" width="375" height="500"></canvas>
+
+        <div class="numbers">
+            <span class="number hundred"></span><span class="number ten"></span><span class="number single"></span><span class="percent"></span>
+        </div>
+    </div>
+    <!-- end loading -->
+
+    <!-- canvas -->
+    <div class="scene-container">
+        <canvas id="scene" class="scene" width="375" height="593"></canvas>
+    </div>
+
+    <div class="title-wrap">
+        <canvas id="title" width="330" height="40"></canvas>
+    </div>
+
+    <div id="scene-touch-area"></div>
+    <!-- end canvas -->
+
+    <img class="scene01-title" src="assets/images/scene01-title.png" alt=""/>
+
+    <!-- tips arrow -->
+    <div class="tips-arrow">
+        <img class="arrow" src="assets/images/tips-arrow.png" alt="" width="375"/>
+        <img class="tips-hand" src="assets/images/tips-hand.png" alt="" width="120"/>
+    </div>
+    <!-- end tips arrow -->
+
+    <!-- scene text -->
+    <!-- scene text -->
+    <div class="para para01">
+        <img class="desc" src="assets/images/xiangqi.png" alt="" width="375"/>
+    </div>
+
+    <div class="para para02">
+        <img class="desc" src="assets/images/dizhu.png" alt="" width="375"/>
+    </div>
+
+    <div class="para para03">
+        <img class="desc" src="assets/images/majiang.png" alt="" width="375"/>
+    </div>
+
+    <div class="para para04">
+        <img class="desc" src="assets/images/puke.png" alt="" width="375"/>
+    </div>
+    <!-- end scene text -->
+
+    <!-- share -->
+    <div class="share">
+        <div class="duff">
+            <img class="duff01" src="assets/images/saizi.png" alt=""/>
+            <img class="duff02" src="assets/images/saizi2.png" alt=""/>
+            <img class="duff03" src="assets/images/zu.png" alt=""/>
+            <img class="duff04" src="assets/images/25.png" alt=""/>
+            <img class="duff05" src="assets/images/500.png" alt=""/>
+            <img class="duff06" src="assets/images/ma.png" alt=""/>
+            <img class="duff07" src="assets/images/pukepai.png" alt=""/>
+        </div>
+        <span class="btn btn01">分享快乐</span>
+        <a class="btn btn02" href="http://game.weixin.qq.com/cgi-bin/read?noticeid=200748001&tpl=game/chesszone/chesszone&jsapi_ticket=1#wechat_redirect" target="_blank">下载游戏</a>
+        <a class="btn btn03" href="http://www.11sky.cn/" target="_blank">进入官网</a>
+    </div>
+    <!-- end share -->
+</div>
+
+<div class="share-tips"></div>
+<!-- end scene -->
+
+<audio id="audio" src="assets/audio/music.mp3" loop="loop"></audio>
+<audio id="audio1" src="assets/audio/effect01.mp3"></audio>
+<audio id="audio2" src="assets/audio/effect02.mp3"></audio>
+<audio id="audio3" src="assets/audio/effect03.mp3"></audio>
+<audio id="audio4" src="assets/audio/effect04.mp3"></audio>
+<audio id="audio5" src="assets/audio/effect05.mp3"></audio>
+
+<script>
+    // Created by sam mok 2015(Siso brand interactive team).
+
+    "use strict";
+
+    //  limit browser drag move
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    },true);
+
+    var app = {
+        sprites: [],
+
+        fixedSprites: [],
+
+        titleSprite: undefined,
+
+        titleActiveSprite: undefined,
+
+        isAudioLoadAudioSuccess: false,
+
+        paper: {
+            canvas: {
+                dom: null,
+                width: 0,
+                height: 0
+            },
+
+            ctx: null
+        },
+
+        preload: function (){
+            var that = this;
+            var Canvas = document.getElementById('scene');
+            var ctx = Canvas.getContext('2d');
+
+            //  initEventHandler paper info
+            that.paper.ctx = ctx;
+            that.paper.canvas.dom = Canvas;
+            that.paper.canvas.width = Canvas.width;
+            that.paper.canvas.height = Canvas.height;
+
+            //  loadingTable
+            that.loadingTable = new LoadingTable();
+
+            //  loadingNumber
+            that.loadingNumber = new LoadingNumber();
+
+            (function loadLoading () {
+                //  create sprite
+                var sprite01 = new Image();
+                sprite01.src = "assets/images/loading-table01.png";
+                sprite01.onload = function () {
+                    that.loadingTable.sprite[0] = this;
+
+                    checkProcess();
+                };
+
+                var sprite02 = new Image();
+                sprite02.src = "assets/images/loading-table02.png";
+                sprite02.onload = function () {
+                    that.loadingTable.sprite[1] = this;
+
+                    checkProcess();
+                };
+
+                var sprite03 = new Image();
+                sprite03.src = "assets/images/loading-table03.png";
+                sprite03.onload = function () {
+                    that.loadingTable.sprite[2] = this;
+
+                    checkProcess();
+                };
+
+                function checkProcess () {
+                    if (that.loadingTable.sprite.length == 3) {
+                        document.getElementsByClassName('numbers')[0].className += ' active';
+                        that.loadingTable.draw();
+                        loadMain();
+                    }
+                }
+            })();
+
+
+            // preload audio
+            window.addEventListener('deviceorientation', preloadAudio, false);
+
+            function preloadAudio () {
+                if (that.isAudioLoadAudioSuccess == false) {
+                    that.isAudioLoadAudioSuccess = true;
+
+                    document.getElementById('audio').play();
+                    document.removeEventListener('deviceorientation', preloadAudio, false);
+
+                    //  preload music
+                    document.getElementById('audio1').play();
+                    document.getElementById('audio2').play();
+                    document.getElementById('audio3').play();
+                    document.getElementById('audio4').play();
+                    document.getElementById('audio5').play();
+                    setTimeout(function () {
+                        app.pauseAllAudio();
+                        document.getElementById('audio').pause();
+                        document.getElementById('audio').currentTime = 0;
+                    }, 0);
+                }
+            }
+
+            //  load main
+            function loadMain () {
+                //  show main title
+                var wrapDom = document.getElementsByClassName('scene-wrap')[0];
+                wrapDom.className = wrapDom.className + ' active';
+
+                //  set images generator
+                var imgPath = "assets/images/";
+                //  img amounts, use the amounts order to general image objects
+                //  213 main frames, 2 title sprites
+                var imgAmounts;
+                var mainFramesAmount = 121 + 10;
+                var anotherFramesAmount = 4;
+                imgAmounts = mainFramesAmount + anotherFramesAmount;
+
+                var loadedAmounts = 0;
+                var isLoaded = false;
+
+                //  load fixed scene frames
+                var img = new Image();
+                img.src = imgPath + 'fixedFrame01.png';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.fixedSprites[0] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'fixedFrame02.png';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.fixedSprites[1] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                //  load scene frames
+                img = new Image();
+                img.src = imgPath + 'framesprites_0-10.jpg';
+                img.onload = function () {
+                    loadedAmounts += 11;
+                    that.sprites[0] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_11-20.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[1] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_21-30.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[2] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_31-40.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[3] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_41-50.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[4] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_51-60.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[5] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+                img = new Image();
+                img.src = imgPath + 'framesprites_61-70.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[6] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_71-80.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[7] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_81-90.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[8] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_91-100.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[9] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_101-110.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[10] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'framesprites_111-120.jpg';
+                img.onload = function () {
+                    loadedAmounts += 10;
+                    that.sprites[11] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 10;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_00.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[30] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_37.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[37] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_38.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[38] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_75.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[75] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_76.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[76] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_118.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[118] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_119.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[119] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_185.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[185] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_186.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[186] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+                img = new Image();
+                img.src = imgPath + 'final_1080_1201c_212.jpg';
+                img.onload = function () {
+                    loadedAmounts += 1;
+                    that.sprites[212] = this;
+                    checkIsAllLoaded();
+                };
+                img.error = function () {
+                    imgAmounts -= 1;
+                    checkIsAllLoaded();
+                };
+
+
+                //  load title sprite
+                (function () {
+                    var img = new Image();
+                    img.src = imgPath + 'title-sprite.png';
+
+                    img.onload = function () {
+                        loadedAmounts++;
+                        that.titleSprite = this;
+                        checkIsAllLoaded();
+                    };
+
+                    img.onerror = function (error) {
+                        imgAmounts -= 1;
+                        checkIsAllLoaded();
+                    };
+
+                    var img2 = new Image();
+                    img2.src = imgPath + 'title-sprite-a.png';
+
+                    img2.onload = function () {
+                        loadedAmounts++;
+                        that.titleActiveSprite = this;
+                        checkIsAllLoaded();
+                    };
+
+                    img2.onerror = function (error) {
+                        imgAmounts -= 1;
+                        checkIsAllLoaded();
+                    };
+                })();
+
+                function goToCreateState () {
+                    /* check img load progress */
+                    if (isLoaded == false) {
+                        isLoaded = true;
+
+                        img = new Image();
+                        img.src = imgPath + 'framesprites_121-130.jpg';
+                        img.onload = function () {
+                            loadedAmounts += 10;
+                            that.sprites[12] = this;
+                            checkIsAllLoaded();
+                        };
+                        img.error = function () {
+                            imgAmounts -= 10;
+                            checkIsAllLoaded();
+                        };
+
+                        img = new Image();
+                        img.src = imgPath + 'framesprites_131-140.jpg';
+                        img.onload = function () {
+                            loadedAmounts += 10;
+                            that.sprites[13] = this;
+                            checkIsAllLoaded();
+                        };
+                        img.error = function () {
+                            imgAmounts -= 10;
+                            checkIsAllLoaded();
+                        };
+
+                        img = new Image();
+                        img.src = imgPath + 'framesprites_141-150.jpg';
+                        img.onload = function () {
+                            loadedAmounts += 10;
+                            that.sprites[14] = this;
+                            checkIsAllLoaded();
+                        };
+                        img.error = function () {
+                            imgAmounts -= 10;
+                            checkIsAllLoaded();
+                        };
+
+                        setTimeout(function () {
+                            img = new Image();
+                            img.src = imgPath + 'framesprites_151-160.jpg';
+                            img.onload = function () {
+                                loadedAmounts += 10;
+                                that.sprites[15] = this;
+                                checkIsAllLoaded();
+                            };
+                            img.error = function () {
+                                imgAmounts -= 10;
+                                checkIsAllLoaded();
+                            };
+
+                            img = new Image();
+                            img.src = imgPath + 'framesprites_161-170.jpg';
+                            img.onload = function () {
+                                loadedAmounts += 10;
+                                that.sprites[16] = this;
+                                checkIsAllLoaded();
+                            };
+                            img.error = function () {
+                                imgAmounts -= 10;
+                                checkIsAllLoaded();
+                            };
+
+                            img = new Image();
+                            img.src = imgPath + 'framesprites_171-180.jpg';
+                            img.onload = function () {
+                                loadedAmounts += 10;
+                                that.sprites[17] = this;
+                                checkIsAllLoaded();
+                            };
+                            img.error = function () {
+                                imgAmounts -= 10;
+                                checkIsAllLoaded();
+                            };
+
+                            img = new Image();
+                            img.src = imgPath + 'framesprites_181-190.jpg';
+                            img.onload = function () {
+                                loadedAmounts += 10;
+                                that.sprites[18] = this;
+                                checkIsAllLoaded();
+                            };
+                            img.error = function () {
+                                imgAmounts -= 10;
+                                checkIsAllLoaded();
+                            };
+
+                            img = new Image();
+                            img.src = imgPath + 'framesprites_191-200.jpg';
+                            img.onload = function () {
+                                loadedAmounts += 10;
+                                that.sprites[19] = this;
+                                checkIsAllLoaded();
+                            };
+                            img.error = function () {
+                                imgAmounts -= 10;
+                                checkIsAllLoaded();
+                            };
+
+                            img = new Image();
+                            img.src = imgPath + 'framesprites_201-212.jpg';
+                            img.onload = function () {
+                                loadedAmounts += 10;
+                                that.sprites[20] = this;
+                                checkIsAllLoaded();
+                            };
+                            img.error = function () {
+                                imgAmounts -= 10;
+                                checkIsAllLoaded();
+                            };
+                        }, 1500);
+
+                        //  leave the loading
+                        var loadingDom = document.getElementsByClassName('loading')[0];
+                        loadingDom.className = loadingDom.className + ' complete';
+
+                        console.log('images loader end..');
+                        setTimeout(function () {
+                            //  hide the loading
+                            loadingDom.style.display = 'none';
+
+                            app.create();
+                        }, 2000);
+                    }
+                }
+
+                function checkIsAllLoaded () {
+                    var loadedRate = 1;
+                    that.loadingNumber.update(Math.floor((loadedAmounts / imgAmounts) * 100), goToCreateState);
+                    return loadedAmounts / imgAmounts >= loadedRate;
+                }
+            }
+        },
+
+        create: function () {
+            var that = this;
+            console.log('app created success...');
+            document.getElementsByClassName('title-wrap')[0].className += ' active';
+
+            //  create Table instance
+            that.table = new Table();
+
+            //  initEventHandler Table event handler
+            that.table.initEventHandler();
+
+
+            //  create Title instance
+            that.title = new Title();
+
+            //  update title
+            that.title.update();
+
+            //  show canvas
+            document.getElementsByClassName('scene-container')[0].className += ' active';
+
+            //  play first scene
+            that.table.playFrames(that.table.sceneSpriteIndexs[that.table.curIndex][0], that.table.sceneSpriteIndexs[that.table.curIndex][0]);
+
+            //  show tips arrow
+            setTimeout(function () {
+                var tipsDom = document.getElementsByClassName('tips-arrow')[0];
+                tipsDom.className = tipsDom.className + ' active';
+
+                var sceneTitle = document.getElementsByClassName('scene01-title')[0];
+                sceneTitle.className = sceneTitle.className + ' active';
+
+                setTimeout(function () {
+                    var tipsDom = document.getElementsByClassName('tips-arrow')[0];
+                    tipsDom.className = tipsDom.className + ' animated';
+                }, 800);
+            }, 1000);
+
+
+            //  bind share layout buttons
+            var shareButton = document.getElementsByClassName('btn01')[0];
+
+            var shareTimer;
+
+            shareButton.addEventListener('touchstart', function (e) {
+                e.stopPropagation();
+                document.getElementsByClassName('share-tips')[0].className += ' active';
+
+                setTimeout(shareTimer);
+                shareTimer = setTimeout(function () {
+                    document.getElementsByClassName('share-tips')[0].className = document.getElementsByClassName('share-tips')[0].className.replace(/active/g, '');
+                }, 1700);
+            });
+
+            document.getElementsByClassName('share-tips')[0].addEventListener('touchstart', function (e) {
+                e.stopPropagation();
+                document.getElementsByClassName('share-tips')[0].className = document.getElementsByClassName('share-tips')[0].className.replace(/active/g, '');
+            });
+
+            //  play BGM immediately
+            var initSound = function () {
+                // play
+                document.getElementById('audio').play();
+
+                document.removeEventListener('touchstart', initSound, false);
+
+                //  preload music if auto preload audio fail
+                if (that.isAudioLoadAudioSuccess == false) {
+                    document.getElementById('audio1').play();
+                    document.getElementById('audio2').play();
+                    document.getElementById('audio3').play();
+                    document.getElementById('audio4').play();
+                    document.getElementById('audio5').play();
+                    setTimeout(function () {
+                        app.pauseAllAudio();
+                    }, 0);
+                }
+            };
+            document.addEventListener('touchstart', initSound, false);
+        },
+
+        playEffectAudio: function (index) {
+            var that = this;
+
+            that.pauseAllAudio();
+
+            switch (index) {
+                case 0:
+                    document.getElementById('audio1').play();
+                    break;
+                case 1:
+                    document.getElementById('audio2').play();
+                    break;
+                case 2:
+                    document.getElementById('audio3').play();
+                    break;
+                case 3:
+                    document.getElementById('audio4').play();
+                    break;
+                case 4:
+                    document.getElementById('audio5').play();
+                    break;
+            }
+        },
+
+        pauseAllAudio: function () {
+            document.getElementById('audio1').pause();
+            document.getElementById('audio1').currentTime = 0;
+            document.getElementById('audio2').pause();
+            document.getElementById('audio2').currentTime = 0;
+            document.getElementById('audio3').pause();
+            document.getElementById('audio3').currentTime = 0;
+            document.getElementById('audio4').pause();
+            document.getElementById('audio4').currentTime = 0;
+            document.getElementById('audio5').pause();
+            document.getElementById('audio5').currentTime = 0;
+        },
+
+        utils: {
+            fixZero: function (num) {
+                return num < 10 ? '0' + num : num;
+            }
+        },
+
+        start: function (){
+            this.preload();
+        }
+    };
+
+    /** table */
+    function Table () {
+        var that = this;
+        this.curIndex = 0;
+        this.curFrameIndex = 1;
+
+        this.isPlaying = false;
+        this.canPlayFixedFrames = false;
+
+        this.direct = 'forward';
+
+        this.paraTimer = null;
+
+        this.touchStartX = 0;
+
+        //  check whether tablet or smart phone
+        this.minMove = app.paper.canvas.width >= 600 ? 1 : 3;
+        this.startTime = 0;
+
+        //  ctx
+        this.canvas = document.getElementById('scene');
+        this.ctx = this.canvas.getContext('2d');
+
+        //  sprite indexes for each scene
+        this.sceneSpriteIndexs = [
+            [0, 37],
+            [38, 75],
+            [76, 118],
+            [119, 185],
+            [186, 212]
+        ];
+
+        //  sprite indexes for each scene's fixed animation
+        this.fixedSpriteIndexs = [
+            [1, 10],
+            [11, 20],
+            [21, 43],
+            [44, 45]
+        ];
+
+
+        /** this method is used as event handler,
+         so the scope is window */
+        this.prevScene = function () {
+            if (that.isPlaying == false) {
+                //  stop prev frames drawer
+                clearTimeout(this.playTimer);
+
+                that.direct = "backward";
+                that.isPlaying = true;
+
+                that.playFrames(that.curFrameIndex, that.sceneSpriteIndexs[that.curIndex][0]);
+
+                that.showPara(that.curIndex-1 < 0 ? that.sceneSpriteIndexs.length-1 : that.curIndex-1);
+            }
+        };
+
+        /** this method is used as event handler,
+         so the scope is window */
+        this.nextScene = function() {
+            //  hide tips arrow and scene01 title
+            var tipsDom = document.getElementsByClassName('tips-arrow')[0];
+            tipsDom.className = tipsDom.className.replace(' active', '');
+            tipsDom.style.display = 'none';
+            document.getElementsByClassName('scene01-title')[0].className = document.getElementsByClassName('scene01-title')[0].className.replace(/active/g, '');
+
+            if (that.isPlaying == false) {
+                //  stop prev frames drawer
+                clearTimeout(that.playTimer);
+
+                that.direct = "forward";
+                that.isPlaying = true;
+
+                that.playFrames(that.curFrameIndex, that.sceneSpriteIndexs[that.curIndex][1]);
+
+                that.showPara(that.curIndex);
+
+                // audio
+                setTimeout(function () {
+                    app.playEffectAudio(that.curIndex);
+                }, 300);
+            }
+        };
+
+        /** this method is used as event handler,
+         so the scope is window */
+        this.setTouchStartPoint = function (e) {
+            that.touchStartX = parseInt(e.touches[0].pageX);
+            that.canPlayFixedFrames = false;
+        };
+
+        /** this method is used as event handler,
+         so the scope is window */
+        this.touchEndHandler = function  () {
+            if (that.isPlaying == false) {
+                if (that.direct == 'forward') {
+                    if (that.curFrameIndex == that.sceneSpriteIndexs[that.curIndex][0]) {
+                        that.curFrameIndex = that.sceneSpriteIndexs[that.curIndex][0];
+                    } else {
+                        that.curIndex += 1;
+                        that.curFrameIndex = that.sceneSpriteIndexs[that.curIndex][0];
+                    }
+                    that.nextScene();
+                } else if (that.direct == 'backward') {
+                    if (that.curFrameIndex != that.sceneSpriteIndexs[that.curIndex][0]) {
+                        that.curFrameIndex = that.sceneSpriteIndexs[that.curIndex][1];
+                    } else {
+                        if (that.curIndex > 0) {
+                            that.curIndex -= 1;
+                            that.curFrameIndex = that.sceneSpriteIndexs[that.curIndex][1];
+                        }
+                    }
+                    that.prevScene();
+                } else {
+                }
+            } else {
+            }
+        };
+
+        /** this method is used as event handler,
+         so the scope is window */
+        this.setCurrentFrame = function (e) {
+            if (that.isPlaying == false) {
+                //  get current touch position
+                var curX = parseInt(e.touches[0].pageX);
+                var movedX = curX - that.touchStartX;
+
+                //  calculate the next frame's index to update
+                //  if the drag direction is "forward"
+                if (movedX < -that.minMove) {
+                    that.direct = 'forward';
+                } else if (movedX > that.minMove) {
+                    that.direct = 'backward';
+                } else {
+                }
+
+                //  update next frame
+                this.touchStartX = curX;
+            } else {
+
+            }
+        };
+
+        this.showPara = function (index) {
+            var that = this;
+
+            //  clear para timer
+            clearTimeout(that.paraTimer);
+
+            var paraArr = document.getElementsByClassName('para');
+
+            //  remove all para's active statue
+            for (var i = 0; i < paraArr.length; i++) {
+                paraArr[i].className = paraArr[i].className.replace(' active', '');
+            }
+
+            //  show para
+            that.paraTimer = setTimeout(function () {
+                //  ignore the last scene
+                if (index >= 0 && index < that.sceneSpriteIndexs.length - 1) {
+                    document.getElementsByClassName('para0' + (index + 1))[0].className = document.getElementsByClassName('para0' + (index + 1))[0].className + ' active';
+
+                    if (that.direct == 'forward') {
+                        //  play title
+                        app.title.update();
+
+                        setTimeout(function () {
+                            app.title.stop(that.curIndex);
+
+                        }, 1500);
+                    } else if (that.direct == 'backward') {
+                        //  play title
+                        app.title.update();
+
+                        setTimeout(function () {
+                            app.title.stop(that.curIndex-1);
+                        }, 1500);
+                    }
+                } else {
+                    app.title.clear();
+                }
+
+                //  if finished play the last scene, show the share page
+                if (that.curIndex == that.sceneSpriteIndexs.length-1) {
+                    var shareLayout = document.getElementsByClassName('share')[0];
+
+                    setTimeout(function () {
+                        //  show share layout
+                        if (shareLayout.className.indexOf('active') < 0) {
+                            shareLayout.className = shareLayout.className + ' active';
+                        }
+                    }, 1300);
+                }
+            }, 600);
+        };
+
+        this.playFrames = function (curFrameIndex, endFrameIndex) {
+            /**
+             * Play current scene's sprite frames
+             * @param {Number} curFrameIndex
+             * @param {Number} endFrameIndex
+             * @return {Null} null
+             */
+            var that = this;
+
+            //  update sprite
+            drawSprite(curFrameIndex, endFrameIndex);
+
+            //  clean fixed timer player
+            clearTimeout(that.playFixedTimer);
+
+            //  recursive to update sprites
+            function drawSprite(curFrameIndex, endFrameIndex) {
+                that.curFrameIndex = curFrameIndex;
+
+                //  check whether currentFrame is the last frame of the current scene.
+                if (curFrameIndex == endFrameIndex) {
+                    that.update(curFrameIndex);
+
+                    for (var i = 0; i < that.sceneSpriteIndexs.length; i++) {
+                        if (that.sceneSpriteIndexs[i][1] == that.curFrameIndex) {
+                            that.canPlayFixedFrames = true;
+                            that.playFixedFrames(that.curIndex);
+                        }
+                    }
+
+                    that.isPlaying = false;
+                } else {
+                    that.update(curFrameIndex);
+
+                    // update next frame
+                    that.playTimer = setTimeout(function () {
+                        //  update direction
+                        that.direct == "forward" ? drawSprite(parseInt(curFrameIndex)+1, endFrameIndex) : drawSprite(parseInt(curFrameIndex)-1, endFrameIndex);
+                    }, 1000/20);
+                }
+            }
+
+            return null;
+        };
+
+        this.playFixedFrames = function (curSceneIndex) {
+            /**
+             * Play fixed frames for each scene, when the scene animation is stoped
+             * @param {Number} frameIndex  the index of fixed frame array
+             * @return {Null} null
+             */
+            var that = this;
+
+            //  update sprite
+            if (that.canPlayFixedFrames && that.fixedSpriteIndexs[curSceneIndex]) {
+                drawSprite(that.fixedSpriteIndexs[curSceneIndex][0], that.fixedSpriteIndexs[curSceneIndex][1]);
+            }
+
+            //  recursive to update sprites
+            function drawSprite(curFrameIndex, endFrameIndex) {
+                //  stop update fixed frames
+                if (that.canPlayFixedFrames == false ) { return; }
+
+                var curIndex = curFrameIndex;
+
+                if (curIndex > endFrameIndex) {
+                    curIndex = that.fixedSpriteIndexs[curSceneIndex][0];
+                    draw(curIndex);
+                } else {
+                    draw(curIndex);
+                }
+
+                // update next frame
+                that.playFixedTimer = setTimeout(function () {
+                    drawSprite(curIndex+1, endFrameIndex);
+                }, 1000/4);
+            }
+
+
+            function draw(frameIndex) {
+                /**
+                 * Draw frame into canvas
+                 * @param {Number} frameIndex  the index of frame you want to update into canvas
+                 * */
+                var img;
+                var ctx = that.ctx;
+
+                if (frameIndex <= 41) {
+                    img = app.fixedSprites[0];
+                } else {
+                    frameIndex -= 40;
+                    img = app.fixedSprites[1];
+                }
+
+                if (img) {
+                    //  update image
+                    ctx.drawImage(img, 750*(frameIndex-1), 0, 750, 647, 0, 277, 375, 323);
+                } else {
+
+                }
+            }
+
+            return null;
+        };
+
+        this.update = function (frameIndex) {
+            /**
+             * Draw frame into canvas
+             * @param {Number} frameIndex  the index of frame you want to update into canvas
+             * */
+            var that = this;
+            var img;
+            var ctx = that.ctx;
+//            console.log(frameIndex);
+
+            console.log(frameIndex);
+            if (frameIndex == 0) {
+                img = app.sprites[30];
+                frameIndex = 0;
+            } else if (frameIndex == 37) {
+                img = app.sprites[37];
+                frameIndex = 0;
+            } else if (frameIndex == 38) {
+                img = app.sprites[38];
+                frameIndex = 0;
+            } else if (frameIndex == 75) {
+                img = app.sprites[75];
+                frameIndex = 0;
+            } else if (frameIndex == 76) {
+                img = app.sprites[76];
+                frameIndex = 0;
+            } else if (frameIndex == 118) {
+                img = app.sprites[118];
+                frameIndex = 0;
+            } else if (frameIndex == 119) {
+                img = app.sprites[119];
+                frameIndex = 0;
+            } else if (frameIndex == 185) {
+                img = app.sprites[185];
+                frameIndex = 0;
+            } else if (frameIndex == 186) {
+                img = app.sprites[186];
+                frameIndex = 0;
+            } else if (frameIndex == 212) {
+                img = app.sprites[212];
+                frameIndex = 0;
+            } else {
+                if (frameIndex <= 10) {
+                    img = app.sprites[0];
+                } else if (frameIndex >= 201) {
+                    img = app.sprites[20];
+                    frameIndex -= 201;
+//                    console.log(frameIndex);
+                } else {
+                    var newFrameIndex = Math.floor(frameIndex/10);
+                    frameIndex%10 == 0 ? newFrameIndex-= 1 : newFrameIndex;
+                    img = app.sprites[newFrameIndex];
+                    frameIndex -= 10*newFrameIndex+1;
+                }
+            }
+
+            if (img) {
+                //  clear paper
+                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                //  update image
+                ctx.drawImage(img, 640*frameIndex, 0, 640, 588, 0, 285, 375, 316);
+            } else {
+
+            }
+        };
+
+        this.initEventHandler = function () {
+            //  bind swipe event
+            var touchArea = document.getElementById('scene-touch-area');
+
+            touchArea.addEventListener('touchstart', this.setTouchStartPoint, false);
+            touchArea.addEventListener('touchmove', this.setCurrentFrame, false);
+            touchArea.addEventListener('touchend', this.touchEndHandler, false);
+        };
+    }
+
+    /** scene title */
+    function Title () {
+        var that = this;
+
+        this.width = 330;
+        this.height = 40;
+        this.totalHeight = app.titleSprite.height/2;
+
+        this.timer = null;
+        this.y = 0;
+        this.speed = 100;
+
+        this.index = 0;
+        this.maxIndex = 3;
+
+        this.ctx = document.getElementById('title').getContext('2d');
+        this.imgActive = app.titleActiveSprite;
+        this.img = app.titleSprite;
+
+        this.update = function () {
+            go();
+
+            function go () {
+                //  clear timer
+                clearTimeout(that.timer);
+
+                that.clear();
+
+                that.index + 1 > that.maxIndex ? that.index = 0 : that.index++;
+
+                that.ctx.drawImage(that.imgActive, 0, that.y, that.width*2, that.height*2, 0, 0, that.width, that.height);
+
+                //console.log(that.speed,  that.y);
+
+                //  reset y position
+                if (that.y > that.totalHeight + that.height*2) {
+                    that.y = that.y % that.totalHeight - that.height*2;
+                } else {
+                    //  update y position
+                    that.y += that.height;
+                }
+
+                // update
+                that.timer = setTimeout(function () {
+                    go();
+                }, that.speed);
+            }
+        };
+
+        this.stop = function (index) {
+            //  clear timer
+            clearTimeout(that.timer);
+
+            that.clear();
+
+            //  update image
+            that.ctx.drawImage(that.img, 0, that.height*index*2, that.width*2, that.height*2, 0, 0, that.width, that.height);
+        };
+
+        this.clear = function () {
+            //  clear paper
+            that.ctx.clearRect(0, 0, 330, 40);
+        };
+    }
+
+    /** loadingTable */
+    function LoadingTable () {
+        var that = this;
+        this.isAlive = true;
+        this.index = 0;
+        this.end = 122;
+        this.curIndex = 0;
+        this.frameWidth = 600;
+        this.frameHeight = 300;
+        this.width = this.frameWidth/2;
+        this.height = this.frameHeight/2;
+        this.left = 0;
+        this.top = 190;
+        this.sprite = [];
+        this.ctx = document.getElementById('loading').getContext('2d');
+
+        function drawImageIOSFix (ctx, img) {
+            var vertSquashRatio = detectVerticalSquash (img)
+            var arg_count = arguments.length
+            switch (arg_count) {
+                case 4  : ctx.drawImage (img, arguments[2], arguments[3] / vertSquashRatio); break
+                case 6  : ctx.drawImage (img, arguments[2], arguments[3], arguments[4], arguments[5] / vertSquashRatio); break
+                case 8  : ctx.drawImage (img, arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7] / vertSquashRatio); break
+                case 10 : ctx.drawImage (img, arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7], arguments[8], arguments[9] / vertSquashRatio); break
+            }
+
+            // Detects vertical squash in loaded image.
+            // Fixes a bug which squash image vertically while drawing into canvas for some images.
+            // This is a bug in iOS6 (and IOS7) devices. This function from https://github.com/stomita/ios-imagefile-megapixel
+            function detectVerticalSquash (img) {
+                var iw = img.naturalWidth, ih = img.naturalHeight;
+                var canvas = document.createElement ("canvas");
+                canvas.width  = 1;
+                canvas.height = ih;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage (img, 0, 0);
+                var data = ctx.getImageData(0, 0, 1, ih).data;
+                // search image edge pixel position in case it is squashed vertically.
+                var sy = 0, ey = ih, py = ih;
+                while (py > sy) {
+                    var alpha = data[(py - 1) * 4 + 3];
+                    if (alpha === 0) {ey = py} else {sy = py}
+                    py = (ey + sy) >> 1
+                }
+                var ratio = (py / ih);
+                return (ratio === 0) ? 1 : ratio
+            }
+        }
+
+        this.draw = function () {
+            that.timer = setInterval(function () {
+                if (app.loadingNumber.curNumber == 100) {
+                    clearInterval(that.timer);
+                } else {
+                    var index = Math.floor(that.end*app.loadingNumber.curNumber/100)-1;
+                    var spriteIndex = 0;
+
+                    if (index < 40) {
+                        spriteIndex = 0;
+                    } else if (index < 80) {
+                        spriteIndex = 1;
+                        index -= 40;
+
+                    } else {
+                        spriteIndex = 2;
+                        index -= 80;
+                    }
+
+                    that.ctx.clearRect(that.left, that.top, that.width, that.height);
+                    console.log(that.sprite[spriteIndex].width);
+                    drawImageIOSFix(that.ctx, that.sprite[spriteIndex], that.frameWidth*index, 0, that.frameWidth, that.frameHeight, 37, that.top, that.width, that.height);
+                }
+            }, 25);
+        };
+    }
+
+    /** loadingNumber */
+    function LoadingNumber () {
+        var that = this;
+        this.size = 22;
+        this.single = document.getElementsByClassName('single')[0];
+        this.ten = document.getElementsByClassName('ten')[0];
+        this.hundred = document.getElementsByClassName('hundred')[0];
+        this.number = 0;
+        this.curNumber = 0;
+        this.callback = null;
+
+        this.update = function (number, callback) {
+            this.number = number;
+            if (!this.callback) {
+                this.callback = callback;
+            }
+        };
+
+        this.timer = setInterval(function () {
+            var singleBit = that.curNumber % 10;
+            var tenBit = parseInt(that.curNumber/10);
+
+            if (that.curNumber < that.number) {
+                that.curNumber += 1;
+
+                if (that.curNumber < 10) {
+                    if (that.curNumber > 0) {
+                        that.single.style.backgroundPositionX = (-that.size * singleBit) + 'px';
+                        that.ten.style.display = 'inline-block';
+                        that.ten.style.backgroundPositionX = '0px';
+                    } else {
+                    }
+                } else if (that.curNumber >= 100) {
+                    that.single.style.backgroundPositionX = '0px';
+                    that.ten.style.backgroundPositionX = '0px';
+                    that.hundred.style.backgroundPositionX = -that.size + 'px';
+                    that.hundred.style.display = 'inline-block';
+
+                    clearInterval(that.timer);
+                    that.callback();
+                } else {
+                    that.single.style.backgroundPositionX = (-that.size * singleBit) + 'px';
+                    that.ten.style.backgroundPositionX = (-that.size * tenBit) + 'px';
+                }
+            } else {
+            }
+        }, 10);
+    }
+
+    window.onload = function () {
+        var mode = 'contain';
+
+        //  set page response
+        var page = new pageResponse({
+            class : 'scene-wrap',     //模块的类名，使用class来控制页面上的模块(1个或多个)
+            mode : mode,     // auto || contain || cover
+            width : '375',      //输入页面的宽度，只支持输入数值，默认宽度为320px
+            height : '593'      //输入页面的高度，只支持输入数值，默认高度为504px
+        });
+
+        // initEventHandler app
+        app.start();
+    };
+</script>
+
+<!-- 其他接口与组件 -->
+<!--<script src="http://pingjs.qq.com/ping_tcss_ied.js"></script>
+
+
+
+<script src="http://pub.idqqimg.com/qqmobile/qqapi.js"></script>
+ -->
+<script>if(typeof(pgvMain) == 'function')pgvMain();</script>
+<script src="http://ossweb-img.qq.com/images/js/WXJssdk.js"></script>
+<script type="text/javascript">
+    //分享信息自定义
+    window.shareData = {
+        "imgUrl":"http://game.gtimg.cn/images/qipai/cp/a20151114desk/images/share-icon.jpg",//尺寸是240x240的图片,且要存放到qq.com服务器,并填写完整的链接
+        "timeLineLink":window.location.href.split("?")[0],//需要分享的链接，默认本页面链接。
+        "tTitle": "你有多久，没上桌了？",
+        "tContent": "一张桌子，看懂中国人的情与局。",
+        "actName":"a20151114desk"//点击流命名
+    };
+    //微信分享初始化
+    var wxShareMethod = [
+        ['Message', 'onMenuShareAppMessage'],
+        ['Timeline', 'onMenuShareTimeline'],
+        ['ShareQQ', 'onMenuShareQQ'],
+        ['Weibo', 'onMenuShareWeibo'],
+        ['QZone', 'onMenuShareQZone']
+    ];
+    WXJssdk.init(function(wx){
+        for (var i = 0, l = wxShareMethod.length; i < l; i++) {
+            (function(k){
+                wx[k[1]]({
+                    title:shareData.tTitle,
+                    desc:shareData.tContent,
+                    link:shareData.timeLineLink+"?ADTAG=tgi.relay.wx." + k[0],
+                    imgUrl:shareData.imgUrl,
+                    success:function(){pgvSendClick({hottag:shareData.actName+'.share' + k[0] + '.ok'});},
+                    cancel:function(){pgvSendClick({hottag:shareData.actName+'.share' + k[0] + '.cancel'});}
+                });
+            })(wxShareMethod[i]);
+        }
+    });
+
+    //手Q分享初始化
+    mqq.ui.setOnShareHandler(function(type){
+        mqq.ui.shareMessage({
+                    share_url: shareData.timeLineLink+"?ADTAG=tgi.share.qq",
+                    title: shareData.tTitle,
+                    desc: shareData.tContent,
+                    image_url:shareData.imgUrl,
+                    share_type:type
+                },
+                function(retCode){pgvSendClick({hottag:shareData.actName+'.qq.'+retCode});})
+    });
+</script>
+
+</body>
+</html>

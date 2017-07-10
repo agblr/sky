@@ -1,0 +1,60 @@
+<html>
+ <head> 
+  <meta charset="utf-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+  <meta name="format-detection" content="telphone=no" /> 
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" /> 
+  <meta name="apple-mobile-web-app-capable" content="yes" /> 
+  <meta name="full-screen" content="true" /> 
+  <meta name="screen-orientation" content="portrait" /> 
+  <meta name="x5-fullscreen" content="true" /> 
+  <meta name="360-fullscreen" content="true" /> 
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /> 
+  <meta http-equiv="Pragma" content="no-cache" /> 
+  <meta http-equiv="Expires" content="0" /> 
+  <title>SKY游戏</title> 
+  <link href="./static/css/app.css" rel="stylesheet" /> 
+  <link type="text/css" rel="stylesheet" href="./static/css/style.css" /> 
+  <script type="text/javascript" charset="utf-8" src="./static/js/page_context.js"></script> 
+ </head> 
+ <body> 
+  <div class="loading" style="position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; z-index: 9999; display: none; height: 100%;">
+   <img src="./static/img/sg-loader.gif?5e295d3" style="position:absolute;left:50%;top:50%;margin-top:-25px;margin-left:-75px" alt="" width="150" height="50" />
+  </div>
+  <div id="appView"> 
+   <div class="login-sign flex center column pos-r fade-transition"> 
+    <a class="backup" href="#/game"><i class="fa fa-angle-left"></i></a> 
+    <div class="box"> 
+     <img class="logo" src="./static/img/logo.png" /> 
+     <form> 
+      <div class="form-group indent"> 
+       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAYAAABXuSs3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDplYTZmOThiYi1hYmQwLTJkNGItYWNhZC0wOWJjNzgxMjZlOTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NzlCNEQ0QjcyM0Q3MTFFNjlBRjVDRjk4MzExMzY3MTQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzlCNEQ0QjYyM0Q3MTFFNjlBRjVDRjk4MzExMzY3MTQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDBjMjllYTEtYjZiNS0xZTQ5LWIxNjEtYjg2YWZjNThkNGViIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NTVmNTRjMjItMjJmMC0xMWU2LThiOGUtY2ZiMzIxZTE5YzU5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+mzOjEAAAA9NJREFUeNrsmflLFVEUx+eZS2mWlbRvaoWUoW202EYLURRWJLTvO9Uv/dwP/QH9YhAVUZRUGEVkCxGKRdpGlFSW2R4lpmX7Xr6+B78Dw+M6M77nc67QgQ9ndOa+9507Z8695zyf3+83WqJFGC3UWqzwSIfzaWAO6AmegzzwVAfhPpsYHw5W8anIRT7646BA11DpBpby/GmwmV4sG8zWUbjM7EoQAy6CM+A3/QHwB0wHM3UTPgr0Bh/AiYBz18E+UAdmgXG6CJe/Z/BYZviXYsxtkMvj+aCXDsIHgs6gBpTYjLsCLjMrLWF4eSo83SKszmHsMVAL+oBUr4Un0Ze7GCthVMzj/l4L70hf7XJ8DL3fa+Gx9F9djJXwmMzjMq+F/6WPchjXHazny1nkxTYgUPgP+jiHMWtAG+b1PB3S4Sf6eJsxGZzxauZzvw7C39An2owZQV/ErYAWK+drervVMJn+jk57FVN4P5sx7ehrdRL+iDGbwpdPZWZ4tNVJ+GfwArSyWcbNxamrbtvau/RjGhjzhH6AbsKvMlyk3kxQnL9Fn+llsa364nfgPs9NUpyvAJXc12TqVnMW0k+0ZBHDsqE6xeMsh8Wq2YWXMZZjLBWR1UqZx0X0ahdtjmZtCJmzOgH0VZzPZV2ayo6ATxfhD7mJimB5FqnY1+xmQTESLAriZZWbHQIWkKFuP8Pn0PSUUNjO3aK0Ko4qrpG0uIlhJZXTfvDRxXdHMcwyAv5fBQ5Z0m5Qws06dANnR/oq1xTX9OE1HcA3hlkxezAqk1V3HW/6OzjHFXk8d551bI0UhCJcbC6YRiE7G6hJ5eks5OM2Q+kGU2sVxSRyfRhL8e9BDtOrwXCULtkUTtQFRW+nUcIjWPGkc4ZybKqeQexyJTt85gNwkOIDTfqWK3gjhewoBCVcLBpsYUX/E+xy6AbI1ngYbyCRMS1Z6BmfxGOH70tj+In4k+B8sMIN7hg3MjYlbA6zBxMuk4yzlmGTw7BzTIcqM8OklDOxDCx2UVwHa9Luy6fwLLd53LDZj+8BZ7n8S+NzWxibQpfoe4Qq3GCGyOfsS/boArbyCSQ0oWiZ6WwevwwlxlUmi9M8MJpfJE+khNmgOoTPbQ+WG/WNWFmddxj1P+c0mXBrEZ1lqZz83DbcBPcaSHsqk27aVHbJYthV2xuYwXxh+J0zhQtIOktA0yqZAl+Bt+ALRUn3rLVR//NNKtsfsZZOwhHVTfvC+ANtPBeSwXxxoxsxtoIvf3moS36oJukyiZlB6MR3I47vhcRwDWO41NImMbwW3qz78f/Cw2H/BBgA7dDpS1EIohwAAAAASUVORK5CYII=" class="img" /> 
+       <input class="input" placeholder="输入手机号" id="user_phone" autocomplete="off" type="text" /> 
+      </div> 
+      <div class="form-group flex between"> 
+       <div style="width: 60%">
+        <input class="input" placeholder="输入验证码" id="tp_yzm" type="text" />
+       </div> 
+       <div style="width: 35%;overflow: hidden" class="input flex center">
+        <img style="width: 100%" src="http://game.3721w.com/api/captcha?device_id=1499492269124vms8088f37ukzob2g3uf0om6piggqk86&amp;ver=1499492269151uh7p8otjxv" />
+       </div> 
+      </div> 
+      <div class="form-group"> 
+       <input class="getyzm" value="获取验证码" type="button" /> 
+       <input class="input" placeholder="输入手机验证码" id="user_yzm" type="text" /> 
+      </div> 
+      <div class="form-group indent"> 
+       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAYAAABXuSs3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDplYTZmOThiYi1hYmQwLTJkNGItYWNhZC0wOWJjNzgxMjZlOTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUVCNUFFNTIyM0Q3MTFFNjk5OTlFOURBOEFCQzBGOUEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUVCNUFFNTEyM0Q3MTFFNjk5OTlFOURBOEFCQzBGOUEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDBjMjllYTEtYjZiNS0xZTQ5LWIxNjEtYjg2YWZjNThkNGViIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NTVmNTRjMjItMjJmMC0xMWU2LThiOGUtY2ZiMzIxZTE5YzU5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+2GD6/wAAAiRJREFUeNrsmM8rRFEYhu/4EVGDFIoNNUpsWFixs7GaWFjyB8jKxp+gpmyUWI6lBVmxwMbOQqkZsyAUCqVpCDOo6/3qnToJ44x77szR/erp3JTvPOfe8+M7E3Jd17ExKhxLw1rxKo/ytIMBEAFtoJ5/fwI34AQcgmuvxEN/nOMiGmX7m5ABbLItiXg1mADDkgM8gwOQBFfggV+zEbSAXjAI6oB0uA/WwJuf4tL5DOhix1tgB+QK/F8NGAGjHPgZWOSgjYtLh7OgE9yDJb5h3fUwDZrBOVgAr6Z3lQlKp0GsCGmHCzTGHJ3MaXQ7jHBOy/RYYcfFRpo5JNeQxuIuSjzKhbjLT/zXkBx7zBk1Jd7BtyILadvDc2SLOSPsw3PxfrZH4MVD8Rduo2ofnopHFHGvI8m224R4G9sLA+KXbFtNiOdrj0cD4vmcYRPi+WLs3YD4O8sA2V0qbStrQ7o+5SCe/5quzhctB/Ea5dm1STynzHNPqkOpo8dBD6j1aRBZkALr4K4YcdlT51h7lyKkDJgHt7p3zjFKy6kWBxmfhBvAFG9M4rCsO8d72Pop7bCv+CcHLfFaJZHfkfnkEPyuUij6wCSfV0HChLiJNz7JRdagDMAK8a9qECvEV5XnuE3iiW+erZoqTiDuw3YocWpyYZoUjwVTRVM8q1RrfkdYuWBoi6eUUzDso3QTy1qJ4395kSjXq9vGT9KFxIMDKBAPxEsYHwIMAPB/haKnM/oRAAAAAElFTkSuQmCC" class="img" /> 
+       <input class="input" placeholder="设置登录密码" id="user_pwd" type="password" /> 
+      </div> 
+     </form> 
+     <button class="signbtn">提交</button> 
+    </div> 
+   </div> 
+   <div class="fixed bottom"> 
+   </div> 
+  </div>
+  <script>window.resource = 0</script>
+  <script src="./static/js/app.js"></script>  
+ </body>
+</html>

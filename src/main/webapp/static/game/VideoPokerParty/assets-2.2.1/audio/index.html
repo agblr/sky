@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video Poker Party</title>
+	<base href="http://static.tresensa.com/video-poker-party/" target="_blank">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=IE9" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+
+	<link href="favicon.ico" rel="shortcut icon" /> 
+	<link href="web-image.jpg" rel="image_src" /> 
+	<link href="apple-touch-icon.png" rel="apple-touch-icon" /> 
+	<link href="style.css" rel="stylesheet" media="screen" type="text/css" />
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1 user-scalable=no" />
+	<script>
+	    (function (w, p, d, s, id) {
+	        if (p === w || d.getElementById(id)) return;
+	        var js, fjs = d.getElementsByTagName(s)[0];
+	        js = d.createElement(s); js.id = id;
+	        js.src = 'http://cdn.gameplayer.io/api/js/developer.js';
+	        fjs.parentNode.insertBefore(js, fjs);
+	    }(window, window.parent, window.document, 'script', 'gameplayer-developer'));
+	</script>
+	<script type="text/javascript" src="js/lib/head.load.min.js"></script>
+    <script type="text/javascript" src="js/lib/tgl/tgl.boot.min.js"></script>
+</head>
+<body>
+	<div id="wrong_orientation" style="display: none;">
+	<img alt="" src="reorient-message.jpg" /></div> 
+	
+	<div id="viewporter" align="center"> 
+		<div id="preloader" align="center">Connecting to Game Server...</div> 
+		<div id="game_canvas"></div> 
+	</div> 
+	<div id="fb-root"></div>
+</body>
+</html>

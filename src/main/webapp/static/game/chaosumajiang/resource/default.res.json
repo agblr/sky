@@ -1,0 +1,319 @@
+{
+	"groups": [
+		{
+			"keys": "success_png,signBtn_png,signBtn_gray_png,refresh_png,prepare_zhuomian_jpg,number_png,number_fnt,not_huIcon_png,moziBg_png,majiang_bg_3_png,majiang_bg_2_png,majiang_bg_1_png,logo_png,huIcon_png,hasSelect_2_png,hasSelect_1_png,hasSelect_0_png,gangIcon_png,game_start_word_png,fanIcon_png,coinIcon_png,btnBg1_png,btn_png,bg6_png,bg4_png,bg2_png,addMoney1_png,add_btn_png,39_png,38_png,37_png,36_png,35_png,34_png,33_png,32_png,31_png,29_png,28_png,27_png,26_png,25_png,24_png,23_png,22_png,21_png,19_png,18_png,17_png,16_png,15_png,14_png,13_png,12_png,11_png,guide_1_js,guide_3_js,guide_2_js",
+			"name": "preload"
+		},
+		{
+			"keys": "prepare_zhuomian_jpg",
+			"name": "ui"
+		}
+	],
+	"resources": [
+		{
+			"url": "png/prepare_zhuomian.jpg",
+			"type": "image",
+			"name": "prepare_zhuomian_jpg"
+		},
+		{
+			"url": "png/bg6.png",
+			"type": "image",
+			"name": "bg6_png"
+		},
+		{
+			"url": "png/bg4.png",
+			"type": "image",
+			"name": "bg4_png"
+		},
+		{
+			"url": "png/bg2.png",
+			"type": "image",
+			"name": "bg2_png"
+		},
+		{
+			"url": "png/btnBg1.png",
+			"type": "image",
+			"name": "btnBg1_png"
+		},
+		{
+			"url": "png/game_start_word.png",
+			"type": "image",
+			"name": "game_start_word_png"
+		},
+		{
+			"url": "png/add_btn.png",
+			"type": "image",
+			"name": "add_btn_png"
+		},
+		{
+			"url": "png/btn.png",
+			"type": "image",
+			"name": "btn_png"
+		},
+		{
+			"url": "png/addMoney1.png",
+			"type": "image",
+			"name": "addMoney1_png"
+		},
+		{
+			"url": "png/signBtn.png",
+			"type": "image",
+			"name": "signBtn_png"
+		},
+		{
+			"url": "png/signBtn_gray.png",
+			"type": "image",
+			"name": "signBtn_gray_png"
+		},
+		{
+			"url": "png/refresh.png",
+			"type": "image",
+			"name": "refresh_png"
+		},
+		{
+			"url": "png/success.png",
+			"type": "image",
+			"name": "success_png"
+		},
+		{
+			"url": "png/coinIcon.png",
+			"type": "image",
+			"name": "coinIcon_png"
+		},
+		{
+			"url": "png/hasSelect_2.png",
+			"type": "image",
+			"name": "hasSelect_2_png"
+		},
+		{
+			"url": "png/hasSelect_0.png",
+			"type": "image",
+			"name": "hasSelect_0_png"
+		},
+		{
+			"url": "png/hasSelect_1.png",
+			"type": "image",
+			"name": "hasSelect_1_png"
+		},
+		{
+			"url": "png/majiang_bg_1.png",
+			"type": "image",
+			"name": "majiang_bg_1_png"
+		},
+		{
+			"url": "png/majiang_bg_2.png",
+			"type": "image",
+			"name": "majiang_bg_2_png"
+		},
+		{
+			"url": "png/huIcon.png",
+			"type": "image",
+			"name": "huIcon_png"
+		},
+		{
+			"url": "png/gangIcon.png",
+			"type": "image",
+			"name": "gangIcon_png"
+		},
+		{
+			"url": "png/moziBg.png",
+			"type": "image",
+			"name": "moziBg_png"
+		},
+		{
+			"url": "png/majiang_bg_3.png",
+			"type": "image",
+			"name": "majiang_bg_3_png"
+		},
+		{
+			"url": "png/fanIcon.png",
+			"type": "image",
+			"name": "fanIcon_png"
+		},
+		{
+			"url": "majiang/29.png",
+			"type": "image",
+			"name": "29_png"
+		},
+		{
+			"url": "majiang/11.png",
+			"type": "image",
+			"name": "11_png"
+		},
+		{
+			"url": "majiang/12.png",
+			"type": "image",
+			"name": "12_png"
+		},
+		{
+			"url": "majiang/13.png",
+			"type": "image",
+			"name": "13_png"
+		},
+		{
+			"url": "majiang/14.png",
+			"type": "image",
+			"name": "14_png"
+		},
+		{
+			"url": "majiang/15.png",
+			"type": "image",
+			"name": "15_png"
+		},
+		{
+			"url": "majiang/16.png",
+			"type": "image",
+			"name": "16_png"
+		},
+		{
+			"url": "majiang/17.png",
+			"type": "image",
+			"name": "17_png"
+		},
+		{
+			"url": "majiang/18.png",
+			"type": "image",
+			"name": "18_png"
+		},
+		{
+			"url": "majiang/19.png",
+			"type": "image",
+			"name": "19_png"
+		},
+		{
+			"url": "majiang/21.png",
+			"type": "image",
+			"name": "21_png"
+		},
+		{
+			"url": "majiang/22.png",
+			"type": "image",
+			"name": "22_png"
+		},
+		{
+			"url": "majiang/23.png",
+			"type": "image",
+			"name": "23_png"
+		},
+		{
+			"url": "majiang/24.png",
+			"type": "image",
+			"name": "24_png"
+		},
+		{
+			"url": "majiang/25.png",
+			"type": "image",
+			"name": "25_png"
+		},
+		{
+			"url": "majiang/26.png",
+			"type": "image",
+			"name": "26_png"
+		},
+		{
+			"url": "majiang/27.png",
+			"type": "image",
+			"name": "27_png"
+		},
+		{
+			"url": "majiang/28.png",
+			"type": "image",
+			"name": "28_png"
+		},
+		{
+			"url": "majiang/31.png",
+			"type": "image",
+			"name": "31_png"
+		},
+		{
+			"url": "majiang/32.png",
+			"type": "image",
+			"name": "32_png"
+		},
+		{
+			"url": "majiang/33.png",
+			"type": "image",
+			"name": "33_png"
+		},
+		{
+			"url": "majiang/34.png",
+			"type": "image",
+			"name": "34_png"
+		},
+		{
+			"url": "majiang/35.png",
+			"type": "image",
+			"name": "35_png"
+		},
+		{
+			"url": "majiang/36.png",
+			"type": "image",
+			"name": "36_png"
+		},
+		{
+			"url": "majiang/37.png",
+			"type": "image",
+			"name": "37_png"
+		},
+		{
+			"url": "majiang/38.png",
+			"type": "image",
+			"name": "38_png"
+		},
+		{
+			"url": "majiang/39.png",
+			"type": "image",
+			"name": "39_png"
+		},
+		{
+			"url": "png/not_huIcon.png",
+			"type": "image",
+			"name": "not_huIcon_png"
+		},
+		{
+			"url": "png/number.fnt",
+			"type": "font",
+			"name": "number_fnt"
+		},
+		{
+			"url": "png/number.png",
+			"type": "image",
+			"name": "number_png"
+		},
+		{
+			"url": "png/logo.png",
+			"type": "image",
+			"name": "logo_png"
+		},
+		{
+			"url": "script/guide/guide_1.js",
+			"type": "text",
+			"name": "guide_1_js"
+		},
+		{
+			"url": "script/guide/guide_2.js",
+			"type": "text",
+			"name": "guide_2_js"
+		},
+		{
+			"url": "script/guide/guide_3.js",
+			"type": "text",
+			"name": "guide_3_js"
+		},
+		{
+			"name": "JueSe_1_png",
+			"type": "image",
+			"url": "png/JueSe_1.png"
+		},
+		{
+			"name": "JueSe_2_png",
+			"type": "image",
+			"url": "png/JueSe_2.png"
+		},
+		{
+			"name": "logo_juese_png",
+			"type": "image",
+			"url": "png/logo_juese.png"
+		}
+	]
+}
