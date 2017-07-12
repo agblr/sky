@@ -31,7 +31,7 @@ public class BaseHouse {
     
     private Integer floor;
 
-    private Integer room;
+    private String room;
 
     private Double acreage;
 
@@ -58,6 +58,8 @@ public class BaseHouse {
     private Date updatetime;
 
     private String operator;
+    
+    private String operatorName;
 
     private String founder;
 
@@ -100,7 +102,7 @@ public class BaseHouse {
     public BaseHouse(Long id,String title,Integer type,
     String housename,Integer tradetype,Double price,
     Double rental,Double unitprice,Integer rentalpricetype,
-    Integer floor,Integer room,Double acreage,String orientation,
+    Integer floor,String room,Double acreage,String orientation,
     String officetag,String officetype, String paymentmethod,
     String seemethod,String source,String iskey,String remarks,
     String image, Date createtime,Date updatetime,String operator,
@@ -166,7 +168,7 @@ public class BaseHouse {
     public BaseHouse(String title,Integer type,
     String housename,Integer tradetype,Double price,
     Double rental,Double unitprice,Integer rentalpricetype,
-    Integer floor,Integer room,Double acreage,String orientation,
+    Integer floor,String room,Double acreage,String orientation,
     String officetag,String officetype, String paymentmethod,
     String seemethod,String source,String iskey,String remarks,
     String image, Date createtime,Date updatetime,String operator,

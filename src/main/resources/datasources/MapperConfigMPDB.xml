@@ -39,6 +39,7 @@
 		<mapper resource="/sqlmap/house/BaseConfigurationMapper.xml" />
 		<mapper resource="/sqlmap/house/BaseHouseMapper.xml" />
 		
+		<mapper resource="/sqlmap/house/OperatorLogMapper.xml" />
 		
 	</mappers>
 </configuration>

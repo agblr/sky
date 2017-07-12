@@ -149,7 +149,7 @@ public class BaseHouseService {
     	if(usename != null) {
     		UserInfo userInfo = userInfoDao.selectOneByUserKey(usename);
     	    if(userInfo != null){
-    	    	baseHouse.setOperator(userInfo.getUserName());
+    	    	baseHouse.setOperatorName(userInfo.getUserName());
     	    }
     	}
     }
@@ -157,7 +157,7 @@ public class BaseHouseService {
 	public List<BaseHouse> searchList(Long id,String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,Integer room,Double acreage,String orientation,
+		    Integer floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String founder,String owner,String ownerphone,
@@ -192,7 +192,7 @@ public class BaseHouseService {
 	public long searchCount(Long id,String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,Integer room,Double acreage,String orientation,
+		    Integer floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String founder,String owner,String ownerphone,
@@ -210,7 +210,7 @@ public class BaseHouseService {
 	public BaseHouse addBaseHouse(String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,Integer room,Double acreage,String orientation,
+		    Integer floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String image, Date createtime,Date updatetime,String operator,
@@ -231,7 +231,7 @@ public class BaseHouseService {
 	public int updateBaseHouse(Long id,String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,Integer room,Double acreage,String orientation,
+		    Integer floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String image, Date createtime,Date updatetime,String operator,

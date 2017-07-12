@@ -95,40 +95,40 @@
 		<table id="table" data-toggle="table" class="table table-hover table-bordered table-condensed">
 			<thead>
 				<tr class="info">
-					<th style="min-width:5%">ID</th>
+					<th style="min-width:50px">ID</th>
 				<!--<th style="min-width:50px">房源标题</th> -->
-					<th style="min-width:5%">房源类型</th>
-					<th style="min-width:5%">交易类型</th>
-					<th style="min-width:5%">是否有钥匙</th>
-					<th style="min-width:10%">房源名称</th>
-					<th style="min-width:5%">租价(单位)</th>
-					<th style="min-width:5%">楼层</th>
-					<th style="min-width:5%">房间号</th>
-					<th style="min-width:5%">面积(平米)</th>
-					<th style="min-width:5%">朝向</th>
-					<th style="min-width:5%">付款方式</th>
-					<th style="min-width:5%">看房方式</th>
-					<th style="min-width:5%">来源</th>
-					<th style="min-width:10%">写字楼标签</th>
-					<th style="min-width:5%">业主</th>
-					<th style="min-width:5%">业主电话</th>
-					<!--<th style="min-width:90px">物业公司</th>
+					<th style="min-width:50px">房源类型</th>
+					<th style="min-width:50px">交易类型</th>
+					<th style="min-width:50px">是否有钥匙</th>
+					<th style="min-width:50px">房源名称</th>
+					<th style="min-width:50px">租价(单位)</th>
+					<th style="min-width:50px">楼层</th>
+					<th style="min-width:50px">房间号</th>
+					<th style="min-width:50px">面积(平米)</th>
+					<th style="min-width:50px">朝向</th>
+					<th style="min-width:50px">付款方式</th>
+					<th style="min-width:50px">看房方式</th>
+					<th style="min-width:50px">来源</th>
+					<th style="min-width:50px">写字楼标签</th>
+					<th style="min-width:50px">业主</th>
+					<!--<th style="min-width:5%">业主电话</th>
+					<th style="min-width:90px">物业公司</th>
 					<th style="min-width:90px">物业电话</th>  -->
-					<th style="min-width:10%">备注说明</th>
-					<th style="min-width:5%">录入时间</th>
-					<th style="min-width:5%">录入人</th>
-					<th style="min-width:5%">操作 </th>
+					<th style="min-width:50px">备注说明</th>
+					<th style="min-width:50px">录入时间</th>
+					<th style="min-width:50px">录入人</th>
+					<th style="min-width:50px">操作 </th>
 				</tr>
 			</thead>
 			<tbody id="user-list">
 				<c:forEach var="baseHouseInfo" items="${ baseHouseList }">
 					<tr data-user-id="${ baseHouseInfo.id }" >
-					    <td>${ baseHouseInfo.id }</td>
+					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.id }</a></td>
 					  <!-- <td>${ baseHouseInfo.title }</td> -->
 					    <td>${ baseHouseInfo.typeStr }</td>
 					    <td>${ baseHouseInfo.tradetypeStr }</td>
 					    <td>${ baseHouseInfo.iskey }</td>
-					    <td>${ baseHouseInfo.housename }</td>
+					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.housename }</a></td>
 					    <td>${ baseHouseInfo.rental } (${ baseHouseInfo.rentalpricetypeStr })</td>
 					    <td>${ baseHouseInfo.floor }</td>
 					    <td>${ baseHouseInfo.room }</td>
@@ -139,12 +139,15 @@
 					    <td>${ baseHouseInfo.source }</td>
 					    <td>${ baseHouseInfo.officetag }</td>
 					    <td>${ baseHouseInfo.owner }</td>
-					    <td>${ baseHouseInfo.ownerphone }</td>
-					  <!--  <td>${ baseHouseInfo.propertycompany }</td>
+					    <!-- <td>${ baseHouseInfo.ownerphone }</td>
+					   <td>${ baseHouseInfo.propertycompany }</td>
 					    <td>${ baseHouseInfo.propertphone }</td>-->
-					    <td>${ baseHouseInfo.remarks }</td>
+					    <td>
+					    	<c:if test="${baseHouseInfo.remarks.length() > 8 }">${ baseHouseInfo.remarks.substring(0, 8)}... </c:if>
+							<c:if test="${baseHouseInfo.remarks.length() <= 8 }">${ baseHouseInfo.remarks} </c:if> 
+					    </td>
 				 	    <td>${ func:formatDate(baseHouseInfo.createtime ) }</td>
-				 	    <td>${ baseHouseInfo.operator }</td>
+				 	    <td>${ baseHouseInfo.operatorName }</td>
 						<td>
 						    <c:if test="${ baseHouseInfo.founder ==  userKey}">
 		                    <a href="<%=basePath%>base/editBaseHouse?id=${baseHouseInfo.id}" class="btn btn-primary btn-xs ml10 edit-btn">编辑</a>

@@ -12,7 +12,7 @@
     <result column="unitprice" property="unitprice" jdbcType="DOUBLE" />
     <result column="rentalpricetype" property="rentalpricetype" jdbcType="INTEGER" />
     <result column="floor" property="floor" jdbcType="INTEGER" />
-    <result column="room" property="room" jdbcType="INTEGER" />
+    <result column="room" property="room" jdbcType="VARCHAR" />
     <result column="acreage" property="acreage" jdbcType="DOUBLE" />
     <result column="orientation" property="orientation" jdbcType="VARCHAR" />
     <result column="officetag" property="officetag" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{housename,jdbcType=VARCHAR}, #{tradetype,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
       #{rental,jdbcType=DOUBLE}, #{unitprice,jdbcType=DOUBLE}, #{rentalpricetype,jdbcType=INTEGER}, 
-      #{floor,jdbcType=INTEGER}, #{room,jdbcType=INTEGER}, #{acreage,jdbcType=DOUBLE}, 
+      #{floor,jdbcType=INTEGER}, #{room,jdbcType=VARCHAR}, #{acreage,jdbcType=DOUBLE}, 
       #{orientation,jdbcType=VARCHAR}, #{officetag,jdbcType=VARCHAR}, #{officetype,jdbcType=VARCHAR}, 
       #{paymentmethod,jdbcType=VARCHAR}, #{seemethod,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
       #{iskey,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
@@ -228,7 +228,7 @@
         #{floor,jdbcType=INTEGER},
       </if>
       <if test="room != null" >
-        #{room,jdbcType=INTEGER},
+        #{room,jdbcType=VARCHAR},
       </if>
       <if test="acreage != null" >
         #{acreage,jdbcType=DOUBLE},
@@ -338,7 +338,7 @@
         floor = #{floor,jdbcType=INTEGER},
       </if>
       <if test="room != null" >
-        room = #{room,jdbcType=INTEGER},
+        room = #{room,jdbcType=VARCHAR},
       </if>
       <if test="acreage != null" >
         acreage = #{acreage,jdbcType=DOUBLE},
@@ -429,7 +429,7 @@
       unitprice = #{unitprice,jdbcType=DOUBLE},
       rentalpricetype = #{rentalpricetype,jdbcType=INTEGER},
       floor = #{floor,jdbcType=INTEGER},
-      room = #{room,jdbcType=INTEGER},
+      room = #{room,jdbcType=VARCHAR},
       acreage = #{acreage,jdbcType=DOUBLE},
       orientation = #{orientation,jdbcType=VARCHAR},
       officetag = #{officetag,jdbcType=VARCHAR},

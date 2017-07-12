@@ -23,7 +23,10 @@ import com.xmbl.ops.controller.organization.AbstractController;
 import com.xmbl.ops.dto.ResponseResult;
 import com.xmbl.ops.enumeration.EnumResCode;
 import com.xmbl.ops.model.house.BaseHouse;
+import com.xmbl.ops.model.house.OperatorLog;
 import com.xmbl.ops.service.house.BaseHouseService;
+import com.xmbl.ops.service.house.OperatorLogService;
+import com.xmbl.ops.service.organization.UserLogService;
 import com.xmbl.ops.util.DateUtils;
 
 
@@ -38,6 +41,9 @@ public class BaseHouseController extends AbstractController {
 	@Autowired
 	protected BaseHouseService baseHouseService;
 	
+	@Autowired
+	protected OperatorLogService operatorLogService;
+	
 	//房源列表
 	@RequestMapping(value = "/baseHouseList")
 	public String baseHouseSearch(HttpServletRequest request, ModelMap model, 
@@ -45,7 +51,7 @@ public class BaseHouseController extends AbstractController {
 			String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,Integer room,Double acreage,String orientation,
+		    Integer floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String image, Date createtime,Date updatetime,String operator,
@@ -113,7 +119,7 @@ public class BaseHouseController extends AbstractController {
 		public @ResponseBody ResponseResult insertBaseHouse(HttpServletRequest request, String title,Integer type,
 			    String housename,Integer tradetype,Double price,
 			    Double rental,Double unitprice,Integer rentalpricetype,
-			    Integer floor,Integer room,Double acreage,String orientation,
+			    Integer floor,String room,Double acreage,String orientation,
 			    String officetag,String officetype, String paymentmethod,
 			    String seemethod,String source,String iskey,String remarks,
 			    String image, Date createtime,Date updatetime,
@@ -174,7 +180,7 @@ public class BaseHouseController extends AbstractController {
 		public @ResponseBody ResponseResult updateBaseHouse(HttpServletRequest request, Long id, String title,Integer type,
 			    String housename,Integer tradetype,Double price,
 			    Double rental,Double unitprice,Integer rentalpricetype,
-			    Integer floor,Integer room,Double acreage,String orientation,
+			    Integer floor,String room,Double acreage,String orientation,
 			    String officetag,String officetype, String paymentmethod,
 			    String seemethod,String source,String iskey,String remarks,
 			    String image, Date createtime,Date updatetime,
@@ -220,12 +226,21 @@ public class BaseHouseController extends AbstractController {
 			if(id == null) {
 				return "房源存在！";
 			}
+			HttpSession session = request.getSession();
+			String operator = (String) session
+					.getAttribute(SessionConstant.USER_NAME);
+			
+			
 			
 			BaseHouse baseHouseInfo = baseHouseService.getById(id);
 			
-			model.addAttribute("BaseHouseInfo", baseHouseInfo);
+			model.addAttribute("baseHouseInfo", baseHouseInfo);
 			
-			return "house/source/houseSourceDetail";
+			OperatorLog operatorLog = new OperatorLog(String.valueOf(id), "浏览房源ID:"+id+"详情", "查看",
+					operator,baseHouseInfo.toString());
+			operatorLogService.insertOperatorLog(operatorLog);
+			
+			return "house/source/baseHouseDetail";
 		}
 		/**
 		 * 删除

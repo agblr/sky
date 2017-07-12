@@ -58,10 +58,15 @@
 		<table tableName="office_building" domainObjectName="OfficeBuilding"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false"></table>		-->
+			selectByExampleQueryId="false"></table>		
 		<table tableName="base_configuration" domainObjectName="BaseConfiguration"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false"></table>			
+			selectByExampleQueryId="false"></table>	-->
+		<table tableName="operator_log" domainObjectName="OperatorLog"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"></table>		
+				
 	</context>
 </generatorConfiguration>
