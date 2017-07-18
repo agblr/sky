@@ -108,6 +108,7 @@
 				</div>
 				<div class="col-sm-1">
 				<select class="form-control rentalpricetype">
+				<option value="7">元/天/㎡</option>
 				<option value="0">元/日</option>
 				<option value="1">元/月</option>
 				<option value="2">元/季度</option>
@@ -150,6 +151,7 @@
 				<label class="col-sm-1 control-label">付款方式</label>
 				<div class="col-sm-1">
 				<select class="form-control paymentmethod">
+				<option value="5">押二付三</option>
 				<option value="0">押一付三</option>
 				<option value="1">季付</option>
 				<option value="2">半年</option>

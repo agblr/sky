@@ -145,6 +145,7 @@
 				<label class="col-sm-1 control-label">付款方式</label>
 				<div class="col-sm-1">
 				<select class="form-control paymentmethod">
+				<option value="5" <c:if test="${ baseHouseInfo.paymentmethod == 5 }">selected="selected"</c:if>>押二付三</option>
 				<option value="0" <c:if test="${ baseHouseInfo.paymentmethod == 0 }">selected="selected"</c:if>>押一付三</option>
 				<option value="1" <c:if test="${ baseHouseInfo.paymentmethod == 1 }">selected="selected"</c:if>>季付</option>
 				<option value="2" <c:if test="${ baseHouseInfo.paymentmethod == 2 }">selected="selected"</c:if>>半年</option>

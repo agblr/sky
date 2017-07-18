@@ -1,6 +1,7 @@
 package com.xmbl.ops.enumeration;
 //租金单位
 public enum EnumHouseRentalPriceType {
+	RESIDENCEDAY    (7, "元/天/㎡"),
 	RESIDENCE		(0, "元/日"),
 	VILLA		    (1, "元/月"),
 	OFFICEBUILDING	(2, "元/季度"),
