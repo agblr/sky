@@ -1,0 +1,1025 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> 
+    <title>html5游戏-考验眼力与应变</title>  
+    <meta content="lufylegend.js,html5物理游戏,game" name="description" />
+	<meta content="lufylegend.js,html5物理游戏,game" name="keywords" />
+    <style>
+        #mylegend_canvas{margin-top: 0!important;background:#fff;}
+        #mylegend{
+        	position: absolute;
+        	z-index: 99;
+        }
+        #subscore{
+        	display: none;
+        	background: url(images/subpanel.png) no-repeat;
+        	position: fixed;
+        	width: 280px;
+        	height: 230px;
+        	top: 50%;
+        	left: 50%;
+        	margin-left: -140px;
+        	margin-top: -120px;
+        	padding-top: 50px;
+        }
+        #name{
+        	background: rgba(0,0,0,0);
+        	width: 130px;
+        	float: left;
+        	font-size: 14px;
+        	border-bottom: 1px solid #ccc;
+        	border-top:0;
+        	border-left:0;
+        	border-right:0;
+        	text-align: center;
+        	border-radius: 0;
+        }
+        .subtitle{
+        	text-align: center;
+        	color: #fff;
+        	font-weight: bold;
+        	text-shadow:#d79b65 1px 0 0,#d79b65 0 1px 0,#d79b65 -1px 0 0,#d79b65 0 -1px 0;
+			-webkit-text-shadow:#d79b65 1px 0 0,#d79b65 0 1px 0,#d79b65 -1px 0 0,#d79b65 0 -1px 0;
+        }
+        .namewamp{
+        	overflow: hidden;
+        	margin-top: 16px;
+        	text-indent: 25px;
+        }
+        .namewamp p{
+        	display: inline-block;
+        	font-size: 14px;
+        	margin:0;
+        	padding-left: 10px;
+        	color: #fff;
+        	font-weight: bold;
+        	text-shadow:#d79b65 1px 0 0,#d79b65 0 1px 0,#d79b65 -1px 0 0,#d79b65 0 -1px 0;
+			-webkit-text-shadow:#d79b65 1px 0 0,#d79b65 0 1px 0,#d79b65 -1px 0 0,#d79b65 0 -1px 0;
+        }
+        .namewamp label{
+        	padding-left: 10px;
+        	float: left;
+        	font-size: 14px;
+        	color: #fff;
+        	font-weight: bold;
+        	text-shadow:#d79b65 1px 0 0,#d79b65 0 1px 0,#d79b65 -1px 0 0,#d79b65 0 -1px 0;
+			-webkit-text-shadow:#d79b65 1px 0 0,#d79b65 0 1px 0,#d79b65 -1px 0 0,#d79b65 0 -1px 0;
+        }
+        #score,#number{
+        	font-size: 16px;
+        }
+        #submit{
+        	background: url(images/subbtn.png) no-repeat;
+        	background-size: contain;
+        	border: 0;
+        	display: block;
+        	width: 90px;
+        	height: 30px;
+        	margin:20px auto 0;
+        }		
+        #ranking{
+			display: none;
+			position: fixed;
+			width: 300px;
+			height: 400px;
+			top: 50%;
+			left: 50%;
+			margin-top: -200px;
+			margin-left: -150px;
+			background:#fff;
+			border: 2px solid #999;
+		}
+		.ranktitle{
+			font-weight: bold;
+			font-size: 16px;
+			text-align: center;
+		}
+		#list{
+			padding:0 10px;
+			height: 295px;
+			overflow-y: scroll;
+		}
+		#list dd{margin: 0;}
+		#listtit{
+			margin-bottom: 15px;
+		}
+		#listtit span{
+			text-align: center;
+			display: inline-block;
+			width: 33%;
+			font-size: 16px;
+		}
+		#list dd span{
+			margin-bottom: 3px;
+			text-align: center;
+			width: 33%;
+			font-size: 14px;
+			display: inline-block;
+		}
+		#menu{
+			display: none;
+			position: fixed;
+			border: 2px solid #999;
+			background: #fff;
+			top: 50%;
+			left: 50%;
+			margin-top: -50px;
+			margin-left: -140px;
+			width: 280px;
+			height: 100px;
+			text-align: center;
+		}
+		#menu p{
+			font-size: 16px;
+		}
+		#menu input{
+			font-size: 16px;
+			padding: 5px 10px;
+		}
+		.cancel{
+			position: absolute;
+			top: 19px;
+    		right: -10px;
+		}
+		.cancel img{
+			display: block;
+			width: 30px;
+			left: 30px;
+		}
+		#googleWamp{
+			width: 100%;
+			height: 90px;
+			position: absolute;
+			z-index: 22;
+			bottom: 0;
+			left: 0;
+			text-align: center;
+		}
+    </style>
+</head>  
+<body>  
+    <div id="mylegend"></div>
+    <div onclick="return false" id="subscore">
+    	<i ontouchend="hideScore()" class="cancel"><img src="images/cancel2.png"></i>
+    	<p class="subtitle">上传分数到排行榜</p>
+    	<div class="namewamp"><label>你的名字：</label><input placeholder="请输入" id="name" type="text"></div>
+    	<div class="namewamp"><p>你的分数：</p><p id="score">20</p></div>
+    	<div class="namewamp"><p>你的排名：</p><p id="number">20</p></div>
+    	<div><button id="submit" value="提交" onclick="ajaxSubmit()"></button></div>
+    </div>
+    <div onclick="return false" id="menu">
+    	<p>菜单</p>
+    	<i ontouchend="hideMenu()" class="cancel"><img src="images/cancel2.png"></i>
+    	<input type="button" value="重新开始" ontouchend="location.reload();">
+    	<input type="button" value="查看排行榜" ontouchend="getRanking();">
+    </div>
+    <div onclick="return false" id="ranking">
+    	<i ontouchend="hideRanking()" class="cancel"><img src="images/cancel2.png"></i>
+    	<p class="ranktitle">排行榜</p>
+    	<dt id="listtit"><span>名次</span><span>名字</span><span>分数</span></dt>
+    	<dl id="list"></dl>
+    </div>
+    <script type="text/javascript" src="/js/zepto.min.js"></script>  
+    <script type="text/javascript" src="js/Box2dWeb-2.1.a.3.min.js"></script>  
+    <script type="text/javascript" src="js/lufylegend-1.9.10.min.js"></script>  
+    <script type="text/javascript">  
+        var STARTTIME = 60;
+        var ADDTIME = 4;
+        var ADDSCORE = 3;
+        var imglist = {};
+        var loadingLayer;
+        var backgroundLayer, backLayer;
+        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var h = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        var stageW = w < 640 ? w : 640;
+        var stageH = h < 1080 ? h : 1080;
+        var GET1 = 1,GET2 = 1;
+       	var combo = ADDSCORE;
+        var ballList = [];
+        var webView = new LStageWebView(); 
+        var imgData = new Array({
+        	name: "ball1",
+        	path: "./images/ball1.png"
+        },{
+        	name: "cball1",
+        	path: "./images/cball1.png"
+        },{
+        	name: "zball1",
+        	path: "./images/zball1.png"
+        }, {
+        	name: "jiantou",
+        	path: "./images/jiantou.png"
+        }, {
+        	name: "tips",
+        	path: "./images/tips.png"
+        },{
+        	name: "fenshu0",
+        	path: "./images/fenshu0.png"
+        }, {
+        	name: "fenshu1",
+        	path: "./images/fenshu1.png"
+        }, {
+        	name: "fenshu2",
+        	path: "./images/fenshu2.png"
+        }, {
+        	name: "fenshu3",
+        	path: "./images/fenshu3.png"
+        }, {
+        	name: "fenshu4",
+        	path: "./images/fenshu4.png"
+        }, {
+        	name: "fenshu5",
+        	path: "./images/fenshu5.png"
+        }, {
+        	name: "fenshu6",
+        	path: "./images/fenshu6.png"
+        }, {
+        	name: "fenshu7",
+        	path: "./images/fenshu7.png"
+        }, {
+        	name: "fenshu8",
+        	path: "./images/fenshu8.png"
+        }, {
+        	name: "fenshu9",
+        	path: "./images/fenshu9.png"
+        }, {
+        	name: "menu",
+        	path: "./images/menu23.png"
+        }, {
+        	name: "border",
+        	path: "./images/st4.png"
+        }, {
+        	name: "star1",
+        	path: "./images/star1.png"
+        },{
+        	name: "scorebg",
+        	path: "./images/scorebg.png"
+        },{
+        	name:"timebg",
+        	path:"./images/timebg.png"
+        },{
+        	name:"jia",
+        	path:"./images/jia.png"
+        },{
+        	name:"bg",
+        	path:"./images/lababg3.jpg"
+        },{
+        	name:"combo",
+        	path:"./images/combo.png"
+        });
+        init(30, "mylegend", stageW, stageH, pageInit);
+
+        function pageInit() {
+        	LStage.setDebug(false);
+        	LStage.box2d = new LBox2d();
+        	if (LStage.canTouch == true) {
+        		document.body.style.margin = "0px 0px";
+        		LStage.stageScale = LStageScaleMode.SHOW_ALL;
+        		LSystem.screen(LStage.FULL_SCREEN);
+        	}
+        	backLayer = new LSprite();
+        	addChild(backLayer);
+        	mainObj = new Main();
+        	var wamp = new LBitmap(new LBitmapData(imglist["wampbg"], 0, 0, 640, 1080));
+        	backLayer.addChild(mainObj);
+        	backLayer.addChild(wamp);
+        }
+        function score(n){
+        	this.scoreN = n;
+        	this.number1 = [];
+        	this.number2 = [];
+        	this.number3 = [];
+        	this.number4 = [];
+        	this.scoretext1 = new LSprite();
+        	this.scoretext2 = new LSprite();
+        	this.scoretext3 = new LSprite();
+        	this.scoretext4 = new LSprite();
+        	this.bg = new LSprite();
+        	var scorebg = new LBitmap(new LBitmapData(imglist["scorebg"]));
+        	scorebg.scaleX = 0.6;
+        	scorebg.scaleY = 0.6;
+        	scorebg.alpha = 0.8;
+        	this.bg.addChild(scorebg);
+        	this.bg.x = 5;
+        	this.bg.y = 8;
+        	backLayer.addChild(this.bg);
+        	for (var i = 0; i <= 9; i++) {
+        		this.number1.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number1[i].scaleX = 0.50;
+        		this.number1[i].scaleY = 0.50;
+        		this.number2.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number2[i].scaleX = 0.50;
+        		this.number2[i].scaleY = 0.50;
+        		this.number3.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number3[i].scaleX = 0.50;
+        		this.number3[i].scaleY = 0.50;
+        		this.number4.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number4[i].scaleX = 0.50;
+        		this.number4[i].scaleY = 0.50;
+        	}
+        }
+        score.prototype.calculate = function(n){
+        	var s = this;
+        	s.scoreN += n;
+        	backLayer.addChild(s.scoretext1);
+        	backLayer.addChild(s.scoretext2);
+        	backLayer.addChild(s.scoretext3);
+        	backLayer.addChild(s.scoretext4);
+        	this.add = function(){
+				if(s.scoreN < 10){
+	        		s.scoretext1.x = 60;
+		        	s.scoretext1.y = 18;
+		        	s.scoretext1.removeAllChild();
+	        		s.scoretext1.addChild(s.number1[s.scoreN]);
+	        	}else if(s.scoreN<100){
+	        		s.scoretext1.x = 65;
+		        	s.scoretext1.y = 18;
+		        	s.scoretext2.x = 55;
+		        	s.scoretext2.y = 18;
+		        	s.scoretext1.removeAllChild();
+        			s.scoretext2.removeAllChild();
+	        		s.scoretext1.addChild(s.number1[s.scoreN % 10]);
+	        		s.scoretext2.addChild(s.number2[parseInt(s.scoreN / 10)]);
+	        	}else if(s.scoreN<100){
+	        		s.scoretext1.x = 70;
+		        	s.scoretext1.y = 18;
+		        	s.scoretext2.x = 60;
+		        	s.scoretext2.y = 18;
+		        	s.scoretext3.x = 50;
+		        	s.scoretext3.y = 18;
+		        	s.scoretext1.removeAllChild();
+		        	s.scoretext2.removeAllChild();
+		        	s.scoretext3.removeAllChild();
+	        		s.scoretext1.addChild(s.number1[s.scoreN % 10]);
+	        		s.scoretext2.addChild(s.number2[parseInt(s.scoreN % 100 / 10)]);
+	        		s.scoretext3.addChild(s.number3[parseInt(s.scoreN / 100)]);
+	        	}else{
+	        		s.scoretext1.x = 75;
+		        	s.scoretext1.y = 18;
+		        	s.scoretext2.x = 65;
+		        	s.scoretext2.y = 18;
+		        	s.scoretext3.x = 55;
+		        	s.scoretext3.y = 18;
+		        	s.scoretext4.x = 45;
+		        	s.scoretext4.y = 18;
+		        	s.scoretext1.removeAllChild();
+		        	s.scoretext2.removeAllChild();
+		        	s.scoretext3.removeAllChild();
+		        	s.scoretext4.removeAllChild();
+	        		s.scoretext1.addChild(s.number1[s.scoreN % 10]);
+	        		s.scoretext2.addChild(s.number2[parseInt(s.scoreN % 100 / 10)]);
+	        		s.scoretext3.addChild(s.number3[parseInt(s.scoreN % 1000 / 100)]);
+	        		s.scoretext4.addChild(s.number4[parseInt(s.scoreN / 1000)]);
+	        	}
+        	}
+        	this.add();
+        }
+        function timer(n) {
+        	this.count = n;
+        	this.currentTime = n;
+        	this.number1 = [];
+        	this.number2 = [];
+        	this.number3 = [];
+        	this.number4 = [];
+        	this.timetext1 = new LSprite();
+        	this.timetext2 = new LSprite();
+        	this.timetext3 = new LSprite();
+        	this.timetext4 = new LSprite();
+        	this.addtime;
+        	this.bg = new LSprite();
+        	var timebg = new LBitmap(new LBitmapData(imglist["timebg"]));
+        	timebg.scaleX = 0.6;
+        	timebg.scaleY = 0.6;
+        	timebg.alpha = 0.8;
+        	this.bg.addChild(timebg);
+        	this.bg.x = 5;
+        	this.bg.y = 45;
+        	backLayer.addChild(this.bg);
+        	for (var i = 0; i <= 9; i++) {
+        		this.number1.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number1[i].scaleX = 0.50;
+        		this.number1[i].scaleY = 0.50;
+        		this.number2.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number2[i].scaleX = 0.50;
+        		this.number2[i].scaleY = 0.50;
+        		this.number3.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number3[i].scaleX = 0.50;
+        		this.number3[i].scaleY = 0.50;
+        		this.number4.push(new LBitmap(new LBitmapData(imglist["fenshu" + i])));
+        		this.number4[i].scaleX = 0.50;
+        		this.number4[i].scaleY = 0.50;
+        	}
+        };
+        timer.prototype.running = function() {
+        	var s = this;
+        	s.timetext1.x = 83;
+        	s.timetext1.y = 53;
+        	s.timetext2.x = 73;
+        	s.timetext2.y = 53;
+        	s.timetext3.x = 53;
+        	s.timetext3.y = 53;
+        	s.timetext4.x = 43;
+        	s.timetext4.y = 53;
+        	s.timetext1.addChild(s.number1[this.count % 10]);
+        	s.timetext2.addChild(s.number2[parseInt(this.count % 60 / 10)]);
+        	s.timetext3.addChild(s.number3[parseInt(this.count / 60 % 10)]);
+        	s.timetext4.addChild(s.number4[parseInt(this.count / 600)]);
+        	backLayer.addChild(s.timetext1);
+        	backLayer.addChild(s.timetext2);
+        	backLayer.addChild(s.timetext3);
+        	backLayer.addChild(s.timetext4);
+        	this.addtime = function() {
+        		s.timetext1.removeAllChild();
+				s.timetext2.removeAllChild();
+				s.timetext3.removeAllChild();
+				s.timetext4.removeAllChild();
+				s.timetext1.addChild(s.number1[s.currentTime % 10]);
+	        	s.timetext2.addChild(s.number2[parseInt(s.currentTime % 60 / 10)]);
+	        	s.timetext3.addChild(s.number3[parseInt(s.currentTime / 60 % 10)]);
+	        	s.timetext4.addChild(s.number4[parseInt(s.currentTime / 600)]);
+        		s.interval = setInterval(function() {
+        			s.currentTime--;
+        			if (s.currentTime < 0) {
+        				s.end();
+        				return false;
+        			}
+    				s.timetext1.removeAllChild();
+    				s.timetext2.removeAllChild();
+    				s.timetext3.removeAllChild();
+    				s.timetext4.removeAllChild();
+    				s.timetext1.addChild(s.number1[s.currentTime % 10]);
+		        	s.timetext2.addChild(s.number2[parseInt(s.currentTime % 60 / 10)]);
+		        	s.timetext3.addChild(s.number3[parseInt(s.currentTime / 60 % 10)]);
+		        	s.timetext4.addChild(s.number4[parseInt(s.currentTime / 600)]);
+        		}, 1000);
+        	};
+        	this.addtime();
+        };
+        timer.prototype.repeat = function(i) {
+        	var s = this;
+        	s.currentTime += i;
+        	clearInterval(s.interval);
+        	this.addtime();
+        	// var theTextField = new LTextField();
+        	// theTextField.text = "+" + i + "!";
+        	// theTextField.x = stageW - 40;
+        	// theTextField.y = stageH - 90;
+        	// backLayer.addChild(theTextField);
+        	// LTweenLite.to(theTextField, 0.8, {
+        	// 	x: stageW - 40,
+        	// 	y: stageH - 125,
+        	// 	ease: LEasing.Cubic.easeOut,
+        	// 	onComplete: function() {
+        	// 		backLayer.removeChild(theTextField)
+        	// 	}
+        	// });
+        };
+        timer.prototype.end = function(i) {
+        	clearInterval(this.interval);
+        	LGlobal.preventDefault = false;
+        	document.getElementById('score').innerHTML = score1.scoreN;
+        	getnumber();
+        	document.getElementById('subscore').style.display = 'block';
+        	document.getElementById('mylegend').style.zIndex = "0";
+        	LStage.box2d.setEvent(LEvent.POST_SOLVE, function(){return});
+        	showgoogle();
+        };
+
+        function Main() {
+        	var s = this;
+        	s.sceneWidth = stageW;
+        	s.sceneHeight = stageH;
+
+        	loadingLayer = new LoadingSample3();
+        	base(s, LSprite, []);
+        	backgroundLayer = new LSprite();
+        	backLayer.addChild(backgroundLayer);
+        	loadingLayer = new LoadingSample3();
+        	backLayer.addChild(loadingLayer);
+
+        	LLoadManage.load(
+        		imgData,
+        		function(progress) {
+        			loadingLayer.setProgress(progress);
+        		},
+        		function(result) {
+        			imglist = result;
+        			backLayer.removeChild(loadingLayer);
+        			loadingLayer = null;
+        			s.init();
+        		}
+        	);
+        }
+
+        Main.prototype.init = function() {
+        	var s = this;
+            s.addbackground();
+        	s.addBorder();
+        	s.initBasket();
+			s.addMenuBtn();
+			s.addtips();
+        	timer1 = new timer(STARTTIME);
+        	timer1.running();
+        	score1 = new score(0);
+        	score1.calculate(0);
+        	ball();
+        	LStage.box2d.setEvent(LEvent.POST_SOLVE, postSolve);
+        	initgoogle();
+        	/**加入循环事件*/
+        	//s.addEventListener(LEvent.ENTER_FRAME,s.loop);  
+        };
+        function ball() {
+        	GET1 = 1;
+        	GET2 = 1;
+        	var type = GetRandomNum(1,3);
+        	var forceType;
+        	var shapeArray = [
+        		[
+        			[0, 9],
+        			[7.5, 0],
+        			[15, 9]
+        		]
+        	];
+        	var jiantou = null;
+        	var staticX, staticY;
+        	var ball = new LSprite();
+        	switch(type){
+			case 1:
+				var ballbg = new LBitmap(new LBitmapData(imglist["ball1"]));
+				forceType = 1;
+				break;
+			case 2:
+				var ballbg = new LBitmap(new LBitmapData(imglist["cball1"]));
+				forceType = 1.2;
+				break;
+			case 3:
+				var ballbg = new LBitmap(new LBitmapData(imglist["zball1"]));
+				forceType = 1.5;
+				break;
+			}
+        	ballbg.scaleX = 0.5;
+			ballbg.scaleY = 0.5;
+        	ball.x = 80;
+        	ball.y = stageH - 140;
+        	ball.name = "ball";
+        	ball.addChild(ballbg);
+        	backLayer.addChild(ball);
+
+        	startX = ball.x + ball.getWidth() * 0.5;
+        	startY = ball.y + ball.getHeight() * 0.5;
+
+        	backLayer.addEventListener(LMouseEvent.MOUSE_DOWN, downStart);
+
+        	function downStart(event) {
+        		backLayer.removeChild(mainObj.tipsWamp);
+        		if (event.offsetX > ball.x && event.offsetX < ball.x + ball.getWidth() &&
+        			event.offsetY > ball.y && event.offsetY < ball.y + ball.getHeight()) {
+        			backLayer.removeEventListener(LMouseEvent.MOUSE_DOWN, downStart);
+        			backLayer.addEventListener(LMouseEvent.MOUSE_MOVE, downMove);
+        			backLayer.addEventListener(LMouseEvent.MOUSE_UP, downOver);
+        			jiantou = new LBitmap(new LBitmapData(imglist["jiantou"]));
+        			jiantou.scaleX = jiantou.scaleY = 0.1;
+        			ball.addChild(jiantou);
+        			jiantou.rotate = 320;
+        			jiantou.x = -jiantou.getWidth() / 2 + 8;
+        			jiantou.y = jiantou.getHeight() / 10 - 5;
+        		}
+        	}
+
+        	function downMove(event) {
+        		var r = Math.sqrt(Math.pow((startX - event.selfX), 2) + Math.pow((startY - event.selfY), 2));
+        		if (r > 60) r = 60;
+        		var angle = Math.atan2(event.selfY - startY, event.selfX - startX);
+        		staticX = Math.cos(angle) * r + startX;
+        		staticY = Math.sin(angle) * r + startY;
+        		jiantou.scaleX = jiantou.scaleY = r / 240 < 0.1 ? 0.1 : r / 240;
+        		jiantou.x = -jiantou.getWidth() / 2 + 8;
+        		jiantou.y = jiantou.getHeight() / 10 - 5;
+        		var i = angle * 360 / Math.PI / 2 + 180;
+        		jiantou.rotate = i;
+        	}
+
+        	function downOver(event) {
+        		GET2 = 0;
+        		backLayer.removeEventListener(LMouseEvent.MOUSE_UP, downOver);
+        		backLayer.removeEventListener(LMouseEvent.MOUSE_MOVE, downMove);
+        		ball.removeChild(jiantou);
+        		var startX2 = staticX ? staticX : startX;
+        		var startY2 = staticY ? staticY : startY;
+        		var r = r ? 0.5 : Math.sqrt(Math.pow((startX - startX2), 2) + Math.pow((startY - startY2), 2));
+        		angle = Math.atan2(startY2 - startY, startX2 - startX);
+	        	switch(type){
+				case 1:
+					ball.addBodyVertices(shapeArray, 0, 0, 1, 0.5, 0.4, 0.1);
+					break;
+				case 2:
+					ball.addBodyCircle(7, 7, 7, 1, 0.5, 0.4, 0.1);
+					break;
+				case 3:
+					ball.x = 87.5;
+					ball.addBodyPolygon(15, 15, 1, 0.5, 0.4, 0.1);
+					break;
+				}
+        		
+        		ballList.push(ball);
+        		removeBall();
+        		var force = (stageH / 640) * forceType;
+        		var vec = new LGlobal.box2d.b2Vec2(-force * r * Math.cos(angle), -force * r * Math.sin(angle));
+        		ball.box2dBody.ApplyForce(vec, ball.box2dBody.GetWorldCenter());
+        		setTimeout(function(){
+        			if (!GET2) {
+        				allball();
+        			};
+        		},1200);
+        	}
+        };
+        Main.prototype.addtips = function(){
+            var s = this;
+            s.tipsWamp = new LSprite();
+            var tips = new LBitmap(new LBitmapData(imglist["tips"]));
+            tips.x = 35;
+        	tips.y = stageH - 130;
+            s.tipsWamp.addChild(tips);
+            LTweenLite.to(s.tipsWamp,1.4,{y:30,alpha: 0,loop:true}).to(s.tipsWamp,0,{y:0,alpha: 1});
+            backLayer.addChild(s.tipsWamp);
+        }
+        Main.prototype.addbackground = function(){
+            var s = this;
+            var bg = new LBitmap(new LBitmapData(imglist["bg"]));
+            bg.scaleY = stageH / bg.getHeight();
+            bg.x = 0;
+            bg.y = 0;
+            s.addChild(bg);
+        }
+        Main.prototype.initBasket = function() {
+        	var s = this;
+        	var h = GetRandomNum(120, stageH - 70),
+        		po = GetRandomNum(120, stageW - 10);
+        	s.addBasket(po, h);
+        };
+        Main.prototype.addMenuBtn = function() {
+        	var s = this;
+			var bitmapUp = new LBitmap(new LBitmapData(imglist["menu"]));
+			// bitmapUp.scaleX = 0.5;
+			// bitmapUp.scaleY = 0.5;
+			var button02 = new LButton(bitmapUp);
+			button02.x = s.sceneWidth - 47;
+			button02.y = 5;
+			button02.scaleX = 0.6;
+			button02.scaleY = 0.6;
+			button02.addEventListener(LMouseEvent.MOUSE_DOWN,showMenu);
+			backLayer.addChild(button02);
+        };
+        Main.prototype.addBasket = function(basketPositionX, height) {
+        	var s = this;
+
+        	var banWidth = 5;
+        	var banHeight = 60;
+
+        	var leftWidth = 5;
+        	var leftHeight = 15;
+
+        	var bottomWidth = GetRandomNum(40,30);
+        	var bottomHeight = 2;
+
+        	var basketPositionY = s.sceneHeight - banHeight / 2 - 10 - height;
+
+        	basket = new LSprite();
+
+        	var banborder = new LSprite();
+        	var borderBb = new LBitmap(new LBitmapData(imglist["border"],0,0,banHeight+4,banWidth));
+        	borderBb.rotate = 90;
+        	borderBb.x = -30;
+        	borderBb.y = 28.5;
+        	banborder.x = basketPositionX;
+        	banborder.y = basketPositionY;
+        	banborder.addBodyPolygon(banWidth, banHeight, 0, 0.8, 0.8, 0);
+        	banborder.addChild(borderBb);
+        	basket.addChild(banborder);
+
+        	var leftborder = new LSprite();
+        	var borderBb2 = new LBitmap(new LBitmapData(imglist["border"],0,0,leftHeight,leftWidth));
+        	borderBb2.rotate = 90;
+        	borderBb2.x = -5;
+        	borderBb2.y = 5;
+        	leftborder.x = basketPositionX - bottomWidth-3;
+        	leftborder.y = basketPositionY + 25;
+        	leftborder.addBodyPolygon(leftWidth, leftHeight, 0, 0.8, 0.8, 0.1);
+        	leftborder.setRotate(-0.20);
+        	leftborder.addChild(borderBb2);
+        	basket.addChild(leftborder);
+
+        	var bottomborder = new LSprite();
+        	var borderBb3 = new LBitmap(new LBitmapData(imglist["border"],40,0,bottomWidth,5));
+        	borderBb3.y = -2.5;
+        	borderBb3.x = -2;
+        	borderBb3.rotate = 180;
+        	bottomborder.x = basketPositionX - bottomWidth/2;
+        	bottomborder.y = basketPositionY + 32;
+        	bottomborder.addBodyPolygon(bottomWidth, bottomHeight, 0, 0.8, 0.8, 0);
+        	bottomborder.name = "bottomborder";
+        	bottomborder.addChild(borderBb3);
+        	basket.addChild(bottomborder);
+
+        	var aim = new LSprite();
+        	aim.x = basketPositionX - bottomWidth/2;
+        	aim.y = basketPositionY + 30;
+        	aim.addBodyPolygon(bottomWidth, bottomHeight, 0, 0.8, 0.8, 0);
+        	aim.name = "aim";
+        	basket.addChild(aim);
+
+        	star = new LSprite();
+        	var starBg = new LBitmap(new LBitmapData(imglist["star1"]));
+        	starBg.scaleX = 0.5;
+        	starBg.scaleY = 0.5;
+        	star.x = basketPositionX - bottomWidth/1.35;
+        	star.y = basketPositionY + 11.5;
+        	star.addChild(starBg);
+        	backLayer.addChild(star);
+
+        	backLayer.addChild(basket);
+        }
+        Main.prototype.addBorder = function() {
+        	var s = this;
+
+        	var borderSize = 2;
+        	//顶部边框  
+        	var st1 = new LBitmap();
+        	var topBorder = new LSprite();
+        	topBorder.x = s.sceneWidth / 2;
+        	topBorder.y = 2;
+        	topBorder.addBodyPolygon(s.sceneWidth, borderSize, 0,1,1,1);
+        	topBorder.addChild(st1);
+        	s.addChild(topBorder);
+        	//右部边框  
+        	var st2 = new LBitmap();
+        	st2.x = -195;
+        	st2.y = 195;
+        	st2.rotate = 90;
+        	var rightBorder = new LSprite();
+        	rightBorder.x = s.sceneWidth - 2;
+        	rightBorder.y = s.sceneHeight / 2;
+        	rightBorder.addBodyPolygon(borderSize, s.sceneHeight, 0,1,1,1);
+        	rightBorder.addChild(st2);
+        	s.addChild(rightBorder);
+        	//底部边框  
+        	var bottomBorder = new LSprite();
+        	bottomBorder.x = s.sceneWidth / 2;
+        	bottomBorder.y = s.sceneHeight - 9;
+        	bottomBorder.addBodyPolygon(s.sceneWidth, borderSize, 0,1,1,0.6);
+        	bottomBorder.name = "bottom";
+        	s.addChild(bottomBorder);
+        	//左部边框  
+        	var st3 = new LBitmap();
+        	st3.x = -195;
+        	st3.y = 195;
+        	st3.rotate = 90;
+        	var leftBorder = new LSprite();
+        	leftBorder.x = 2;
+        	leftBorder.y = s.sceneHeight / 2;
+        	leftBorder.addBodyPolygon(borderSize, s.sceneHeight, 0,1,1,1);
+        	leftBorder.addChild(st3);
+        	s.addChild(leftBorder);
+        };
+
+        function GetRandomNum(Min, Max) {
+        	var Range = Max - Min;
+        	var Rand = Math.random();
+        	return (Min + Math.round(Rand * Range));
+        }
+        var postSolve = function(contact) {
+        	var cA = contact.GetFixtureA().GetBody().GetUserData();
+        	var cB = contact.GetFixtureB().GetBody().GetUserData();
+        	var str = cA.name+cB.name;
+        	if (str.indexOf("ball")!=-1&&str.indexOf("bottom")!=-1) {
+        		setTimeout(function(){if(!GET2){ball();}}, 200);
+        		if(cA.name=="ball"){
+        			cA.name = "dieB";
+        		}else{
+        			cB.name = "dieB";
+        		}
+        		combo = ADDSCORE;
+        	}
+        	else if(str.indexOf("ball")!=-1&&str.indexOf("dieB")!=-1){
+        		setTimeout(function(){if(!GET2){ball();}}, 200);
+        		if(cA.name=="ball"){
+        			cA.name = "dieB";
+        		}else{
+        			cB.name = "dieB";
+        		}
+        		combo = ADDSCORE;
+        	}
+        	else if (str.indexOf("ball")!=-1&&str.indexOf("aim")!=-1 && GET1) {
+        		GET1 = 0;
+        		timer1.repeat(ADDTIME);
+        		score1.calculate(combo);
+        		if(cA.name=="ball"){
+        			cA.name = "dieB";
+        		}else{
+        			cB.name = "dieB";
+        		}
+        		socreAni(combo);
+	        	combo+=2;
+        		setTimeout(function() {
+        			basket.remove();
+        			mainObj.initBasket();
+        			if(!GET2){ball();};
+        		}, 100);
+        	}
+        	else if (str.indexOf("dieB")!=-1&&str.indexOf("aim")!=-1 && GET1) {
+        		GET1 = 0;
+        		timer1.repeat(ADDTIME);
+        		score1.calculate(ADDSCORE);
+	        	socreAni();
+        		setTimeout(function() {
+        			basket.remove();
+        			mainObj.initBasket();
+        			if(!GET2){ball();};
+        		}, 100);
+        	}
+        }
+        function socreAni(c) {
+        	if(c<10){
+        		var count = new LSprite();
+        		var jia = new LBitmap(new LBitmapData(imglist["jia"]));
+	        	var countBg = new LBitmap(new LBitmapData(imglist["fenshu"+c]));
+	        	jia.scaleX = 0.25;
+	        	jia.scaleY = 0.25;
+	        	countBg.scaleX = 0.5;
+	        	countBg.scaleY = 0.5;
+	        	countBg.x = 80;
+	        	countBg.y = 18;
+	        	jia.x = 70;
+	        	jia.y = 18;
+	        	count.addChild(countBg);
+	        	count.addChild(jia);
+	        	backLayer.addChild(count);
+        	}else{
+				var count = new LSprite();
+				var jia = new LBitmap(new LBitmapData(imglist["jia"]));
+	        	var countBg = new LBitmap(new LBitmapData(imglist["fenshu"+(c%10)]));
+	        	var countBg2 = new LBitmap(new LBitmapData(imglist["fenshu"+parseInt(c / 10)]));
+	        	jia.scaleX = 0.35;
+	        	jia.scaleY = 0.35;
+	        	countBg.scaleX = 0.5;
+	        	countBg.scaleY = 0.5;
+	        	countBg2.scaleX = 0.5;
+	        	countBg2.scaleY = 0.5;
+	        	countBg.x = 80;
+	        	countBg.y = 18;
+	        	countBg2.x = 90;
+	        	countBg2.y = 18;
+	        	jia.x = 60;
+	        	jia.y = 18;
+	        	count.addChild(jia);
+	        	count.addChild(countBg);
+	        	count.addChild(countBg2);
+	        	backLayer.addChild(count);
+        	}
+        	//if(c!=3){
+        		var combo = new LSprite();
+        		var comboBg = new LBitmap(new LBitmapData(imglist["combo"]));
+        		comboBg.x = star.x-20;
+        		comboBg.y = star.y;
+	        	combo.addChild(comboBg);
+        		backLayer.addChild(combo);
+        		LTweenLite.to(combo, 2, {
+	        		alpha: 0,
+	        		ease: LEasing.Cubic.easeOut,
+	        		onComplete: function() {
+	        			backLayer.removeChild(combo);
+	        		}
+        		})
+        	//}
+        	LTweenLite.to(star, 2, {
+        		x: 30,
+        		y: 20,
+        		alpha: 0,
+        		ease: LEasing.Cubic.easeOut,
+        	})
+        	LTweenLite.to(count, 1.5, {
+        		x: 20,
+        		y: 0,
+        		alpha: 0,
+        		ease: LEasing.Cubic.easeOut,
+        		onComplete: function() {
+        			backLayer.removeChild(count);
+        		}
+        	});
+        }
+        function allball(){
+        	ball();
+        }
+        function removeBall(){
+        	console.log(ballList.length);
+        	if(ballList.length>20){
+        		backLayer.removeChild(ballList[0]);
+        		ballList.shift();
+        	}
+        }
+        function ajaxSubmit(){
+	    	var name = document.getElementById('name').value;
+	    	if(name&&name.length<10){
+	    		$.ajax({
+		            url: "database.php", 
+		            type: "post",
+		            data: {param1:name,
+		                   param2:score1.scoreN
+		            },
+		            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		            success:function(data){
+		            	alert('提交成功！');
+		            	document.documentElement.scrollTop = 0;
+		                showMenu();
+		                },
+		            error:function(e){
+		                alert('ajax hava an error');
+		                }
+		        }); 
+	    	}else{
+	    		alert("请输入名称，长度在10个字内");
+	    	}
+	    }
+	    function getnumber(){
+    		$.ajax({
+	            url: "getnumber.php", 
+	            type: "post",
+	            data: {
+	                score:score1.scoreN
+	            },
+	            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	            success:function(data){
+	            	document.getElementById('number').innerHTML = data;
+	            	document.getElementsByTagName('title')[0].innerHTML = "考验眼力与应变--"+"我获得了"+score1.scoreN+"分，本周排名："+data;
+	                },
+	            error:function(e){
+	                alert('ajax hava an error');
+	                }
+	        }); 
+	    }
+	    function getRanking(){
+	    	document.getElementById('subscore').style.display = "none";
+	    	document.getElementById('menu').style.display = "none";
+	    	document.getElementById('ranking').style.display = "block";
+	    	document.getElementById('mylegend').style.zIndex = "0";
+	    	$.ajax({
+	            url: "getscore.php", 
+	            type: "GET",
+	            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	            dataType:'json',
+	            success:function(data){
+	                initRankList(data);
+	                },
+	            error:function(e){
+	                alert('ajax hava an error');
+	                }
+	        }); 
+	    }
+	    function initgoogle(){
+			webView.setViewPort(new LRectangle(0,LGlobal.height-60,LGlobal.width,60));  
+			webView.loadURL("google.html");  
+	    }
+	    function showgoogle(){
+	    	webView.setViewPort(new LRectangle(0,LGlobal.height-60,LGlobal.width,60));  
+	    	webView.show();
+	    }
+	    function hidegoogle(){
+	    	webView.setViewPort(new LRectangle(0,LGlobal.height-60,1,1));  
+	    }
+	    function initRankList(data){
+	    	var tmpHtml = '';
+	    	for(var i = 0;i<data.length;i++){
+	    		tmpHtml += '<dd><span>'+ (i+1) +'</span><span>'+ data[i]['name']+'</span><span>'+ data[i]['count']+'</span></dd>'
+	    	}
+	    	document.getElementById('list').innerHTML = tmpHtml;
+	    }
+	    function hideScore(){
+	    	LGlobal.preventDefault = true;
+	    	hidegoogle();
+	    	document.getElementById('subscore').style.display = "none";
+	    	document.getElementById('mylegend').style.zIndex = "99";
+	    }
+	    function showMenu(){
+	    	LGlobal.preventDefault = false;
+	    	hideScore();
+	    	showgoogle();
+	    	document.getElementById('menu').style.display = "block";
+	    	document.getElementById('mylegend').style.zIndex = "0";
+	    }
+	    function hideMenu(){
+	    	LGlobal.preventDefault = true;
+	    	hidegoogle();
+	    	document.getElementById('menu').style.display = "none";
+	    	document.getElementById('mylegend').style.zIndex = "99";
+	    }
+	    function hideRanking(){
+	    	LGlobal.preventDefault = true;
+	    	hidegoogle();
+	    	document.getElementById('ranking').style.display = "none";
+	    	document.getElementById('mylegend').style.zIndex = "99";
+	    }
+    </script>  
+</body>  
+</html>  

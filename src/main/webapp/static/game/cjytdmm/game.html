@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="SG-game-show" style="background:none;background-color:transparent; width:100%;"  manifest="manifest.mf">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+ 
+<script type="text/javascript">
+	var SpilGamesBrandTimer = +new Date(),
+	_SPTimer={w:{},start:function(a){this.w[(a||"_")]=+new Date()},end:function(a){window._gaq=window._gaq||[],a=a||"_";if(this.w[a]){
+	   // disable for now, because the _gaq settings are not set at this point, it will generate a different visitor id.
+	   //_gaq.push(["_trackEvent","SPTimers",a,null,new Date()-this.w[a], true])
+	}}};
+	_SPTimer.start('pageLoad');
+</script>	
+	
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="apple-mobile-web-app-capable" content="yes"> 
+<meta name="robots" content="index,follow"> 
+<meta name="apple-touch-fullscreen" content="yes">
+ 
+<meta name="description" content="">		
+<title>超级乐团的秘密</title>		
+<link href="./RoadieSam_files/spilgames.css" media="screen" rel="stylesheet" type="text/css">				
+<link href="./RoadieSam_files/core.css" media="all" rel="stylesheet" type="text/css">
+<link href="./RoadieSam_files/style.css" media="all" rel="stylesheet" type="text/css">		
+<meta name="viewport" content="width=device-width,maximum-scale=1.0,initial-scale=1.0">
+
+<script type="text/javascript">document.write('<script type="text/javascript" src="../resource/js/resource_loader.js?ver='+Math.random()+'"><\/script>')</script>
+	
+</head>
+<body class="game-show" style="height: 100%; font-size: 1.24em;">
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F81f46a3a9b52e356814edfcca923cb37' type='text/javascript'%3E%3C/script%3E"));
+
+function onBridgeReady(){
+ WeixinJSBridge.call('hideOptionMenu');
+}
+
+if (typeof WeixinJSBridge == "undefined"){
+    if( document.addEventListener ){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }else if (document.attachEvent){
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+}else{
+    onBridgeReady();
+}
+</script>
+<script type="text/javascript" src="./RoadieSam_files/gamecore.min.js"></script>
+ <script id="loaderHtml" type="text/html">
+            <span id="loader">
+                Loading...<br />
+                <span id="percent">0</span>%
+            </span>
+        </script><script id="titleScreenHtml" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg" src="assets/background.png" />
+            <img class="sam" src="assets/titlesam.png" />
+            <img class="title" src="assets/title.png" />
+            <img class="overlayTitle" src="assets/overlaytitle.png" />
+            <img class="playButton" src="assets/play.png" />
+            <img class="instructions" src="assets/instructions.png" />
+            <a href="http://www.6m5m.com"><img class="highscores" src="assets/highscores.png" /></a>
+            <img class="music" src="assets/music.png" />
+        </script><script id="instructionScreenHtml" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg" src="assets/commonbg.png" />
+            <img class="overlayTitle" src="assets/overlaytitle.png" />
+            <img class="winsam" src="assets/winsam.png" />
+            <img class="pausebox" src="assets/pausebox.png" />
+            <img class="back" src="assets/back.png" />
+            <img class="play2" src="assets/play2.png" />
+            <img class="howtoplaytext" src="assets/howtoplaytext.png" />
+            <div class="howtoplaytext scalable zoomable">
+                <p> 请帮助山姆在规定的时间内找到所有的道具。</p>
+                <p> 这些道具的名称都在下面的表单里.</p>
+                <p> 当你找到一个道具后，表单里面的名字就会被划掉.</p>
+                <p> 如果选择的错误过多，你也会损失时间.</p>
+                <p> 如果实在找不到，你可以点击右下角的提示按键给你帮助.</p>
+            </div>
+           
+        </script><script id="background1Html" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg zoomable" src="assets/background1.png" />
+            <img class="bg1layer1 zoomable" src="assets/bg1layer1.png" />
+            <img class="bg1layer2 zoomable" src="assets/bg1layer2.png" />
+            <img class="bg1layer3 zoomable" src="assets/bg1layer3.png" />
+            <img class="hud zoomable" src="assets/hud.png" />
+            <img class="hint zoomable" src="assets/hint.png" />
+            <img class="pause zoomable" src="assets/pause.png" />
+			
+			
+            <img class="voilinbow object zoomable" src="assets/voilinbow.png" alt="小提琴弓" />
+            <img class="voilin object zoomable" src="assets/voilin.png" alt="小提琴" />
+            <img class="vippass object zoomable" src="assets/vippass.png" alt="VIP通行证" />
+            <img class="trumpet object zoomable" src="assets/trumpet2.png" alt="小号" />
+            <img class="records object zoomable" src="assets/records.png" alt="乐谱" />
+            <img class="hat object zoomable" src="assets/hat.png" alt="帽子" />
+            <img class="musicalnotes object zoomable" src="assets/musicalnotes.png" alt="乐谱" />
+			
+            <img id="plus" class="zoomable" src="assets/none.png" />
+            <img id="minus" class="zoomable" src="assets/none.png"/>
+            <img id="neg" class="zoomable" src="assets/none.png"/>
+			
+             <img class="drumstick object zoomable" src="assets/drumstick.png" alt="鼓槌" />
+             <img class="guitarpick object zoomable" src="assets/guitarpick.png" alt="吉他拨片" />
+             <img class="harmonica object zoomable" src="assets/harmonica.png" alt="口琴" />
+             <img class="box object zoomable" src="assets/box.png" alt="匣子" />
+             
+             <img class="guitar object zoomable" src="assets/guitar.png" alt="吉他" />
+             <img class="tuba object zoomable" src="assets/tuba.png" alt="大号" />
+             <img class="tambourine object zoomable" src="assets/tambourine.png" alt="铃鼓"  />
+             <img class="wires object zoomable" src="assets/wires.png" alt="电线" />
+             <img class="strings object zoomable" src="assets/strings.png" alt="绳子" />
+             <img class="shoe object zoomable" src="assets/shoe.png" alt="鞋" />
+             <img class="soundmixer object zoomable" src="assets/soundmixer.png" alt="转化表" />
+             <img class="saxophone object zoomable" src="assets/saxophone.png" alt="萨克管" />
+             <img class="sanredrum object zoomable" src="assets/sanredrum.png" alt="小军鼓" />
+             <img class="boots1 object zoomable" src="assets/boots.png" alt="靴子" />
+             <img class="microphone object zoomable" src="assets/microphone.png" alt="麦克风" />
+             <img class="headphones object zoomable" src="assets/headphones.png" alt="头戴式耳机" />
+             <img class="mask object zoomable" src="assets/mask.png" alt="假面具" />
+             <img class="cymbals object zoomable" src="assets/cymbals.png" alt="钹" />
+             <img class="camera object zoomable" src="assets/camera.png" alt="摄影机" />
+             <img class="wig object zoomable" src="assets/wig.png" alt="假发" />
+             <img class="flute object zoomable" src="assets/flute.png" alt="长笛" />
+             <img class="amplifier object zoomable" src="assets/amplifier.png" alt="扬声器" />
+             <img class="costume object zoomable" src="assets/costume.png" alt="服装" />
+             <img class="poster object zoomable" src="assets/poster.png" alt="海报" />
+             <img class="overlay zoomable" src="assets/overlay.png" />
+             <img id="zoomin" src="assets/zoomin.png" />
+                <img id="zoomout" src="assets/zoomout.png" />
+                
+             <ul id="itemList"></ul>
+             
+             <div class="pauseScreen  zoomable" style="z-index: 60;">
+                   <img id="pauseScreenBg " class="bg  zoomable"  src="assets/commonbg.png" />
+                   <img class="overlayTitle zoomable" src="assets/overlaytitle.png" />
+                   <img class="pausebox zoomable" src="assets/pausebox.png" />
+                   <img class="pausedtext zoomable" src="assets/pausedtext.png" />
+                    <img class="resume zoomable" src="assets/resume.png" />
+                    <img class="restart zoomable" src="assets/restart.png" />
+<!--                    <img class="howtoplay zoomable" src="assets/howtoplay.png" />-->
+                    <img class="mainmenu zoomable" src="assets/mainmenu.png" />
+
+             </div>
+             <div class="continueScreen  zoomable" style="z-index: 70;">
+                   <img id="pauseScreenBg " class="bg  zoomable"  src="assets/commonbg.png" />
+                   <img class="overlayTitle zoomable" src="assets/overlaytitle.png" />
+                   <img class="pausebox zoomable" src="assets/pausebox.png" />
+                    <img class="yes zoomable" src="assets/yes.png" />
+                    <img class="no zoomable" src="assets/no.png" />
+                    <div id="continueText" class="zoomable">
+                        如果你退出到主菜单，当前游戏数据就会丢失，你确定么?
+                    </div>
+             </div>
+             <div id="levelIndicator" class="zoomable"><span></span></div>
+             <div id="timer" class="zoomable"></div>
+             <div id="score" class="zoomable">0000</div>
+             
+             
+
+        </script><script id="background2Html" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg zoomable" src="assets/background2.png" />
+            <img class="bg2layer1 zoomable" src="assets/bg2layer1.png" /><!--
+-->            <img class="bg2layer2 zoomable" src="assets/bg2layer2.png" /><!--
+            <img class="bg3layer3" src="assets/bg3layer3.png" />
+-->            <img class="hud zoomable" src="assets/hud.png" />
+            <img class="hint zoomable" src="assets/hint.png" />
+            <img class="pause zoomable" src="assets/pause.png" /><!--
+-->            <img class="voilinbow2 object zoomable" src="assets/voilinbow2.png" alt="Violin Bow" /><!--
+-->            <img class="voilin2 object zoomable" src="assets/voilin.png" alt="Violin" /><!--
+-->            <img class="vippass2 object zoomable" src="assets/vippass2.png" alt="VIP Pass" /><!--
+-->            <img class="trumpet2 object zoomable" src="assets/trumpet2.png" alt="Trumpet" /><!--
+-->             <img class="records2 object zoomable" src="assets/records2.png" alt="Record" /><!--
+-->             <img class="hat2 object zoomable" src="assets/hat.png" alt="Hat" />
+                    <img id="plus" class="zoomable" src="assets/none.png" />
+                <img id="minus" class="zoomable" src="assets/none.png"/>
+                <img id="neg" class="zoomable" src="assets/none.png"/><!--
+-->             <img class="musicalnotes2 object zoomable" src="assets/musicalnotes.png" alt="Music Sheet" /><!--
+             
+-->             <img class="drumstick2 object zoomable" src="assets/drumstick2.png" alt="Drumstick" /><!--
+-->             <img class="guitarpick2 object zoomable" src="assets/guitarpick.png" alt="Guitar Pick" /><!--
+-->             <img class="harmonica2 object zoomable" src="assets/harmonica2.png" alt="Harmonica" /><!--
+             <img class="box object" src="assets/box.png" alt="Box" />
+             
+-->             <img class="guitar2 object zoomable" src="assets/guitar.png" alt="Guitar" /><!--
+-->             <img class="tuba2 object zoomable" src="assets/tuba.png" alt="Tuba" />
+                <img class="boots object zoomable" src="assets/boots.png" alt="Boots" />
+<!--
+-->             <img class="tambourine2 object zoomable" src="assets/tambourine.png" alt="Tambourine"  /><!--
+-->             <img class="wires2 object zoomable" src="assets/wires.png" alt="Wires" /><!--
+-->             <img class="strings2 object zoomable" src="assets/strings2.png" alt="Strings" /><!--
+-->             <img class="shoe2 object zoomable" src="assets/shoe2.png" alt="Shoes" /><!--
+-->             <img class="soundmixer2 object zoomable" src="assets/soundmixer.png" alt="Turn Table" /><!--
+-->             <img class="saxophone2 object zoomable" src="assets/saxophone.png" alt="Saxophone" /><!--
+-->             <img class="sanredrum2 object zoomable" src="assets/sanredrum2.png" alt="Snare Drum" /><!--
+-->             <img class="microphone2 object zoomable" src="assets/microphone2.png" alt="Microphone" /><!--
+-->             <img class="headphones2 object zoomable" src="assets/headphones.png" alt="Headphones" /><!--
+-->             <img class="mask2 object zoomable" src="assets/mask.png" alt="Mask" /><!--
+-->             <img class="cymbals2 object zoomable" src="assets/cymbals.png" alt="Cymbals" /><!--
+-->             <img class="camera2 object zoomable" src="assets/camera.png" alt="Camera" /><!--
+-->             <img class="wig2 object zoomable" src="assets/wig2.png" alt="Wig" /><!--
+-->             <img class="flute2 object zoomable" src="assets/flute2.png" alt="Flute" />
+                <img class="drums  zoomable" src="assets/drums.png" alt="Drum set" />                        <!--
+-->             <img class="amplifier2 object zoomable" src="assets/amplifier.png" alt="Boombox" /><!--
+-->             <img class="costume2 object zoomable" src="assets/costume2.png" alt="Costume" /><!--
+-->             <img class="poster2 object zoomable" src="assets/poster.png" alt="Poster" /><!--
+-->             <img class="overlay zoomable" src="assets/overlay.png" />
+                     <img class="overlayTitle2 zoomable" src="assets/overlaytitle.png" />
+                    <img id="zoomin" src="assets/zoomin.png" />
+                <img id="zoomout" src="assets/zoomout.png" /><!--
+-->             <ul id="itemList"></ul>
+
+                <div class="pauseScreen" style="z-index: 60;">
+                   <img id="pauseScreenBg" class="bg zoomable"  src="assets/commonbg.png" />
+                   <img class="overlayTitle zoomable" src="assets/overlaytitle.png" />
+                   <img class="pausebox zoomable" src="assets/pausebox.png" />
+                    <img class="pausedtext zoomable" src="assets/pausedtext.png" />
+                    <img class="resume zoomable" src="assets/resume.png" />
+                    <img class="restart zoomable" src="assets/restart.png" />
+<!--                    <img class="howtoplay zoomable" src="assets/howtoplay.png" />-->
+                    <img class="mainmenu zoomable" src="assets/mainmenu.png" />
+
+             </div>
+              <div class="continueScreen  zoomable" style="z-index: 70;">
+                   <img id="pauseScreenBg " class="bg  zoomable"  src="assets/commonbg.png" />
+                   <img class="overlayTitle zoomable" src="assets/overlaytitle.png" />
+                   <img class="pausebox zoomable" src="assets/pausebox.png" />
+                    <img class="yes zoomable" src="assets/yes.png" />
+                    <img class="no zoomable" src="assets/no.png" />
+                    <div id="continueText" class="zoomable">
+                        Game progression will be lost if you exit to the main menu.<br />
+                        Do you want to continue?
+                    </div>
+             </div>  
+              <div id="levelIndicator" class="zoomable"><span></span></div>
+               <div id="timer" class="zoomable"></div>
+               <div id="score" class="zoomable">0000</div>
+
+        </script><script id="levelWinScreenHtml" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg" src="assets/commonbg.png" />
+            <img class="overlayTitle" src="assets/overlaytitle.png" />
+            <img class="winsam2" src="assets/winsam.png" />
+            <img class="winbox" src="assets/winbox.png" />
+            <img class="nextlevel" src="assets/nextlevel.png" />
+            <a href="http://www.6m5m.com"><img class="share" src="assets/share.png" /></a>
+            <img class="winmainmenu" src="assets/mainmenu.png" />
+            <div id="levelcomplete" class="zoomable">LEVEL COMPLETE</div>
+             <div  id="levelScore" class="zoomable"></div>
+             <div class="continueScreen  zoomable" style="z-index: 70;">
+                   <img id="pauseScreenBg " class="bg  zoomable"  src="assets/commonbg.png" />
+                   <img class="overlayTitle zoomable" src="assets/overlaytitle.png" />
+                   <img class="pausebox zoomable" src="assets/pausebox.png" />
+                    <img class="yes zoomable" src="assets/yes.png" />
+                    <img class="no zoomable" src="assets/no.png" />
+                    <div id="continueText" class="zoomable">
+                        Game progression will be lost if you exit to the main menu.<br />
+                        Do you want to continue?
+                    </div>
+             </div> 
+           
+        </script><script id="levelLoseScreenHtml" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg" src="assets/commonbg.png" />
+            <img class="overlayTitle" src="assets/overlaytitle.png" />
+            <img class="losesam" src="assets/losesam.png" />
+            <img class="winbox" src="assets/winbox.png" />
+            <img class="retry" src="assets/tryagain.png" />
+            <img class="losemainmenu" src="assets/mainmenu.png" />
+            <div id="levelcomplete" class="zoomable">LEVEL FAILED</div>
+             <div  id="levelScore" class="zoomable"><span id="levelScore1" ></span></div>
+             <div class="continueScreen  zoomable" style="z-index: 70;">
+                   <img id="pauseScreenBg " class="bg  zoomable"  src="assets/commonbg.png" />
+                   <img class="overlayTitle zoomable" src="assets/overlaytitle.png" />
+                   <img class="pausebox zoomable" src="assets/pausebox.png" />
+                    <img class="yes zoomable" src="assets/yes.png" />
+                    <img class="no zoomable" src="assets/no.png" />
+                    <div id="continueText" class="zoomable">
+                        如果你返回主菜单，游戏进度就会丢失.<br />
+                       你确定继续么?
+                    </div>
+             </div> 
+           
+        </script><script id="finishScreenHtml" type="text/html">
+            <img class="background zoomable" src="assets/texture.png" />
+            <img class="bg" src="assets/commonbg.png" />
+            <img class="overlayTitle" src="assets/overlaytitle.png" />
+            <img class="winsam2" src="assets/winsam.png" />
+            <img class="winbox" src="assets/winbox.png" />
+<!--            <img class="nextlevel" src="assets/nextlevel.png" />-->
+            <!--img class="share" src="assets/share.png" /-->
+            <img class="winmainmenu1" src="assets/mainmenu.png" />
+            <img class="finalhighscores" src="assets/highscores.png" />
+            <div id="levelcomplete" class="zoomable">YOU WON THE GAME</div>
+             <div  id="levelScore" class="zoomable"></div>
+           
+        </script><div id="wrapper" style="display: table-cell; width: 1280px; height: 672px;"><div class="screen fadeIn">
+            <img class="background zoomable" src="./RoadieSam_files/background.png" style="width: 1280px; height: 672px; top: 0px; left: 0px;">
+        </div></div><div id="portrait" style="display: none;"><img style="position: static" src="./RoadieSam_files/portrait.png"></div><div id="landscape" style="display: none;"><img style="position: static"></div><img src="./RoadieSam_files/1" width="1" height="1"><script type="text/javascript">
+</script></body></html>
