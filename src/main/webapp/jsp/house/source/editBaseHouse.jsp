@@ -7,6 +7,16 @@
 <%@ page import="com.xmbl.ops.enumeration.EnumTradeType" %>
 <%@ page import="com.xmbl.ops.enumeration.EnumHouseOrientation" %>
 <%@ page import="com.xmbl.ops.enumeration.EnumHouseRentalPriceType" %>
+
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseProperties" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseDiskstatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseIsstatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseSealingdisk" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseStatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHousePaymentMethod" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseRentalPriceType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseOrientation" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumSeeMethod" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="/WEB-INF/tlds/Functions" prefix="func"%>
 <%
@@ -66,6 +76,48 @@
 				<textarea class="title form-control" rows="4"></textarea>
 				</div>
 			   </div> -->
+			   
+			    <div class="form-group">
+				<label class="col-sm-1 control-label">封盘状态:</label>
+			    <div class="col-sm-1">
+			    <select class="sealingdisk form-control add-content" name="sealingdisk">
+                <c:set var="EnumHouseSealingdisks" value="<%=EnumHouseSealingdisk.values()%>"/>
+						<c:forEach var="EnumHouseSealingdisk" items="${ EnumHouseSealingdisks }">
+						<option value="${ EnumHouseSealingdisk.id }" <c:if test="${ EnumHouseSealingdisk.id == sealingdisk }">selected = "selected"</c:if>>${ EnumHouseSealingdisk.desc }</option>
+						</c:forEach>
+			    </select></label>
+			    </div>
+		     	</div>
+			   	<div class="form-group">
+			   	<label class="col-sm-1 control-label">公私状态:</label>
+			    <div class="col-sm-1">
+			    <select class="diskstatus form-control add-content" name="diskstatus">
+                <c:set var="EnumHouseDiskstatuss" value="<%=EnumHouseDiskstatus.values()%>"/>
+						<c:forEach var="EnumHouseDiskstatus" items="${ EnumHouseDiskstatuss }">
+						<option value="${ EnumHouseDiskstatus.id }" <c:if test="${ EnumHouseDiskstatus.id == diskstatus }">selected = "selected"</c:if>>${ EnumHouseDiskstatus.desc }</option>
+					</c:forEach>
+			    </select></label>
+			    </div>
+			   	<label class="col-sm-1 control-label">房源状态:</label>
+			    <div class="col-sm-1">
+			    <select class="isstatus form-control add-content" name="isstatus">
+                <c:set var="EnumHouseIsstatuss" value="<%=EnumHouseIsstatus.values()%>"/>
+						<c:forEach var="EnumHouseIsstatus" items="${ EnumHouseIsstatuss }">
+						<option value="${ EnumHouseIsstatus.id }" <c:if test="${ EnumHouseIsstatus.id == isstatus }">selected = "selected"</c:if>>${ EnumHouseIsstatus.desc }</option>
+					</c:forEach>
+			    </select></label>
+			    </div>
+			    <label class="col-sm-1 control-label">房源租售状态:</label>
+			    <div class="col-sm-1">
+			    <select class="housestatus form-control add-content" name="housestatus">
+                <c:set var="EnumHouseStatuss" value="<%=EnumHouseStatus.values()%>"/>
+						<c:forEach var="EnumHouseStatus" items="${ EnumHouseStatuss }">
+						<option value="${ EnumHouseStatus.id }" <c:if test="${ EnumHouseStatus.id == housestatus }">selected = "selected"</c:if>>${ EnumHouseStatus.desc }</option>
+						</c:forEach>
+			    </select></label>
+			    </div>
+			   </div>
+			   
 				<div class="form-group">
 			    <label class="col-sm-1 control-label">房源类型:</label>
 			    <div class="col-sm-1">
@@ -145,12 +197,11 @@
 				<label class="col-sm-1 control-label">付款方式</label>
 				<div class="col-sm-1">
 				<select class="form-control paymentmethod">
-				<option value="5" <c:if test="${ baseHouseInfo.paymentmethod == 5 }">selected="selected"</c:if>>押二付三</option>
-				<option value="0" <c:if test="${ baseHouseInfo.paymentmethod == 0 }">selected="selected"</c:if>>押一付三</option>
-				<option value="1" <c:if test="${ baseHouseInfo.paymentmethod == 1 }">selected="selected"</c:if>>季付</option>
-				<option value="2" <c:if test="${ baseHouseInfo.paymentmethod == 2 }">selected="selected"</c:if>>半年</option>
-				<option value="3" <c:if test="${ baseHouseInfo.paymentmethod == 3 }">selected="selected"</c:if>>年</option>
-				<option value="4" <c:if test="${ baseHouseInfo.paymentmethod == 4 }">selected="selected"</c:if>>面议</option>
+				<c:set var="EnumHousePaymentMethods" value="<%=EnumHousePaymentMethod.values()%>"/>
+						<c:forEach var="EnumHousePaymentMethod" items="${ EnumHousePaymentMethods }">
+						<option value="${ EnumHousePaymentMethod.id }" <c:if test="${ EnumHousePaymentMethod.id == paymentmethod }">selected = "selected"</c:if>>${ EnumHousePaymentMethod.desc }</option>
+					</c:forEach>
+			    </select></label>
 				</select>
 				</div>
 				</div>
@@ -158,9 +209,11 @@
 				<label class="col-sm-1 control-label">看房方式</label>
 				<div class="col-sm-1">
 				<select class="form-control seemethod">
-				<option value="0" <c:if test="${ baseHouseInfo.seemethod == 0 }">selected="selected"</c:if>>提前预约</option>
-				<option value="1" <c:if test="${ baseHouseInfo.seemethod == 1 }">selected="selected"</c:if>>直接带看</option>
-				<option value="2" <c:if test="${ baseHouseInfo.seemethod == 2 }">selected="selected"</c:if>>借钥匙带看</option>
+				<c:set var="EnumSeeMethods" value="<%=EnumSeeMethod.values()%>"/>
+						<c:forEach var="EnumSeeMethod" items="${ EnumSeeMethods }">
+						<option value="${ EnumSeeMethod.id }" <c:if test="${ EnumSeeMethod.id == seemethod }">selected = "selected"</c:if>>${ EnumSeeMethod.desc }</option>
+					</c:forEach>
+			    </select></label>
 				</select>
 				</div>
 				<label class="col-sm-1 control-label">来源</label>
@@ -299,6 +352,12 @@
 							data.ownerphone = postContainer.find('.ownerphone').val();
 							data.propertycompany = postContainer.find('.propertycompany').val();
 							data.propertphone = postContainer.find('.propertphone').val();
+							
+						    data.diskstatus = postContainer.find('.diskstatus').val();
+							data.isstatus =  postContainer.find('.isstatus').val();
+							data.housestatus = postContainer.find('.housestatus').val();
+							data.sealingdisk = postContainer.find('.sealingdisk').val();
+							
 							 validator.add(data.housename, 'isNotEmpty', function() {
 								alert('房源名称不能为空');
 							});

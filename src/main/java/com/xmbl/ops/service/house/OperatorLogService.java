@@ -27,11 +27,20 @@ public class OperatorLogService {
 		return operatorLogDao.searchCount(username, startDate, endDate);
 	}
 	
+	public long searchCount(Long visitId) {
+		return operatorLogDao.searchCount(visitId);
+	}
+	
+	public List<OperatorLog> searchList(Long visitId) {
+		List<OperatorLog> operatorLogList = operatorLogDao.searchList(visitId);
+		return operatorLogList;
+	}
+	
 	public List<OperatorLog> searchList(String username, Date startDate, Date endDate,
 			Long page, int limit) {
-		List<OperatorLog> userLogList = operatorLogDao.searchList(username, startDate, endDate,
+		List<OperatorLog> operatorLogList = operatorLogDao.searchList(username, startDate, endDate,
 				page, limit);
-		return userLogList;
+		return operatorLogList;
 	}
 	
 	public OperatorLog insertOperatorLog(OperatorLog userlog){

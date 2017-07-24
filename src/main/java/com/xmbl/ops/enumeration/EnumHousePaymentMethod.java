@@ -2,6 +2,8 @@ package com.xmbl.ops.enumeration;
 //付款方式
 public enum EnumHousePaymentMethod {
 	RESIDENCETWO	(5, "押二付三"),
+	RESIDENCETHREE	(6, "押三付三"),
+	RESIDENCESIX	(6, "押一付六"),
 	RESIDENCE		(0, "押一付三"),
 	VILLA		    (1, "季付"),
 	OFFICEBUILDING	(2, "半年"),

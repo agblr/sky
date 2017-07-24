@@ -37,6 +37,8 @@ public class Customer {
     private String remarks;
 
     private String operator;
+    
+    private String operatorName;
 
     public Customer() {
 		super();

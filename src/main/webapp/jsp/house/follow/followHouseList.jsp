@@ -20,7 +20,7 @@
 <meta http-equiv="expires" content="0">    
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<title>房源管理</title>
+<title>房源跟进管理</title>
 <link type="image/x-icon" rel="shortcut icon" href="<%=basePath %>image/logo/favicon.ico">
 
 <link rel="stylesheet" href="<%=basePath %>css/bootstrap/bootstrap.3.3.5.min.css">
@@ -33,53 +33,32 @@
  
 </head>
 <body>
-<c:set var="preUrl" value="baseHouseList
+<c:set var="preUrl" value="followHouseList
 							?id=${ id }&
-							housename=${ housename }&
-							mobile=${ mobile }&
-							nickname=${ nickname }&
-							phone=${ phone }&
-							gender=${ gender }&
-							qq=${ qq }&
-							wechat=${ wechat }&
-							email=${ email }&
-							source=${ source }&
-							address=${ address }&
+							houseid=${ houseid }&
+							content=${ content }&
 							operator=${ operator }&
 							status=${ status }&
 							remarks=${ remarks }&
 							startTime=${ startTime }&
 							endTime=${ endTime }&" />
 	<header class="ui-page-header">
-	<div class="mini-title">当前位置：房源管理</div>
+	<div class="mini-title">当前位置：房源跟进管理</div>
 	</header>
 	<article class="container-fluid">
 		<form class="form-inline search-form">
 	      <div class="form-id">
 				<label>房源id</label>
-				<input type="text" class="form-control" value="${ id }" name="id"/>
-				<label>房源名称</label>
-				<input type="text" class="form-control" value="${ housename }" name="housename"/>		
-			  <div class="form-group">
-			  <label>面积</label>
-					<input type="text"  class="form-control startAcreage" name="startAcreage" value="${startAcreage}"> -
-					<input type="text"  class="form-control endAcreage" name="endAcreage" value="${endAcreage}">
-				</div>
-				<div class="form-group">
-			    <label>租金</label>
-					<input type="text"  class="form-control  startRental" name="startRental " value="${startRental}"> -
-					<input type="text"  class="form-control  endRental" name="endRental" value="${endRental}">
-				<select class="form-control rentalpricetype">
-				<option value="">请选择单位</option>
-				<option value="0">元/日</option>
-				<option value="1">元/月</option>
-				<option value="2">元/季度</option>
-				<option value="3">元/半年</option>
-				<option value="4">元/年</option>
-				<option value="5">元/平米/天</option>
-				<option value="6">热毯</option>
-				</select>
-				</div>
+				<input type="text" class="form-control" value="${ houseid }" name="houseid"/>
+				<label>跟进内容</label>
+				<input type="text" class="form-control" value="${ content }" name="content"/>	
+				<label>跟进人</label>
+				<input type="text" class="form-control" value="${ operator }" name="operator"/>	
+			</div>
+			 <div class="form-group">
+				<label>跟进时间</label>
+				<input class="form-control form-date" type="text" value="${ startTime }" name="startTime" data-date-format="yyyy-mm-dd 00:00:00">~<input class="form-control form-date" type="text" value="${ endTime }" name="endTime" data-date-format="yyyy-mm-dd 23:59:59"/>
+			     </div>
 			<div class="form-group">
 				<button class="btn btn-primary">搜索</button>
 			</div>
@@ -87,76 +66,32 @@
 				<!--<div class="form-group">
 				<a href="#" class="btn btn-success ml10" id="add-member-btn">创建房源</a>
 			</div>-->
-			<div class="form-group">
-				<a href="<%=basePath%>base/addBaseHouse" class="btn btn-success ml10">添加房源</a>
-			</div>
 		</form>
     </div>
 		<table id="table" data-toggle="table" class="table table-hover table-bordered table-condensed">
 			<thead>
 				<tr class="info">
-					<th style="min-width:50px">房源ID</th>
-				<!--<th style="min-width:50px">房源标题</th> -->
-					<th style="min-width:50px">房源租售状态</th>
-				    <th style="min-width:50px">房源状态</th>
-					<th style="min-width:50px">交易类型</th>
-				<!-- 	<th style="min-width:50px">是否有钥匙</th> -->
-					<th style="min-width:50px">房源名称</th>
-					<th style="min-width:50px">租价(单位)</th>
-					<th style="min-width:50px">楼层</th>
-					<th style="min-width:50px">房间号</th>
-					<th style="min-width:50px">面积(平米)</th>
-					<th style="min-width:50px">朝向</th>
-					<th style="min-width:50px">付款方式</th>
-					<th style="min-width:50px">看房方式</th>
-					<th style="min-width:50px">来源</th>
-				<!--<th style="min-width:50px">写字楼标签</th> -->
-					<th style="min-width:50px">业主</th>
-					<!--<th style="min-width:5%">业主电话</th>
-					<th style="min-width:90px">物业公司</th>
-					<th style="min-width:90px">物业电话</th>  -->
-					<th style="min-width:50px">备注说明</th>
-					<th style="min-width:50px">录入时间</th>
-					<th style="min-width:50px">录入人</th>
+					<th style="min-width:50px">跟进ID</th>
+					<th style="min-width:50px">跟进时间</th>
+					<th style="min-width:50px">跟进方式</th>
+					<th style="min-width:50px">房源id</th>
+					<th style="min-width:50px">跟单人</th>
+					<th style="min-width:50px">跟进内容</th>
 					<th style="min-width:50px">操作 </th>
 				</tr>
 			</thead>
 			<tbody id="user-list">
-				<c:forEach var="baseHouseInfo" items="${ baseHouseList }">
-					<tr data-user-id="${ baseHouseInfo.id }" >
-					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.id }</a></td>
-					  <!-- <td>${ baseHouseInfo.title }</td> -->
-					    <td>${ baseHouseInfo.typeStr }</td>
-					    <td>${ baseHouseInfo.housestatusStr }${ baseHouseInfo.housestatus }</td>
-					    <td>${ baseHouseInfo.tradetypeStr }</td>
-					  <!--  <td>${ baseHouseInfo.iskey }</td>-->
-					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.housename }</a></td>
-					    <td>${ baseHouseInfo.rental } (${ baseHouseInfo.rentalpricetypeStr })</td>
-					    <td>${ baseHouseInfo.floor }</td>
-					    <td>${ baseHouseInfo.room }</td>
-					    <td>${ baseHouseInfo.acreage }</td>
-					    <td>${ baseHouseInfo.orientation }</td>
-					    <td>${ baseHouseInfo.paymentmethod }</td>
-					    <td>${ baseHouseInfo.seemethod }</td>
-					    <td>${ baseHouseInfo.source }</td>
-					   <!--  <td>${ baseHouseInfo.officetag }</td> -->
-					    <td>${ baseHouseInfo.owner }</td>
-					    <!-- <td>${ baseHouseInfo.ownerphone }</td>
-					   <td>${ baseHouseInfo.propertycompany }</td>
-					    <td>${ baseHouseInfo.propertphone }</td>-->
-					    <td>
-					    	<c:if test="${baseHouseInfo.remarks.length() > 8 }">${ baseHouseInfo.remarks.substring(0, 8)}... </c:if>
-							<c:if test="${baseHouseInfo.remarks.length() <= 8 }">${ baseHouseInfo.remarks} </c:if> 
-					    </td>
-				 	    <td>${ func:formatDate(baseHouseInfo.createtime ) }</td>
-				 	    <td>${ baseHouseInfo.operatorName }</td>
-						<td>
-						    <c:if test="${ baseHouseInfo.founder ==  userKey}">
-		                    <a href="<%=basePath%>base/editBaseHouse?id=${baseHouseInfo.id}" class="btn btn-primary btn-xs ml10 edit-btn">编辑</a>
-							<button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ baseHouseInfo.id }">删除</button>
-				            </c:if>
-						   <!-- <button class="btn btn-primary btn-xs ml10 reset-password-btn" data-toggle="modal"  data-target=".modal">删除</button> -->
-						</td>
+				<c:forEach var="followHouseInfo" items="${ followHouseList }">
+					<tr data-user-id="${ followHouseInfo.id }" >
+					<td>${ followHouseInfo.id }</td>
+					 <td>${ func:formatDate(followHouseInfo.createtime ) }</td>
+					<td>${ followHouseInfo.followtypeStr }</td>
+					    <td><a href="<%=basePath%>base/getHousereSources?id=${ followHouseInfo.houseid }" >${ followHouseInfo.houseid }</a></td>
+					  <td>${ followHouseInfo.operatorName }</td>
+					  <td>${ followHouseInfo.content }</td>
+					  <td>
+					  <button class="btn btn-primary btn-xs ml10 edit-btn">查看所有跟进</button>
+					  </td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -180,7 +115,7 @@
 		js: 'lib/sea',
 		version: '${ JS_LIB_SEA_VERSION }',
 		success: function() {
-			seajs.use(['lib/jquery', 'module/Dialog', 'module/BaseHouseInfo', 'util/ajaxPromise' ,'util/deleteRecord'], function($, Dialog, userInfo, ajaxPromise, deleteRecord) {
+			seajs.use(['lib/jquery', 'module/Dialog', 'module/FollowHouseInfo', 'util/ajaxPromise' ,'util/deleteRecord'], function($, Dialog, userInfo, ajaxPromise, deleteRecord) {
 				// 加载小组列表
 				var userList, teamId = $('#team-id'), role = $('#role'), identity = $('#identity'), dialog = new Dialog('modal-dialog');
 				//userInfo.initRole(role, '${ groupName }');

@@ -11,7 +11,7 @@
     <result column="rental" property="rental" jdbcType="DOUBLE" />
     <result column="unitprice" property="unitprice" jdbcType="DOUBLE" />
     <result column="rentalpricetype" property="rentalpricetype" jdbcType="INTEGER" />
-    <result column="floor" property="floor" jdbcType="INTEGER" />
+    <result column="floor" property="floor" jdbcType="VARCHAR" />
     <result column="room" property="room" jdbcType="VARCHAR" />
     <result column="acreage" property="acreage" jdbcType="DOUBLE" />
     <result column="orientation" property="orientation" jdbcType="VARCHAR" />
@@ -38,13 +38,16 @@
     <result column="follownum" property="follownum" jdbcType="INTEGER" />
     <result column="seenum" property="seenum" jdbcType="INTEGER" />
     <result column="followsee" property="followsee" jdbcType="INTEGER" />
+    <result column="isstatus" property="isstatus" jdbcType="INTEGER" />
+    <result column="diskstatus" property="diskstatus" jdbcType="INTEGER" />
+    <result column="sealingdisk" property="sealingdisk" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, title, type, housename, tradetype, price, rental, unitprice, rentalpricetype, 
     floor, room, acreage, orientation, officetag, officetype, paymentmethod, seemethod, 
     source, iskey, remarks, image, createtime, updatetime, operator, founder, owner, 
     ownerphone, propertycompany, propertphone, housestatus, properties, status, isfollow, 
-    follownum, seenum, followsee
+    follownum, seenum, followsee ,isstatus,diskstatus,sealingdisk
   </sql>
   <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -68,12 +71,13 @@
       founder, owner, ownerphone, 
       propertycompany, propertphone, housestatus, 
       properties, status, isfollow, 
-      follownum, seenum, followsee
+      follownum, seenum, followsee,
+      isstatus,diskstatus,sealingdisk
       )
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{housename,jdbcType=VARCHAR}, #{tradetype,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
       #{rental,jdbcType=DOUBLE}, #{unitprice,jdbcType=DOUBLE}, #{rentalpricetype,jdbcType=INTEGER}, 
-      #{floor,jdbcType=INTEGER}, #{room,jdbcType=VARCHAR}, #{acreage,jdbcType=DOUBLE}, 
+      #{floor,jdbcType=VARCHAR}, #{room,jdbcType=VARCHAR}, #{acreage,jdbcType=DOUBLE}, 
       #{orientation,jdbcType=VARCHAR}, #{officetag,jdbcType=VARCHAR}, #{officetype,jdbcType=VARCHAR}, 
       #{paymentmethod,jdbcType=VARCHAR}, #{seemethod,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
       #{iskey,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
@@ -81,7 +85,8 @@
       #{founder,jdbcType=VARCHAR}, #{owner,jdbcType=VARCHAR}, #{ownerphone,jdbcType=VARCHAR}, 
       #{propertycompany,jdbcType=VARCHAR}, #{propertphone,jdbcType=VARCHAR}, #{housestatus,jdbcType=INTEGER}, 
       #{properties,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{isfollow,jdbcType=INTEGER}, 
-      #{follownum,jdbcType=INTEGER}, #{seenum,jdbcType=INTEGER}, #{followsee,jdbcType=INTEGER}
+      #{follownum,jdbcType=INTEGER}, #{seenum,jdbcType=INTEGER}, #{followsee,jdbcType=INTEGER},
+      #{isstatus,jdbcType=INTEGER}, #{diskstatus,jdbcType=INTEGER}, #{sealingdisk,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.xmbl.ops.model.house.BaseHouse" >
@@ -195,6 +200,15 @@
       <if test="followsee != null" >
         followsee,
       </if>
+       <if test="isstatus != null" >
+        isstatus,
+      </if>
+      <if test="diskstatus != null" >
+        diskstatus,
+      </if>
+      <if test="sealingdisk != null" >
+        sealingdisk,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -225,7 +239,7 @@
         #{rentalpricetype,jdbcType=INTEGER},
       </if>
       <if test="floor != null" >
-        #{floor,jdbcType=INTEGER},
+        #{floor,jdbcType=VARCHAR},
       </if>
       <if test="room != null" >
         #{room,jdbcType=VARCHAR},
@@ -305,6 +319,15 @@
       <if test="followsee != null" >
         #{followsee,jdbcType=INTEGER},
       </if>
+       <if test="isstatus != null" >
+        #{isstatus,jdbcType=INTEGER},
+      </if>
+      <if test="diskstatus != null" >
+        #{diskstatus,jdbcType=INTEGER},
+      </if>
+      <if test="sealingdisk != null" >
+        #{sealingdisk,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="updateIfNecessary" parameterType="com.xmbl.ops.model.house.BaseHouse" >
@@ -335,7 +358,7 @@
         rentalpricetype = #{rentalpricetype,jdbcType=INTEGER},
       </if>
       <if test="floor != null" >
-        floor = #{floor,jdbcType=INTEGER},
+        floor = #{floor,jdbcType=VARCHAR},
       </if>
       <if test="room != null" >
         room = #{room,jdbcType=VARCHAR},
@@ -415,6 +438,15 @@
       <if test="followsee != null" >
         followsee = #{followsee,jdbcType=INTEGER},
       </if>
+      <if test="isstatus != null" >
+        isstatus = #{isstatus,jdbcType=INTEGER},
+      </if>
+      <if test="diskstatus != null" >
+        diskstatus = #{diskstatus,jdbcType=INTEGER},
+      </if>
+      <if test="sealingdisk != null" >
+        sealingdisk = #{sealingdisk,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -454,7 +486,10 @@
       isfollow = #{isfollow,jdbcType=INTEGER},
       follownum = #{follownum,jdbcType=INTEGER},
       seenum = #{seenum,jdbcType=INTEGER},
-      followsee = #{followsee,jdbcType=INTEGER}
+      followsee = #{followsee,jdbcType=INTEGER},
+      isstatus = #{isstatus,jdbcType=INTEGER},
+      diskstatus = #{diskstatus,jdbcType=INTEGER},
+      sealingdisk = #{sealingdisk,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
       <select id="searchList" resultMap="BaseResultMap">

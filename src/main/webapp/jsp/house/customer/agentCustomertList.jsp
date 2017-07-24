@@ -34,7 +34,7 @@
 </script>
 </head>
 <body>
-<c:set var="preUrl" value="customerList
+<c:set var="preUrl" value="agentCustomerList
 							?id=${ id }&
 							usename=${ usename }&
 							mobile=${ mobile }&
@@ -125,13 +125,13 @@
 				 	    <td>${ customerInfo.qq }</td>
 				 	    <td>${ customerInfo.wechat }</td>
 				 	    <td>${ customerInfo.email }</td>
-				 	    <td>
+				 	    <td>${ customerInfo.source }
 				 	    <c:set var="enumTypes" value="<%=EnumSourceType.values()%>"/>
 							<c:forEach var="enumType" items="${ enumTypes }">
 							<c:if test="${ enumType.id == customerInfo.source  }">${ enumType.desc }</c:if>
 						</c:forEach>
 				 	    </td>
-				 	    <td>
+				 	    <td>${ customerInfo.status }
 				 	    <c:set var="enumStatuss" value="<%=EnumCustomerStatus.values()%>"/>
 							<c:forEach var="enumStatus" items="${ enumStatuss }">
 							<c:if test="${ enumStatus.id == customerInfo.status  }">${ enumStatus.desc }</c:if>

@@ -151,5 +151,25 @@
 		limit #{offset},#{limit};
 		</if>
 	</select>
-  
+  	<select id="searchCountBYvisitId" resultType="long">
+		select
+		count(1)
+		from operator_log
+		<where>
+		<if test="visitId != null and visitId != ''">
+			visitId = #{visitId,jdbcType=VARCHAR}
+		</if>
+		</where>
+	</select>
+		<select id="searchListBYvisitId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from operator_log
+	   	<where>
+			<if test="visitId != null and visitId != ''">
+				visitId = #{visitId,jdbcType=VARCHAR}
+			</if>
+		</where>
+		order by createtime desc
+	</select>
 </mapper>

@@ -23,6 +23,12 @@ import com.xmbl.ops.enumeration.EnumHouseRentalPriceType;
 import com.xmbl.ops.enumeration.EnumHousePaymentMethod;
 import com.xmbl.ops.enumeration.EnumHouseOrientation;
 
+import com.xmbl.ops.enumeration.EnumHouseStatus;
+import com.xmbl.ops.enumeration.EnumHouseIsstatus;
+import com.xmbl.ops.enumeration.EnumHouseDiskstatus;
+import com.xmbl.ops.enumeration.EnumHouseSealingdisk;
+
+
 @Service
 public class BaseHouseService {
 
@@ -30,6 +36,57 @@ public class BaseHouseService {
 	IBaseHouseDao baseHouseDao;
 	@Resource
 	UserInfoDaoImpl userInfoDao;
+	
+	
+	
+	private void setEnumHouseDiskstatus(BaseHouse baseHouse) {
+		Integer sealingdisk = baseHouse.getRentalpricetype();
+    	if(sealingdisk != null) {
+    		for(EnumHouseDiskstatus EnumHouseDiskstatuss : EnumHouseDiskstatus.values()) {
+    			if(sealingdisk.equals(Integer.valueOf(EnumHouseDiskstatuss.getId()))) {
+    				baseHouse.setDiskstatusStr(EnumHouseDiskstatuss.getDesc());
+    				break;
+    			}
+    		}
+    	}
+    }
+	
+	private void setEnumHouseIsstatus(BaseHouse baseHouse) {
+		Integer isstatus = baseHouse.getIsstatus();
+    	if(isstatus != null) {
+    		for(EnumHouseIsstatus EnumHouseIsstatuss : EnumHouseIsstatus.values()) {
+    			if(isstatus.equals(Integer.valueOf(EnumHouseIsstatuss.getId()))) {
+    				baseHouse.setRentalpricetypeStr(EnumHouseIsstatuss.getDesc());
+    				break;
+    			}
+    		}
+    	}
+    }
+	
+	
+	private void setEnumHouseSealingdisk(BaseHouse baseHouse) {
+		Integer sealingdisk = baseHouse.getSealingdisk();
+    	if(sealingdisk != null) {
+    		for(EnumHouseSealingdisk EnumHouseSealingdisks : EnumHouseSealingdisk.values()) {
+    			if(sealingdisk.equals(Integer.valueOf(EnumHouseSealingdisks.getId()))) {
+    				baseHouse.setRentalpricetypeStr(EnumHouseSealingdisks.getDesc());
+    				break;
+    			}
+    		}
+    	}
+    }
+	
+	private void setEnumHouseStatus(BaseHouse baseHouse) {
+		Integer housestatus = baseHouse.getHousestatus();
+    	if(housestatus != null) {
+    		for(EnumHouseStatus EnumHouseStatuss : EnumHouseStatus.values()) {
+    			if(housestatus.equals(Integer.valueOf(EnumHouseStatuss.getId()))) {
+    				baseHouse.setHousestatusStr(EnumHouseStatuss.getDesc());
+    				break;
+    			}
+    		}
+    	}
+    }
 	
 	private void setEnumOfficeTag(BaseHouse baseHouse) {
 		if(StringUtils.isNotEmpty(baseHouse.getOfficetag())) {
@@ -182,6 +239,11 @@ public class BaseHouseService {
 			setEnumHouseRentalPriceType(baseHouse);
 			setEnumOfficeTag(baseHouse);
 			setUserName(baseHouse);
+			
+			setEnumHouseStatus(baseHouse);
+			setEnumHouseSealingdisk(baseHouse);
+			setEnumHouseIsstatus(baseHouse);
+			setEnumHouseDiskstatus(baseHouse);
 		}
 		
 		
@@ -210,12 +272,13 @@ public class BaseHouseService {
 	public BaseHouse addBaseHouse(String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,String room,Double acreage,String orientation,
+		    String floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String image, Date createtime,Date updatetime,String operator,
 		    String founder,String owner,String ownerphone,
-		    String propertycompany,String propertphone) {
+		    String propertycompany,String propertphone,Integer housestatus,Integer properties,Integer status,Integer isfollow,Integer followsee,
+		    Integer isstatus,Integer diskstatus, Integer sealingdisk) {
 		BaseHouse baseHouseInfo = new BaseHouse(title, type,
 			     housename, tradetype, price,
 			     rental, unitprice, rentalpricetype,
@@ -224,19 +287,21 @@ public class BaseHouseService {
 			     seemethod, source, iskey, remarks,
 			     image,  createtime, updatetime, operator,
 			     founder, owner, ownerphone,
-			     propertycompany, propertphone);
+			     propertycompany, propertphone, housestatus, properties, status, isfollow, followsee,
+				   isstatus, diskstatus,  sealingdisk);
 		return baseHouseDao.insertSelective(baseHouseInfo);
 	}
 	
 	public int updateBaseHouse(Long id,String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
-		    Integer floor,String room,Double acreage,String orientation,
+		    String floor,String room,Double acreage,String orientation,
 		    String officetag,String officetype, String paymentmethod,
 		    String seemethod,String source,String iskey,String remarks,
 		    String image, Date createtime,Date updatetime,String operator,
 		    String founder,String owner,String ownerphone,
-		    String propertycompany,String propertphone) {		
+		    String propertycompany,String propertphone,Integer housestatus,Integer properties,Integer status,Integer isfollow,Integer followsee,
+		    Integer isstatus,Integer diskstatus, Integer sealingdisk) {		
 		BaseHouse baseHouseInfo = new BaseHouse(  id, title, type,
 			     housename, tradetype, price,
 			     rental, unitprice, rentalpricetype,
@@ -245,7 +310,8 @@ public class BaseHouseService {
 			     seemethod, source, iskey, remarks,
 			     image,  createtime, updatetime, operator,
 			     founder, owner, ownerphone,
-			     propertycompany, propertphone);
+			     propertycompany, propertphone, housestatus, properties, status, isfollow, followsee,
+				   isstatus, diskstatus,  sealingdisk);
 		int count = baseHouseDao.updateIfNecessary(baseHouseInfo);
 		return count;
 	}

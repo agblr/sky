@@ -7,17 +7,6 @@
 <%@ page import="com.xmbl.ops.enumeration.EnumTradeType" %>
 <%@ page import="com.xmbl.ops.enumeration.EnumHouseOrientation" %>
 <%@ page import="com.xmbl.ops.enumeration.EnumHouseRentalPriceType" %>
-
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseProperties" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseDiskstatus" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseIsstatus" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseSealingdisk" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseStatus" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHousePaymentMethod" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseRentalPriceType" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumHouseOrientation" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumSeeMethod" %>
-
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="/WEB-INF/tlds/Functions" prefix="func"%>
 <%
@@ -70,12 +59,6 @@
 				<div class="col-sm-8">
 				</div>
 			   </div>
-			   	<div class="form-group">
-				<a href="<%=basePath%>follow/addFollowHouse" class="btn btn-success ml10">跟进</a>
-			    </div>
-			<!--<div class="form-group">
-				<a href="#" class="btn btn-success ml10" id="add-member-btn">创建跟进</a>
-			  </div>--> 
 			   </br>
 			  <!--  <div class="form-group">
 				 <label class="col-sm-1 control-label">房源标题</label>
@@ -83,46 +66,6 @@
 				<textarea class="title form-control" rows="4"></textarea>
 				</div>
 			   </div> -->
-			    <div class="form-group">
-				<label class="col-sm-1 control-label">封盘状态:</label>
-			    <div class="col-sm-1">
-			    <select class="sealingdisk form-control add-content" name="sealingdisk">
-                <c:set var="EnumHouseSealingdisks" value="<%=EnumHouseSealingdisk.values()%>"/>
-						<c:forEach var="EnumHouseSealingdisk" items="${ EnumHouseSealingdisks }">
-						<option value="${ EnumHouseSealingdisk.id }" <c:if test="${ EnumHouseSealingdisk.id == sealingdisk }">selected = "selected"</c:if>>${ EnumHouseSealingdisk.desc }</option>
-						</c:forEach>
-			    </select></label>
-			    </div>
-		     	</div>
-			   	<div class="form-group">
-			   	<label class="col-sm-1 control-label">公私状态:</label>
-			    <div class="col-sm-1">
-			    <select class="diskstatus form-control add-content" name="diskstatus">
-                <c:set var="EnumHouseDiskstatuss" value="<%=EnumHouseDiskstatus.values()%>"/>
-						<c:forEach var="EnumHouseDiskstatus" items="${ EnumHouseDiskstatuss }">
-						<option value="${ EnumHouseDiskstatus.id }" <c:if test="${ EnumHouseDiskstatus.id == diskstatus }">selected = "selected"</c:if>>${ EnumHouseDiskstatus.desc }</option>
-					</c:forEach>
-			    </select></label>
-			    </div>
-			   	<label class="col-sm-1 control-label">房源状态:</label>
-			    <div class="col-sm-1">
-			    <select class="isstatus form-control add-content" name="isstatus">
-                <c:set var="EnumHouseIsstatuss" value="<%=EnumHouseIsstatus.values()%>"/>
-						<c:forEach var="EnumHouseIsstatus" items="${ EnumHouseIsstatuss }">
-						<option value="${ EnumHouseIsstatus.id }" <c:if test="${ EnumHouseIsstatus.id == isstatus }">selected = "selected"</c:if>>${ EnumHouseIsstatus.desc }</option>
-					</c:forEach>
-			    </select></label>
-			    </div>
-			    <label class="col-sm-1 control-label">房源租售状态:</label>
-			    <div class="col-sm-1">
-			    <select class="housestatus form-control add-content" name="housestatus">
-                <c:set var="EnumHouseStatuss" value="<%=EnumHouseStatus.values()%>"/>
-						<c:forEach var="EnumHouseStatus" items="${ EnumHouseStatuss }">
-						<option value="${ EnumHouseStatus.id }" <c:if test="${ EnumHouseStatus.id == housestatus }">selected = "selected"</c:if>>${ EnumHouseStatus.desc }</option>
-						</c:forEach>
-			    </select></label>
-			    </div>
-			   </div>
 				<div class="form-group">
 			    <label class="col-sm-1 control-label">房源类型:</label>
 			    <div class="col-sm-1">
@@ -202,11 +145,12 @@
 				<label class="col-sm-1 control-label">付款方式</label>
 				<div class="col-sm-1">
 				<select class="form-control paymentmethod">
-				<c:set var="EnumHousePaymentMethods" value="<%=EnumHousePaymentMethod.values()%>"/>
-						<c:forEach var="EnumHousePaymentMethod" items="${ EnumHousePaymentMethods }">
-						<option value="${ EnumHousePaymentMethod.id }" <c:if test="${ EnumHousePaymentMethod.id == paymentmethod }">selected = "selected"</c:if>>${ EnumHousePaymentMethod.desc }</option>
-					</c:forEach>
-			    </select></label>
+				<option value="5" <c:if test="${ baseHouseInfo.paymentmethod == 5 }">selected="selected"</c:if>>押二付三</option>
+				<option value="0" <c:if test="${ baseHouseInfo.paymentmethod == 0 }">selected="selected"</c:if>>押一付三</option>
+				<option value="1" <c:if test="${ baseHouseInfo.paymentmethod == 1 }">selected="selected"</c:if>>季付</option>
+				<option value="2" <c:if test="${ baseHouseInfo.paymentmethod == 2 }">selected="selected"</c:if>>半年</option>
+				<option value="3" <c:if test="${ baseHouseInfo.paymentmethod == 3 }">selected="selected"</c:if>>年</option>
+				<option value="4" <c:if test="${ baseHouseInfo.paymentmethod == 4 }">selected="selected"</c:if>>面议</option>
 				</select>
 				</div>
 				</div>
@@ -214,11 +158,9 @@
 				<label class="col-sm-1 control-label">看房方式</label>
 				<div class="col-sm-1">
 				<select class="form-control seemethod">
-				<c:set var="EnumSeeMethods" value="<%=EnumSeeMethod.values()%>"/>
-						<c:forEach var="EnumSeeMethod" items="${ EnumSeeMethods }">
-						<option value="${ EnumSeeMethod.id }" <c:if test="${ EnumSeeMethod.id == seemethod }">selected = "selected"</c:if>>${ EnumSeeMethod.desc }</option>
-					</c:forEach>
-			    </select></label>
+				<option value="0" <c:if test="${ baseHouseInfo.seemethod == 0 }">selected="selected"</c:if>>提前预约</option>
+				<option value="1" <c:if test="${ baseHouseInfo.seemethod == 1 }">selected="selected"</c:if>>直接带看</option>
+				<option value="2" <c:if test="${ baseHouseInfo.seemethod == 2 }">selected="selected"</c:if>>借钥匙带看</option>
 				</select>
 				</div>
 				<label class="col-sm-1 control-label">来源</label>
@@ -290,109 +232,101 @@
 				</div>
 			</div>
 		</div>
-	
-	<div class="mini-title">该房源浏览总次数:${ seeCNT }  最近5条记录</div>
-		<table class="table table-hover table-bordered table-condensed" >
-			<thead>
-				<tr class="info">
-					<th style="min-width:50px">浏览时间</th>
-					<th style="min-width:50px">浏览人</th>
-					<th style="min-width:50px">操作</th>
-				</tr>
-			</thead>
-			<tbody id="user-list">
-				<c:forEach var="operatorLogInfo" items="${ operatorLogList }">
-					<tr>
-				 	    <td>${ operatorLogInfo.createtime }</td>
-				 	    <td>${ operatorLogInfo.operator }</td>
-				 	    <td>${ operatorLogInfo.content }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>	
-	<div id="modal-dialog" class="modal fade"  tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title"></h4>
-				</div>
-				<div class="modal-body"></div>
-				<div class="modal-footer"></div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-<script type="text/javascript">
-	MX.load({
-		js: 'lib/sea',
-		version: '${ JS_LIB_SEA_VERSION }',
-		success: function() {
-			seajs.use(['lib/jquery', 'module/Dialog', 'module/FollowHouseInfo', 'util/ajaxPromise' ,'util/deleteRecord'], function($, Dialog, FollowHouseInfo, ajaxPromise, deleteRecord) {
-				// 加载小组列表
-				var userList, teamId = $('#team-id'), role = $('#role'), identity = $('#identity'), dialog = new Dialog('modal-dialog');
-				//userInfo.initRole(role, '${ groupName }');
-				// 创建用户
-				$('#add-member-btn').on('click', function(e) {
+		<script type="text/javascript">
+			MX.load({
+				js: 'lib/sea',
+				version: '${ JS_LIB_SEA_VERSION }',
+				success: function() {
+				seajs.use(['lib/jquery','util/bootstrap.datetimepicker.zh-CN','module/Dialog', 'module/Validator', 'util/ajaxPromise'], function($,datetimepicker, Dialog, Validator, ajaxPromise) {
+	            var allCheck = $('#all-check'),
+	            dialog = new Dialog('modal-dialog'),
+	            gameserverList = $('#gameserver-list'),
+	            checkList =  gameserverList.find('input').filter('[name="game-server"]');
+				// 绑定datetimepicker插件
+				$('.form-date').datetimepicker({
+					language: 'zh-CN',/*加载日历语言包，可自定义*/
+					weekStart: 1,
+					todayBtn:  1,
+					autoclose: 1,
+					todayHighlight: 1,
+					minView: 0,
+					forceParse: 0,
+					showMeridian: 1,
+					showSecond: true,  
+                    timeFormat: 'hh:mm:ss',  
+                    stepHour: 1,  
+                    stepMinute: 1,  
+                    stepSecond: 1  
+				});	
+				var postContainer = $('#post-container');
+				// 绑定全选
+				allCheck.on('click', function(e) {
+				
 					var el = $(this);
-					e.preventDefault();
-					FollowHouseInfo.addFollowHouse(el.attr('id'));
+					if(el.prop('checked')) {
+						checkList.prop('checked', true);
+					} else {
+						checkList.prop('checked', false);
+					}
 				});
-				userList = $('#user-list');
-				// 编辑信息
-				userList.on('click', '.edit-btn', function(e) {
-					var el = $(this), data;
-					data = el.closest('tr').data();
-					userInfo.editMember(data);
-				});
-				$('#user-list').on('click', '.btn-del', function(e) {
-						ajaxPromise({
-							type: 'GET',
-							dataType: 'json',
-							url: window.basePath + 'customer/deleteCustomer',
-							data: {
-								id: $(this).data('id')
+				$('#confirm-btn').on('click', function(e) {
+				var el = $(this), validator = new Validator(), data = {};
+				            data.id = '${ baseHouseInfo.id }';
+							data.title = postContainer.find('.title').val();
+							data.type = postContainer.find('.type').val();
+							data.tradetype = postContainer.find('.tradetype').val();
+							data.housename = postContainer.find('.housename').val();
+							data.price = postContainer.find('.price').val();
+							data.rental = postContainer.find('.rental').val();
+							data.unitprice = postContainer.find('.unitprice').val();
+							data.rentalpricetype = postContainer.find('.rentalpricetype').val();
+							data.floor = postContainer.find('.floor').val();
+							data.room = postContainer.find('.room').val();
+							data.acreage = postContainer.find('.acreage').val();
+							data.orientation = postContainer.find('.orientation').val();
+							
+							data.officetag = postContainer.find('[name="officeTags"]').filter(':checked').map(function() {
+									return $(this).val();
+								}).get();
+							data.officetag = data.officetag.join();
+							data.officetype = postContainer.find('.officetype').val();
+							data.paymentmethod = postContainer.find('.paymentmethod').val();
+							data.seemethod = postContainer.find('.seemethod').val();
+							data.source = postContainer.find('.source').val();
+							data.iskey = postContainer.find('.iskey').val();
+							data.remarks = postContainer.find('.remarks').val();
+							data.owner = postContainer.find('.owner').val();
+							data.ownerphone = postContainer.find('.ownerphone').val();
+							data.propertycompany = postContainer.find('.propertycompany').val();
+							data.propertphone = postContainer.find('.propertphone').val();
+							 validator.add(data.housename, 'isNotEmpty', function() {
+								alert('房源名称不能为空');
+							});
+						    validator.add(data.ownerphone, 'isNotEmpty', function() {
+								alert('电话不能为空');
+							});
+							if(!data.Id) {
+								
 							}
-						}).then(function(obj) {
-							alert(obj.msg);
-							window.location.reload();
-						});
-					});
-				// 重置密码
-				userList.on('click', '.reset-password-btn', function(e) {
-					var el = $(this), id;
-					id = el.closest('tr').data('user-id');
-					dialog.show({
-						sizeClass: 'modal-sm',
-						title: '删除',
-						content: '确定要删除吗？',
-						source: 'reset-password',
-						renderCall: function() {
-							var Self = this;
-							Self._confirm.text('确定');
-						},
-						confirm: function(e) {
-							var Self = this;
+							if(!validator.start()) {
+								return;
+							}
+							el.prop('disabled', true);
 							ajaxPromise({
-								url: window.basePath + 'customer/deleteCustomer',
-								type: 'GET',
-								data: {
-									id: id
-								},
+								url: window.basePath + 'base/updateBaseHouse',
+								type: 'POST',
+								data: data,
 								dataType: 'json'
 							}).then(function(data) {
-								Self.enableConfirm();
-								alert('删除成功');
-								Self.hide();
+							    alert('提交成功');
+								document.location.href =  window.basePath +'base/baseHouseList';
 							}, function() {
-								Self.enableConfirm();
+								el.prop('disabled', false);
 							});
-						}
+						});
 					});
-				});
+				}
 			});
-		}
-	});
-</script>
-</body>
+		</script>
+	</body>
 </html>

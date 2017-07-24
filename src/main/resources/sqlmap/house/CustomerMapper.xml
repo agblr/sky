@@ -336,4 +336,120 @@
 		limit #{offset},#{limit};
 		</if>
 	</select>
+	  	<select id="agentSearchCount" resultType="long">
+		select
+		count(1)
+		from customer
+		<where>
+			 <if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="usename != null and usename != ''">
+				AND usename = #{usename,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="nickname != null and nickname != ''">
+				AND nickname = #{nickname,jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND phone = #{phone,jdbcType=VARCHAR}
+			</if>
+			<if test="gender != null and gender != ''">
+				AND gender = #{gender,jdbcType=VARCHAR}
+			</if>
+			<if test="qq != null and qq != ''">
+				AND qq = #{qq,jdbcType=VARCHAR}
+			</if>
+			<if test="gender != null and gender != ''">
+				AND gender = #{gender,jdbcType=VARCHAR}
+			</if>
+			<if test="wechat != null and wechat != ''">
+				AND wechat = #{wechat,jdbcType=VARCHAR}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email,jdbcType=VARCHAR}
+			</if>
+			<if test="source != null and source != ''">
+				AND source = #{source,jdbcType=VARCHAR}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="operator != null and operator != ''">
+				AND operator = #{operator,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND createtime &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND createtime &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</select>
+  
+  <select id="agentSearchList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		 from customer
+	   	<where>
+	   	   	<if test="id != null and id != ''">
+				id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="usename != null and usename != ''">
+				AND usename = #{usename,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="nickname != null and nickname != ''">
+				AND nickname = #{nickname,jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND phone = #{phone,jdbcType=VARCHAR}
+			</if>
+			<if test="gender != null and gender != ''">
+				AND gender = #{gender,jdbcType=VARCHAR}
+			</if>
+			<if test="qq != null and qq != ''">
+				AND qq = #{qq,jdbcType=VARCHAR}
+			</if>
+			<if test="gender != null and gender != ''">
+				AND gender = #{gender,jdbcType=VARCHAR}
+			</if>
+			<if test="wechat != null and wechat != ''">
+				AND wechat = #{wechat,jdbcType=VARCHAR}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email,jdbcType=VARCHAR}
+			</if>
+			<if test="source != null and source != ''">
+				AND source = #{source,jdbcType=VARCHAR}
+			</if>
+			<if test="address != null and address != ''">
+				AND address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="operator != null and operator != ''">
+				AND operator = #{operator,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''">
+				AND status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				AND createtime &gt;= #{startDate,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endDate != null">
+				AND createtime &lt;= #{endDate,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+		order by createtime desc
+		<if test="offset != null and limit != null">
+		limit #{offset},#{limit};
+		</if>
+	</select>
+	
 </mapper>

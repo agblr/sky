@@ -119,12 +119,14 @@ public class BaseHouseController extends AbstractController {
 		public @ResponseBody ResponseResult insertBaseHouse(HttpServletRequest request, String title,Integer type,
 			    String housename,Integer tradetype,Double price,
 			    Double rental,Double unitprice,Integer rentalpricetype,
-			    Integer floor,String room,Double acreage,String orientation,
+			    String floor,String room,Double acreage,String orientation,
 			    String officetag,String officetype, String paymentmethod,
 			    String seemethod,String source,String iskey,String remarks,
 			    String image, Date createtime,Date updatetime,
 			    String founder,String owner,String ownerphone,
-			    String propertycompany,String propertphone) throws IOException{
+			    String propertycompany,String propertphone,
+			    Integer housestatus,Integer properties,Integer status,Integer isfollow,Integer followsee,
+			    Integer isstatus,Integer diskstatus, Integer sealingdisk) throws IOException{
 			if(StringUtils.isEmpty(housename)) {
 				return errorJson(EnumResCode.SERVER_ERROR.value(), "房源名称不能为空！");
 			}
@@ -144,7 +146,8 @@ public class BaseHouseController extends AbstractController {
 				     seemethod, source, iskey, remarks,
 				     image,  createtime, updatetime, operator,
 				     founder, owner, ownerphone,
-				     propertycompany, propertphone);
+				     propertycompany, propertphone, housestatus, properties, status, isfollow, followsee,
+					   isstatus, diskstatus,  sealingdisk);
 
 			JSONObject result = new JSONObject();
 			//result中保存要传给前台的参数
@@ -180,12 +183,14 @@ public class BaseHouseController extends AbstractController {
 		public @ResponseBody ResponseResult updateBaseHouse(HttpServletRequest request, Long id, String title,Integer type,
 			    String housename,Integer tradetype,Double price,
 			    Double rental,Double unitprice,Integer rentalpricetype,
-			    Integer floor,String room,Double acreage,String orientation,
+			    String floor,String room,Double acreage,String orientation,
 			    String officetag,String officetype, String paymentmethod,
 			    String seemethod,String source,String iskey,String remarks,
 			    String image, Date createtime,Date updatetime,
 			    String founder,String owner,String ownerphone,
-			    String propertycompany,String propertphone) throws IOException{
+			    String propertycompany,String propertphone,
+			    Integer housestatus,Integer properties,Integer status,Integer isfollow,Integer followsee,
+			    Integer isstatus,Integer diskstatus, Integer sealingdisk) throws IOException{
 			if(StringUtils.isEmpty(housename)) {
 				return errorJson(EnumResCode.SERVER_ERROR.value(), "房源名称不能为空！");
 			}
@@ -205,7 +210,8 @@ public class BaseHouseController extends AbstractController {
 				     seemethod, source, iskey, remarks,
 				     image,  createtime, updatetime, operator,
 				     founder, owner, ownerphone,
-				     propertycompany, propertphone);
+				     propertycompany, propertphone, housestatus, properties, status, isfollow, followsee,
+					   isstatus, diskstatus,  sealingdisk);
 
 			JSONObject result = new JSONObject();
 			//result中保存要传给前台的参数
@@ -236,9 +242,19 @@ public class BaseHouseController extends AbstractController {
 			
 			model.addAttribute("baseHouseInfo", baseHouseInfo);
 			
+			
+			
+			
 			OperatorLog operatorLog = new OperatorLog(String.valueOf(id), "浏览房源ID:"+id+"详情", "查看",
 					operator,baseHouseInfo.toString());
 			operatorLogService.insertOperatorLog(operatorLog);
+			
+			long seeCNT = operatorLogService.searchCount(id);
+			
+			List<OperatorLog> operatorLogList = operatorLogService.searchList(id);
+			
+			model.addAttribute("operatorLogList", operatorLogList);
+			model.addAttribute("seeCNT", seeCNT);
 			
 			return "house/source/baseHouseDetail";
 		}

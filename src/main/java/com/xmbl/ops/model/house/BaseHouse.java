@@ -29,7 +29,7 @@ public class BaseHouse {
 
     private String rentalpricetypeStr;
     
-    private Integer floor;
+    private String floor;
 
     private String room;
 
@@ -95,6 +95,21 @@ public class BaseHouse {
     private Integer followsee;
     
     private String followseeStr;
+    
+    
+    private Integer isstatus;
+    
+    private String isstatusStr;
+    
+    private Integer diskstatus;
+    
+    private String diskstatusStr;
+    
+    private Integer sealingdisk;
+    
+    private String sealingdiskStr;
+    
+    
     public BaseHouse() {
 		super();
 	}
@@ -102,12 +117,14 @@ public class BaseHouse {
     public BaseHouse(Long id,String title,Integer type,
     String housename,Integer tradetype,Double price,
     Double rental,Double unitprice,Integer rentalpricetype,
-    Integer floor,String room,Double acreage,String orientation,
+    String floor,String room,Double acreage,String orientation,
     String officetag,String officetype, String paymentmethod,
     String seemethod,String source,String iskey,String remarks,
     String image, Date createtime,Date updatetime,String operator,
     String founder,String owner,String ownerphone,
-    String propertycompany,String propertphone) {
+    String propertycompany,String propertphone,
+    Integer housestatus,Integer properties,Integer status,Integer isfollow,Integer followsee,
+    Integer isstatus,Integer diskstatus, Integer sealingdisk) {
         this.id = id;
 
         this.title = title;
@@ -163,17 +180,36 @@ public class BaseHouse {
         this.propertycompany = propertycompany;
 
         this.propertphone = propertphone;
+        
+        
+        
+        
+        
+        this.housestatus = housestatus;
+        
+        this.properties =properties;
+        
+        this.status = status;
+        
+        this.isfollow  = isfollow;
+        
+        this.followsee = followsee;
+        this.isstatus = isstatus;
+        this.diskstatus = diskstatus;
+        this.sealingdisk =sealingdisk;
 	}
     
     public BaseHouse(String title,Integer type,
     String housename,Integer tradetype,Double price,
     Double rental,Double unitprice,Integer rentalpricetype,
-    Integer floor,String room,Double acreage,String orientation,
+    String floor,String room,Double acreage,String orientation,
     String officetag,String officetype, String paymentmethod,
     String seemethod,String source,String iskey,String remarks,
     String image, Date createtime,Date updatetime,String operator,
     String founder,String owner,String ownerphone,
-    String propertycompany,String propertphone) {
+    String propertycompany,String propertphone,
+    Integer housestatus,Integer properties,Integer status,Integer isfollow,Integer followsee,
+    Integer isstatus,Integer diskstatus, Integer sealingdisk) {
 
         this.title = title;
 
@@ -230,5 +266,18 @@ public class BaseHouse {
         this.propertycompany = propertycompany;
 
         this.propertphone = propertphone;
+        
+        this.housestatus = housestatus;
+        
+        this.properties =properties;
+        
+        this.status = status;
+        
+        this.isfollow  = isfollow;
+        
+        this.followsee = followsee;
+        this.isstatus = isstatus;
+        this.diskstatus = diskstatus;
+        this.sealingdisk =sealingdisk;
 	}
 }

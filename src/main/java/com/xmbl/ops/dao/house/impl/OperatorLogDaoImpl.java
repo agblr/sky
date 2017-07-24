@@ -24,6 +24,13 @@ public class OperatorLogDaoImpl extends EntityDaoMPDBImpl<OperatorLog> implement
 		long count = getSqlSessionTemplate().selectOne(getNameSpace() + ".searchCount", para);
 		return count;
 	}
+	@Override
+	public long searchCount(Long visitId) {
+		Map<String, Object> para = new HashMap<String, Object>();
+		para.put("visitId", visitId);
+		long count = getSqlSessionTemplate().selectOne(getNameSpace() + ".searchCountBYvisitId", para);
+		return count;
+	}
 	
 	@Override
 	public List<OperatorLog> searchList(String userKey,  Date startDate, Date endDate,
@@ -37,7 +44,13 @@ public class OperatorLogDaoImpl extends EntityDaoMPDBImpl<OperatorLog> implement
 		List<OperatorLog> results = getSqlSessionTemplate().selectList(getNameSpace() + ".searchList", para);
 		return results;
 	}
-
+	@Override
+	public List<OperatorLog> searchList(Long visitId) {
+		Map<String, Object> para = new HashMap<String, Object>();
+		para.put("visitId", visitId);
+		List<OperatorLog> results = getSqlSessionTemplate().selectList(getNameSpace() + ".searchListBYvisitId", para);
+		return results;
+	}
 	@Override
 	public OperatorLog addOperatorLog(OperatorLog operatorLog){
 		//插入新成员
