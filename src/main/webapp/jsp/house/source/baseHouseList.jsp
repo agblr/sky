@@ -25,12 +25,20 @@
 
 <link rel="stylesheet" href="<%=basePath %>css/bootstrap/bootstrap.3.3.5.min.css">
 <link rel="stylesheet" href="<%=basePath %>css/common_${ CSS_COMMON_VERSION }.css">
+		<script src="<%=basePath %>js/jquery.min.js"></script>
+        <script src="<%=basePath %>js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	var path = '<%=path %>';
 	var basePath = '<%=basePath%>';
 	(function(){MX=window.MX||{};var g=function(a,c){for(var b in c)a.setAttribute(b,c[b])};MX.load=function(a){var c=a.js,b=c?".js":".css",d=-1==location.search.indexOf("jsDebug"),e=a.js||a.css;-1==e.indexOf("http://")?(e=(a.path||window.basePath)+((c?"js/":"css/")+e)+(!d&&!c?".source":""),b=e+(a.version?"_"+a.version:"")+b):b=e;d||(d=b.split("#"),b=d[0],b=b+(-1!=b.indexOf("?")?"&":"?")+"r="+Math.random(),d[1]&&(b=b+"#"+d[1]));if(c){var c=b,h=a.success,f=document.createElement("script");f.onload=function(){h&&h();f=null};g(f,{type:"text/javascript",src:c,async:"true"});document.getElementsByTagName("head")[0].appendChild(f)}else{var c=b,i=a.success,a=document.createElement("link");g(a,{rel:"stylesheet"});document.getElementsByTagName("head")[0].appendChild(a);g(a,{href:c});i&&(a.onload=function(){i()})}}})();
 </script>
- 
+<script>
+		$(function () { $('.popover-show').popover('show');});
+		$(function () { $('.popover-hide').popover('hide');});
+		$(function () { $('.popover-destroy').popover('destroy');});
+		$(function () { $('.popover-toggle').popover('toggle');});
+		$(function () { $(".popover-options a").popover({html : true });});
+	</script> 
 </head>
 <body>
 <c:set var="preUrl" value="baseHouseList
@@ -145,8 +153,14 @@
 					   <td>${ baseHouseInfo.propertycompany }</td>
 					    <td>${ baseHouseInfo.propertphone }</td>-->
 					    <td>
-					    	<c:if test="${baseHouseInfo.remarks.length() > 8 }">${ baseHouseInfo.remarks.substring(0, 8)}... </c:if>
+					   	<p class="popover-options">
+		               <a href="#" type="button" class="btn btn-warning" title="<h2>备注说明</h2>"  
+		                data-container="body" data-toggle="popover" data-content="
+																	 <h4>${ baseHouseInfo.remarks}</h4>">
+			          	<c:if test="${baseHouseInfo.remarks.length() > 8 }">${ baseHouseInfo.remarks.substring(0, 8)}... </c:if>
 							<c:if test="${baseHouseInfo.remarks.length() <= 8 }">${ baseHouseInfo.remarks} </c:if> 
+		             </a>
+	                 </p>
 					    </td>
 				 	    <td>${ func:formatDate(baseHouseInfo.createtime ) }</td>
 				 	    <td>${ baseHouseInfo.operatorName }</td>

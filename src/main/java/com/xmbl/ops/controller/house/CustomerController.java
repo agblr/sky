@@ -22,8 +22,10 @@ import com.xmbl.ops.constant.SessionConstant;
 import com.xmbl.ops.controller.organization.AbstractController;
 import com.xmbl.ops.dto.ResponseResult;
 import com.xmbl.ops.enumeration.EnumResCode;
+import com.xmbl.ops.model.house.BaseHouse;
 import com.xmbl.ops.model.house.BlackAgent;
 import com.xmbl.ops.model.house.Customer;
+import com.xmbl.ops.model.house.OperatorLog;
 import com.xmbl.ops.service.house.CustomerService;
 import com.xmbl.ops.util.DateUtils;
 
@@ -259,6 +261,26 @@ public class CustomerController extends AbstractController {
 			return "house/customer/addCustomer";
 		}
 	
+		
+		//详细
+		@RequestMapping(value = "/getCustomer")
+		public String getCustomer(HttpServletRequest request,ModelMap model,  Integer id) {
+			if(id == null) {
+				return "客户存在！";
+			}
+			HttpSession session = request.getSession();
+			String operator = (String) session
+					.getAttribute(SessionConstant.USER_NAME);
+			
+			
+			Customer customerInfo = customerService.getById(id);
+			
+			model.addAttribute("customerInfo", customerInfo);
+			
+			
+			return "house/customer/customerDetail";
+		}
+		
 		
 		/**
 		 * 编辑

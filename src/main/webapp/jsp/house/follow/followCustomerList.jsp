@@ -86,7 +86,7 @@
 					<td>${ followCustomerInfo.id }</td>
 					 <td>${ func:formatDate(followCustomerInfo.createtime) }</td>
 					<td>${ followCustomerInfo.followtypeStr }</td>
-					  <td>${ followCustomerInfo.customerid }</td>
+					  <td><a href="<%=basePath%>customer/getCustomer?id=${ followCustomerInfo.customerid }" >${ followCustomerInfo.customerid }</a></td>
 					  <td>${ followCustomerInfo.operatorName}</td>
 					  <td>${ followCustomerInfo.content }</td>
 					  <td>

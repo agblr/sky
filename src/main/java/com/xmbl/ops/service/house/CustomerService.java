@@ -48,7 +48,9 @@ public class CustomerService {
 			     wechat,  email, source,
 			     address, status, 
 			     remarks, operator,startDate, endDate, page, limit);
-
+		for(Customer customer: customerList){
+			   setUserName(customer);
+			}
 		return customerList;
 	}
 	

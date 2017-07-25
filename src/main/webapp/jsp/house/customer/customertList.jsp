@@ -139,7 +139,7 @@
 				 	    <td>${ customerInfo.address }</td>
 				 	    <td>${ customerInfo.remarks }</td>
 				 	    <td>${ func:formatDate(customerInfo.createtime ) }</td>
-				 	    <td>${ customerInfo.operator }</td>
+				 	    <td>${ customerInfo.operatorName }</td>
 						<td>
 							<button class="btn btn-primary btn-xs ml10 edit-btn">编辑</button>
 						    <!-- <button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ customerInfo.id }">删除</button>-->

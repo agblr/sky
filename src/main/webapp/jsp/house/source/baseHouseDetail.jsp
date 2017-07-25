@@ -39,6 +39,9 @@
 		<link rel="stylesheet" href="<%=basePath %>css/bootstrap/bootstrap.3.3.5.min.css">
 		<link href="<%=basePath %>css/bootstrap/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
 		<link rel="stylesheet" href="<%=basePath %>css/common_${ CSS_COMMON_VERSION }.css">
+		<script src="<%=basePath %>js/jquery.min.js"></script>
+        <script src="<%=basePath %>js/bootstrap.min.js"></script>
+        <script src="<%=basePath %>/js/module/SeePhone.js"></script>
 		<style type="text/css">
 			.illustration {
 				width: 200px;
@@ -65,6 +68,13 @@ display: block;
 			var basePath = '<%=basePath%>';
 			(function(){MX=window.MX||{};var g=function(a,c){for(var b in c)a.setAttribute(b,c[b])};MX.load=function(a){var c=a.js,b=c?".js":".css",d=-1==location.search.indexOf("jsDebug"),e=a.js||a.css;-1==e.indexOf("http://")?(e=(a.path||window.basePath)+((c?"js/":"css/")+e)+(!d&&!c?".source":""),b=e+(a.version?"_"+a.version:"")+b):b=e;d||(d=b.split("#"),b=d[0],b=b+(-1!=b.indexOf("?")?"&":"?")+"r="+Math.random(),d[1]&&(b=b+"#"+d[1]));if(c){var c=b,h=a.success,f=document.createElement("script");f.onload=function(){h&&h();f=null};g(f,{type:"text/javascript",src:c,async:"true"});document.getElementsByTagName("head")[0].appendChild(f)}else{var c=b,i=a.success,a=document.createElement("link");g(a,{rel:"stylesheet"});document.getElementsByTagName("head")[0].appendChild(a);g(a,{href:c});i&&(a.onload=function(){i()});}}})();
 		</script>
+		<script>
+		$(function () { $('.popover-show').popover('show');});
+		$(function () { $('.popover-hide').popover('hide');});
+		$(function () { $('.popover-destroy').popover('destroy');});
+		$(function () { $('.popover-toggle').popover('toggle');});
+		$(function () { $(".popover-options a").popover({html : true });});
+	</script> 
 	</head>
 	<body>
 		<header class="ui-page-header">
@@ -82,7 +92,6 @@ display: block;
 				</div>
 			   </div>
 			   	<div class="form-group">
-			   	<a href="<%=basePath%>follow/addFollowHouse?houseid=${ baseHouseInfo.id }" class="btn btn-success ml10">跟进</a>
 			    </div>
 			<!--<div class="form-group">
 				<a href="#" class="btn btn-success ml10" id="add-member-btn">创建跟进</a>
@@ -260,8 +269,18 @@ display: block;
 				</div>
 				<label class="col-sm-1 control-label">业主电话:</label>
 				<div class="col-sm-2">
-					<input type="text" value="${baseHouseInfo.ownerphone}" class="ownerphone form-control"
-						maxLength="30" />
+				 	  <p class="popover-options">
+		              <!-- <a href="<%=basePath%>base/getHouserePhone?id=${ baseHouseInfo.id }" type="button" class="btn btn-warning" title="<h2>电话</h2>"  
+		                data-container="body" data-toggle="popover" data-content="
+																	 <h4>${baseHouseInfo.ownerphone}</h4>">
+						查看电话				
+									 -->
+					 <a href="javascript:void(0)" type="button" class="btn btn-danger see-phone" title="<h2>电话</h2>"  see-id="${baseHouseInfo.id}"
+		                data-container="body" data-toggle="popover" data-content="
+						<h4>${baseHouseInfo.ownerphone}</h4>">
+						查看电话	
+		             </a>
+	                 </p>
 				</div>
 				</div>
 			<div class="form-group">
@@ -285,9 +304,11 @@ display: block;
 			</div> -->
 	</article>
 		<footer class="text-center ui-page-footer">
+			<a href="<%=basePath%>follow/addFollowHouse?houseid=${ baseHouseInfo.id }" class="btn btn-success min-w100 ml20">跟进</a>
 			<!--  <a class="btn btn-default min-w100" href="${referer }" onclick="history.go(-1)">返回</a>-->
 			<input class="btn btn-primary min-w100 ml20" type="button" name="button1" id="button1" value="返回" onclick="history.go(-1)">
 			<!--  <button class="btn btn-primary min-w100 ml20" id="confirm-btn">提交</button>-->
+			
 		</footer>
 		<div id="image-input" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
 			<div class="modal-dialog">
@@ -338,6 +359,17 @@ display: block;
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+	<script>
+    $(document).ready(function () {
+        var id = ${baseHouseInfo.id};
+        $(".see-phone").click(function () {
+    //    $('a').addClass('disabled'); // Disables visually  
+//$('a').prop('disabled', true); // Does nothing  
+//$('a').attr('disabled', 'disabled'); // Disables visually  
+            SeePhone.see($(this));
+        });
+    });
+</script>
 <script type="text/javascript">
 	MX.load({
 		js: 'lib/sea',
@@ -373,6 +405,38 @@ display: block;
 							window.location.reload();
 						});
 					});
+				// 查看电话
+				userList.on('click', '.see-phone-btn', function(e) {
+					var el = $(this), id;
+					id = el.closest('tr').data('user-id');
+					dialog.show({
+						sizeClass: 'modal-sm',
+					   	title: '电话',
+					  	content: 'id',
+						source: 'reset-password',
+						renderCall: function() {
+							var Self = this;
+							Self._confirm.text('确定');
+					    },
+						confirm: function(e) {
+							var Self = this;
+							ajaxPromise({
+								url: window.basePath + 'base/getHouserePhone',
+								type: 'GET',
+								data: {
+									id: id
+								},
+								dataType: 'json'
+							}).then(function(data) {
+								Self.enableConfirm();
+								alert('删除成功');
+								Self.hide();
+							}, function() {
+								Self.enableConfirm();
+							});
+						}
+					});
+				});
 				// 重置密码
 				userList.on('click', '.reset-password-btn', function(e) {
 					var el = $(this), id;

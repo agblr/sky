@@ -258,6 +258,35 @@ public class BaseHouseController extends AbstractController {
 			
 			return "house/source/baseHouseDetail";
 		}
+		//详细
+		@RequestMapping(value = "/getHouserePhone")
+		public @ResponseBody ResponseResult getHouserePhone(HttpServletRequest request,ModelMap model,  Long id) {
+//			if(id == null) {
+//				return "房源存在！";
+//			}
+			HttpSession session = request.getSession();
+			String operator = (String) session
+					.getAttribute(SessionConstant.USER_NAME);
+			
+			BaseHouse baseHouseInfo = baseHouseService.getById(id);
+			
+			model.addAttribute("baseHouseInfo", baseHouseInfo);
+			
+			OperatorLog operatorLog = new OperatorLog(String.valueOf(id), "浏览房源ID:"+id+"电话", "查看电话",
+					operator,baseHouseInfo.toString());
+			operatorLogService.insertOperatorLog(operatorLog);
+			
+			long seeCNT = operatorLogService.searchCount(id);
+			
+			List<OperatorLog> operatorLogList = operatorLogService.searchList(id);
+			
+			model.addAttribute("operatorLogList", operatorLogList);
+			model.addAttribute("seeCNT", seeCNT);
+			JSONObject result = new JSONObject();
+			result.put("id", id);
+			return successJson(result);
+			//return "house/source/baseHouseDetail";
+		}
 		/**
 		 * 删除
 		 */
