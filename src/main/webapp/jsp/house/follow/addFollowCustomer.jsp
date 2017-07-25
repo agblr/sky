@@ -5,7 +5,7 @@
 <%@ page import="com.xmbl.ops.enumeration.EnumHouseSourceType" %>
 <%@ page import="com.xmbl.ops.enumeration.EnumIsKey" %>
 <%@ page import="com.xmbl.ops.enumeration.EnumTradeType" %>
-<%@ page import="com.xmbl.ops.enumeration.EnumFollowHouseType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumFollowCustomerType" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="/WEB-INF/tlds/Functions" prefix="func"%>
 <%
@@ -20,7 +20,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<title>新增房源跟进</title>
+		<title>客户跟进</title>
 		<meta http-equiv="keywords" content=""/>
 		<meta http-equiv="description" content=""/>
 		<link type="image/x-icon" rel="shortcut icon" href="<%=basePath %>image/logo/favicon.ico">
@@ -45,7 +45,7 @@
 	</head>
 	<body>
 		<header class="ui-page-header">
-			<div class="mini-title">当前位置：房源跟进</div>
+			<div class="mini-title">当前位置：客户跟进</div>
 		</header>
 		<article class="container-fluid" id="post-container">
 		<div class="form-horizontal">
@@ -66,9 +66,9 @@
 				</div>
 			   </div> -->
 			   	<div class="form-group">
-				<label class="col-sm-1 control-label">跟进房源id:</label>
+				<label class="col-sm-1 control-label">跟进客户id:</label>
 				<div class="col-sm-2">
-					<input type="text" value="${houseid}" class="houseid form-control"
+					<input type="text" value="${customerid}" class="customerid form-control"
 						maxLength="30" />
 				</div>
 			   </div>
@@ -76,9 +76,9 @@
 			    <label class="col-sm-1 control-label">跟进方式:</label>
 			    <div class="col-sm-1">
 			    <select class="followtype form-control add-content" name="followtype">
-                <c:set var="EnumFollowHouseTypes" value="<%=EnumFollowHouseType.values()%>"/>
-						<c:forEach var="EnumFollowHouseType" items="${ EnumFollowHouseTypes }">
-						<option value="${ EnumFollowHouseType.id }" <c:if test="${ EnumFollowHouseType.id == followtype }">selected = "selected"</c:if>>${ EnumFollowHouseType.desc }</option>
+                <c:set var="EnumFollowCustomerTypes" value="<%=EnumFollowCustomerType.values()%>"/>
+						<c:forEach var="EnumFollowCustomerType" items="${ EnumFollowCustomerTypes }">
+						<option value="${ EnumFollowCustomerType.id }" <c:if test="${ EnumFollowCustomerType.id == followtype }">selected = "selected"</c:if>>${ EnumFollowCustomerType.desc }</option>
 					</c:forEach>
 			    </select></label>
 			    </div>
@@ -159,7 +159,7 @@
 				});
 				$('#confirm-btn').on('click', function(e) {
 				var el = $(this), validator = new Validator(), data = {};
-							data.houseid = postContainer.find('.houseid').val();
+							data.customerid = postContainer.find('.customerid').val();
 							data.content = postContainer.find('.content').val();
 							data.followtype = postContainer.find('.followtype').val();
 							
@@ -175,7 +175,7 @@
 							}
 							el.prop('disabled', true);
 							ajaxPromise({
-								url: window.basePath + 'follow/insertFollowHouse',
+								url: window.basePath + 'follow/insertFollowCustomer',
 								type: 'POST',
 								data: data,
 								dataType: 'json'

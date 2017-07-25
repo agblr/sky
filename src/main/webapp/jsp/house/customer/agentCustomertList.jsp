@@ -142,8 +142,10 @@
 				 	    <td>${ customerInfo.operator }</td>
 						<td>
 							<button class="btn btn-primary btn-xs ml10 edit-btn">编辑</button>
-							<button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ customerInfo.id }">删除</button>
+							<!--  <button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ customerInfo.id }">删除</button> -->
 							<!-- <button class="btn btn-primary btn-xs ml10 reset-password-btn" data-toggle="modal"  data-target=".modal">删除</button> -->
+						<a href="<%=basePath%>follow/addFollowCustomer?customerid=${ customerInfo.id }" >跟进</a>
+						<a href="<%=basePath%>follow/followCustomeridList?customerid=${ customerInfo.id }" >查看所有跟进</a>
 						</td>
 					</tr>
 				</c:forEach>

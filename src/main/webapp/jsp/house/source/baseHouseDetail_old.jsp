@@ -48,17 +48,6 @@
 			.illustration[src] {
 				height: auto;
 			}
-			.tab-content{
-display: none;
-}
-.tab-content.active{
-display: block;
-}
-#tabs{ 
- width:550px; 
- height:210px; 
- background:white; 
-} 
 		</style>
 		<script type="text/javascript">
 			var path = '<%=path %>';
@@ -70,7 +59,7 @@ display: block;
 		<header class="ui-page-header">
 			<div class="mini-title">当前位置：房源详细</div>
 		</header>
-	<article class="container-fluid" id="post-container">
+		<article class="container-fluid" id="post-container">
 		<div class="form-horizontal">
 		      <div class="form-group">
 				<div class="col-sm-8">
@@ -82,7 +71,7 @@ display: block;
 				</div>
 			   </div>
 			   	<div class="form-group">
-			   	<a href="<%=basePath%>follow/addFollowHouse?houseid=${ baseHouseInfo.id }" class="btn btn-success ml10">跟进</a>
+				<a href="<%=basePath%>follow/addFollowHouse" class="btn btn-success ml10">跟进</a>
 			    </div>
 			<!--<div class="form-group">
 				<a href="#" class="btn btn-success ml10" id="add-member-btn">创建跟进</a>
@@ -301,12 +290,8 @@ display: block;
 				</div>
 			</div>
 		</div>
-	<ul class="nav nav-pills">
-	<li class="active"><a href="#">该房源浏览总次数:<span class="badge">${ seeCNT } 次数</span> 显示全部浏览记录</a></li>
-	<li><a href="#"><span class="badge">只显示最近10条记录</span></a></li>
-	<li class="active"><a href="<%=basePath%>follow/followHouseList?houseid=${ baseHouseInfo.id }"><span class="badge">查看所有跟进</span></a></li>
-   </ul>
-	<div class="mini-title"></div>
+	
+	<div class="mini-title">该房源浏览总次数:${ seeCNT }  最近5条记录</div>
 		<table class="table table-hover table-bordered table-condensed" >
 			<thead>
 				<tr class="info">
@@ -315,7 +300,7 @@ display: block;
 					<th style="min-width:50px">操作</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="user-list">
 				<c:forEach var="operatorLogInfo" items="${ operatorLogList }">
 					<tr>
 				 	    <td>${ operatorLogInfo.createtime }</td>

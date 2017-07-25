@@ -22,9 +22,9 @@ import com.xmbl.ops.constant.SessionConstant;
 import com.xmbl.ops.controller.organization.AbstractController;
 import com.xmbl.ops.dto.ResponseResult;
 import com.xmbl.ops.enumeration.EnumResCode;
-import com.xmbl.ops.model.house.FollowHouse;
+import com.xmbl.ops.model.house.FollowCustomer;
 import com.xmbl.ops.model.house.OperatorLog;
-import com.xmbl.ops.service.house.FollowHouseService;
+import com.xmbl.ops.service.house.FollowCustomerService;
 import com.xmbl.ops.service.house.OperatorLogService;
 import com.xmbl.ops.service.organization.UserLogService;
 import com.xmbl.ops.util.DateUtils;
@@ -34,20 +34,20 @@ import com.xmbl.ops.util.DateUtils;
 
 @Controller
 @RequestMapping(value = "/follow")
-public class FollowHouseController extends AbstractController {
+public class FollowCustomerController extends AbstractController {
 
 	private static final int limit = 30;
 
 	@Autowired
-	protected FollowHouseService followHouseService;
+	protected FollowCustomerService followCustomerService;
 	
 	@Autowired
 	protected OperatorLogService operatorLogService;
 	
 	//跟进房源列表
-	@RequestMapping(value = "/followHouseList")
-	public String followHouseSearch(HttpServletRequest request, ModelMap model, 
-			Long id, Long houseid,String content,Integer status,
+	@RequestMapping(value = "/followCustomerList")
+	public String followCustomerSearch(HttpServletRequest request, ModelMap model, 
+			Long id, Long customerid,String content,Integer status,
 			Integer followtype,String operator,
 			String startTime, String endTime, Long page) {
 		try{			
@@ -60,8 +60,8 @@ public class FollowHouseController extends AbstractController {
 
 			page = page == null || page < 0 ? 0 : page;
 
-			long totalNum = followHouseService.searchCount(id,  
-					houseid, content, status, followtype,operator,startDate, endDate);
+			long totalNum = followCustomerService.searchCount(id,  
+					customerid, content, status, followtype,operator,startDate, endDate);
 
 			long totalPageNum = totalNum / limit;
 			if(totalNum > totalPageNum * limit)
@@ -69,19 +69,19 @@ public class FollowHouseController extends AbstractController {
 			if(page >= totalPageNum && totalPageNum != 0)
 				page = totalPageNum - 1;
 			long start = page * limit;
-			List<FollowHouse> followHouseList = followHouseService.searchList(id,  
-					houseid, content, status, followtype,operator, startDate, endDate, start, limit);
+			List<FollowCustomer> followCustomerList = followCustomerService.searchList(id,  
+					customerid, content, status, followtype,operator, startDate, endDate, start, limit);
 			model.addAttribute("id", id);
-			model.addAttribute("houseid", houseid);
+			model.addAttribute("customerid", customerid);
 			model.addAttribute("followtype", followtype);
 			model.addAttribute("operator", operator);
 			model.addAttribute("userKey", userKey);
-			model.addAttribute("followHouseList", followHouseList);
+			model.addAttribute("followCustomerList", followCustomerList);
 			model.addAttribute("page", page);
 			model.addAttribute("totalNum", totalNum);
 			model.addAttribute("totalpage", totalPageNum);
 			
-			return "house/follow/followHouseList";
+			return "house/follow/followCustomerList";
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -90,9 +90,9 @@ public class FollowHouseController extends AbstractController {
 	
 	
 	//跟进房源列表
-	@RequestMapping(value = "/followHouseidList")
-	public String followHouseidSearch(HttpServletRequest request, ModelMap model, 
-			Long id, Long houseid,String content,Integer status,
+	@RequestMapping(value = "/followCustomeridList")
+	public String followCustomeridSearch(HttpServletRequest request, ModelMap model, 
+			Long id, Long customerid,String content,Integer status,
 			Integer followtype,String operator,
 			String startTime, String endTime, Long page) {
 		try{			
@@ -105,8 +105,8 @@ public class FollowHouseController extends AbstractController {
 
 			page = page == null || page < 0 ? 0 : page;
 
-			long totalNum = followHouseService.searchCount(id,  
-					houseid, content, status, followtype,operator,startDate, endDate);
+			long totalNum = followCustomerService.searchCount(id,  
+					customerid, content, status, followtype,operator,startDate, endDate);
 
 			long totalPageNum = totalNum / limit;
 			if(totalNum > totalPageNum * limit)
@@ -114,19 +114,19 @@ public class FollowHouseController extends AbstractController {
 			if(page >= totalPageNum && totalPageNum != 0)
 				page = totalPageNum - 1;
 			long start = page * limit;
-			List<FollowHouse> followHouseList = followHouseService.searchList(id,  
-					houseid, content, status, followtype,operator, startDate, endDate, start, limit);
+			List<FollowCustomer> followCustomerList = followCustomerService.searchList(id,  
+					customerid, content, status, followtype,operator, startDate, endDate, start, limit);
 			model.addAttribute("id", id);
-			model.addAttribute("houseid", houseid);
+			model.addAttribute("customerid", customerid);
 			model.addAttribute("followtype", followtype);
 			model.addAttribute("operator", operator);
 			model.addAttribute("userKey", userKey);
-			model.addAttribute("followHouseList", followHouseList);
+			model.addAttribute("followCustomerList", followCustomerList);
 			model.addAttribute("page", page);
 			model.addAttribute("totalNum", totalNum);
 			model.addAttribute("totalpage", totalPageNum);
 			
-			return "house/follow/followHouseList";
+			return "house/follow/followCustomerList";
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
@@ -135,32 +135,32 @@ public class FollowHouseController extends AbstractController {
 	
 	
 	   //添加
-		@RequestMapping(value = "/addFollowHouse")
-		public String addFollowHouse(HttpServletRequest request, ModelMap model, Long houseid) {
+		@RequestMapping(value = "/addFollowCustomer")
+		public String addFollowCustomer(HttpServletRequest request, ModelMap model, Long customerid) {
 
-			model.addAttribute("houseid", houseid);
-			return "house/follow/addFollowHouse";
+			model.addAttribute("customerid", customerid);
+			return "house/follow/addFollowCustomer";
 		}
 		/**
 		 * 插入
 		 */
-		@RequestMapping(value = "/insertFollowHouse")
-		public @ResponseBody ResponseResult insertFollowHouse(HttpServletRequest request, Long houseid,Date createtime,
+		@RequestMapping(value = "/insertFollowCustomer")
+		public @ResponseBody ResponseResult insertFollowCustomer(HttpServletRequest request, Long customerid,Date createtime,
 				Date updatetime,Integer followtype, String follower, 
 				String content,String remark,String reminder,Date remindtime,
 				String remindcontent, Integer status) throws IOException{
 			if(StringUtils.isEmpty(content)) {
 				return errorJson(EnumResCode.SERVER_ERROR.value(), "跟进内容不能为空！");
 			}
-			if(houseid == null) {
-				return errorJson(EnumResCode.SERVER_ERROR.value(), "房源id不能为空！");
+			if(customerid == null) {
+				return errorJson(EnumResCode.SERVER_ERROR.value(), "客户id不能为空！");
 			}
 
 			HttpSession session = request.getSession();
 			String operator = (String) session
 					.getAttribute(SessionConstant.USER_NAME);
 			
-			FollowHouse followHouseInfo = followHouseService.addFollowHouse(houseid,createtime,updatetime,
+			FollowCustomer followCustomerInfo = followCustomerService.addFollowCustomer(customerid,createtime,updatetime,
 					followtype,operator,follower,content,remark,
 					reminder, remindtime, remindcontent, status);
 

@@ -127,7 +127,7 @@
 					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.id }</a></td>
 					  <!-- <td>${ baseHouseInfo.title }</td> -->
 					    <td>${ baseHouseInfo.typeStr }</td>
-					    <td>${ baseHouseInfo.housestatusStr }${ baseHouseInfo.housestatus }</td>
+					    <td>${ baseHouseInfo.sealingdiskStr }|${ baseHouseInfo.diskstatusStr }|${ baseHouseInfo.isstatusStr }|${ baseHouseInfo.housestatusStr }</td>
 					    <td>${ baseHouseInfo.tradetypeStr }</td>
 					  <!--  <td>${ baseHouseInfo.iskey }</td>-->
 					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.housename }</a></td>
@@ -153,7 +153,7 @@
 						<td>
 						    <c:if test="${ baseHouseInfo.founder ==  userKey}">
 		                    <a href="<%=basePath%>base/editBaseHouse?id=${baseHouseInfo.id}" class="btn btn-primary btn-xs ml10 edit-btn">编辑</a>
-							<button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ baseHouseInfo.id }">删除</button>
+							<!-- <button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ baseHouseInfo.id }">删除</button> -->
 				            </c:if>
 						   <!-- <button class="btn btn-primary btn-xs ml10 reset-password-btn" data-toggle="modal"  data-target=".modal">删除</button> -->
 						</td>

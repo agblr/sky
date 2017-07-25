@@ -20,7 +20,7 @@
 <meta http-equiv="expires" content="0">    
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<title>客户跟进管理</title>
+<title>房源跟进管理</title>
 <link type="image/x-icon" rel="shortcut icon" href="<%=basePath %>image/logo/favicon.ico">
 
 <link rel="stylesheet" href="<%=basePath %>css/bootstrap/bootstrap.3.3.5.min.css">
@@ -33,9 +33,9 @@
  
 </head>
 <body>
-<c:set var="preUrl" value="followHouseList
+<c:set var="preUrl" value="followCustomeridList
 							?id=${ id }&
-							houseid=${ houseid }&
+							customerid=${ customerid }&
 							content=${ content }&
 							operator=${ operator }&
 							status=${ status }&
@@ -48,8 +48,8 @@
 	<article class="container-fluid">
 		<form class="form-inline search-form">
 	      <div class="form-id">
-				<label>房源id</label>
-				<input type="text" class="form-control" value="${ houseid }" name="houseid"/>
+				<label>客户id</label>
+				<input type="text" class="form-control" value="${ customerid }" name="customerid"/>
 				<label>跟进内容</label>
 				<input type="text" class="form-control" value="${ content }" name="content"/>	
 				<label>跟进人</label>
@@ -74,24 +74,24 @@
 					<th style="min-width:50px">跟进ID</th>
 					<th style="min-width:50px">跟进时间</th>
 					<th style="min-width:50px">跟进方式</th>
-					<th style="min-width:50px">房源id</th>
+					<th style="min-width:50px">客户id</th>
 					<th style="min-width:50px">跟单人</th>
 					<th style="min-width:50px">跟进内容</th>
 					<th style="min-width:50px">操作 </th>
 				</tr>
 			</thead>
 			<tbody id="user-list">
-				<c:forEach var="followHouseInfo" items="${ followHouseList }">
-					<tr data-user-id="${ followHouseInfo.id }" >
-					<td>${ followHouseInfo.id }</td>
-					 <td>${ func:formatDate(followHouseInfo.createtime) }</td>
-					<td>${ followHouseInfo.followtypeStr }</td>
-					    <td><a href="<%=basePath%>base/getHousereSources?id=${ followHouseInfo.houseid }" >${ followHouseInfo.houseid }</a></td>
-					  <td>${ followHouseInfo.operatorName}</td>
-					  <td>${ followHouseInfo.content }</td>
+				<c:forEach var="followCustomerInfo" items="${ followCustomerList }">
+					<tr data-user-id="${ followCustomerInfo.id }" >
+					<td>${ followCustomerInfo.id }</td>
+					 <td>${ func:formatDate(followCustomerInfo.createtime) }</td>
+					<td>${ followCustomerInfo.followtypeStr }</td>
+					  <td>${ followCustomerInfo.customerid }</td>
+					  <td>${ followCustomerInfo.operatorName}</td>
+					  <td>${ followCustomerInfo.content }</td>
 					  <td>
 					
-					  <a href="<%=basePath%>follow/followHouseidList?houseid=${ followHouseInfo.houseid }" >查看所有跟进</a>
+					  <a href="<%=basePath%>follow/followCustomerList?customerid=${ followCustomerInfo.customerid }" >查看所有跟进</a>
 					  </td>
 					</tr>
 				</c:forEach>

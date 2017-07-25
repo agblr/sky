@@ -14,10 +14,16 @@ public class FollowCustomer {
     private Date updatetime;
 
     private Integer followtype;
+    
+    private String followtypeStr;
 
     private String operator;
+    
+    private String operatorName;
 
     private String follower;
+    
+    private String followerName;
 
     private String content;
 
@@ -30,6 +36,11 @@ public class FollowCustomer {
     private String remindcontent;
 
     private Integer status;
+    
+    public FollowCustomer(){
+    	super();
+    }
+    
     public FollowCustomer(Long id,Long customerid,Date createtime,Date updatetime,Integer followtype,String operator, String follower, String content,String remark,String reminder,Date remindtime,String remindcontent, Integer status){
         
     	this.id= id;
@@ -47,7 +58,7 @@ public class FollowCustomer {
     }
     public FollowCustomer(Long customerid,Date createtime,Date updatetime,Integer followtype,String operator, String follower, String content,String remark,String reminder,Date remindtime,String remindcontent, Integer status){
     	this.customerid =customerid;
-    	this.createtime = createtime;
+    	this.createtime = new Date();
     	this.updatetime = new Date();
     	this.followtype = followtype;
     	this.content = content;

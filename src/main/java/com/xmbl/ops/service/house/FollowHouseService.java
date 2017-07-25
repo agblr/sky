@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.xmbl.ops.dao.house.IFollowHouseDao;
 import com.xmbl.ops.dao.organization.impl.UserInfoDaoImpl;
+import com.xmbl.ops.enumeration.EnumFollowHouseType;
+import com.xmbl.ops.model.house.BaseHouse;
 import com.xmbl.ops.model.house.FollowHouse;
 import com.xmbl.ops.model.organization.UserInfo;
 
@@ -22,13 +24,38 @@ public class FollowHouseService {
 	@Resource
 	UserInfoDaoImpl userInfoDao;
 	
-	
+	private void setEnumFollowHouseType(FollowHouse followHouse) {
+		Integer followtype = followHouse.getFollowtype();
+    	if(followtype != null) {
+    		for(EnumFollowHouseType EnumFollowHouseTypes : EnumFollowHouseType.values()) {
+    			if(followtype.equals(Integer.valueOf(EnumFollowHouseTypes.getId()))) {
+    				followHouse.setFollowtypeStr(EnumFollowHouseTypes.getDesc());
+    				break;
+    			}
+    		}
+    	}
+    }
 
+	private void setUserName(FollowHouse followHouse) {
+		String usename = followHouse.getOperator();
+    	if(usename != null) {
+    		UserInfo userInfo = userInfoDao.selectOneByUserKey(usename);
+    	    if(userInfo != null){
+    	    	followHouse.setOperatorName(userInfo.getUserName());
+    	    }
+    	}
+    }
+	
 	public List<FollowHouse> searchList(Long id, Long houseid,String content,Integer status,
 			Integer followtype,String operator,Date startDate,Date endDate,
 			Long page, int limit) {
 		List<FollowHouse> followHouseList = followHouseDao.searchList( id,  
 				houseid, content, status, followtype, operator,startDate, endDate , page, limit);
+		
+		for(FollowHouse followHouse : followHouseList) {
+			setEnumFollowHouseType(followHouse);
+			setUserName(followHouse);
+		}
 		
 		return followHouseList;
 	}

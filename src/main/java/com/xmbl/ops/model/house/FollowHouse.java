@@ -18,8 +18,12 @@ public class FollowHouse {
     private String followtypeStr;
 
     private String operator;
+    
+    private String operatorName;
 
     private String follower;
+    
+    private String followerName;
 
     private String content;
 
@@ -55,7 +59,7 @@ public class FollowHouse {
     }
     public FollowHouse(Long houseid,Date createtime,Date updatetime,Integer followtype,String operator, String follower, String content,String remark,String reminder,Date remindtime,String remindcontent, Integer status){
     	this.houseid =houseid;
-    	this.createtime = createtime;
+    	this.createtime = new Date();
     	this.updatetime = new Date();
     	this.followtype = followtype;
     	this.content = content;

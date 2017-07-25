@@ -56,7 +56,7 @@ public class BaseHouseService {
     	if(isstatus != null) {
     		for(EnumHouseIsstatus EnumHouseIsstatuss : EnumHouseIsstatus.values()) {
     			if(isstatus.equals(Integer.valueOf(EnumHouseIsstatuss.getId()))) {
-    				baseHouse.setRentalpricetypeStr(EnumHouseIsstatuss.getDesc());
+    				baseHouse.setIsstatusStr(EnumHouseIsstatuss.getDesc());
     				break;
     			}
     		}
@@ -69,7 +69,7 @@ public class BaseHouseService {
     	if(sealingdisk != null) {
     		for(EnumHouseSealingdisk EnumHouseSealingdisks : EnumHouseSealingdisk.values()) {
     			if(sealingdisk.equals(Integer.valueOf(EnumHouseSealingdisks.getId()))) {
-    				baseHouse.setRentalpricetypeStr(EnumHouseSealingdisks.getDesc());
+    				baseHouse.setSealingdiskStr(EnumHouseSealingdisks.getDesc());
     				break;
     			}
     		}
