@@ -340,7 +340,7 @@ display: block;
 				<c:forEach var="operatorLogInfo" items="${ operatorLogList }">
 					<tr>
 				 	    <td>${ operatorLogInfo.createtime }</td>
-				 	    <td>${ operatorLogInfo.operator }</td>
+				 	    <td>${ operatorLogInfo.operatorName }</td>
 				 	    <td>${ operatorLogInfo.content }</td>
 					</tr>
 				</c:forEach>

@@ -62,7 +62,10 @@ public class BaseHouse {
     private String operatorName;
 
     private String founder;
+    
+    private String founderName;
 
+    
     private String owner;
 
     private String ownerphone;

@@ -1,15 +1,13 @@
 package com.xmbl.ops.service.house;
 
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+
 import org.springframework.stereotype.Service;
 
 import com.xmbl.ops.dao.house.impl.OperatorLogDaoImpl;
+import com.xmbl.ops.dao.organization.impl.UserInfoDaoImpl;
 import com.xmbl.ops.model.house.OperatorLog;
+import com.xmbl.ops.model.organization.UserInfo;
 
 import javax.annotation.Resource;
 
@@ -21,7 +19,18 @@ public class OperatorLogService {
 	
 	@Resource
 	OperatorLogDaoImpl operatorLogDao;
-
+	@Resource
+	UserInfoDaoImpl userInfoDao;
+	
+	private void setUserName(OperatorLog operatorLog) {
+		String usename = operatorLog.getOperator();
+    	if(usename != null) {
+    		UserInfo userInfo = userInfoDao.selectOneByUserKey(usename);
+    	    if(userInfo != null){
+    	    	operatorLog.setOperatorName(userInfo.getUserName());
+    	    }
+    	}
+    }
 	
 	public long searchCount(String username, Date startDate, Date endDate) {
 		return operatorLogDao.searchCount(username, startDate, endDate);
@@ -40,6 +49,10 @@ public class OperatorLogService {
 			Long page, int limit) {
 		List<OperatorLog> operatorLogList = operatorLogDao.searchList(username, startDate, endDate,
 				page, limit);
+		
+		for(OperatorLog operatorLog: operatorLogList){
+			setUserName(operatorLog);
+		}
 		return operatorLogList;
 	}
 	

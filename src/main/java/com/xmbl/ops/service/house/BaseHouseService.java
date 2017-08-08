@@ -211,6 +211,16 @@ public class BaseHouseService {
     	}
     }
 	
+	private void setFounderName(BaseHouse baseHouse) {
+		String usename = baseHouse.getFounder();
+    	if(usename != null) {
+    		UserInfo userInfo = userInfoDao.selectOneByUserKey(usename);
+    	    if(userInfo != null){
+    	    	baseHouse.setFounderName(userInfo.getUserName());
+    	    }
+    	}
+    }
+	
 	public List<BaseHouse> searchList(Long id,String title,Integer type,
 		    String housename,Integer tradetype,Double price,
 		    Double rental,Double unitprice,Integer rentalpricetype,
@@ -239,6 +249,7 @@ public class BaseHouseService {
 			setEnumHouseRentalPriceType(baseHouse);
 			setEnumOfficeTag(baseHouse);
 			setUserName(baseHouse);
+			setFounderName(baseHouse);
 			
 			setEnumHouseStatus(baseHouse);
 			setEnumHouseSealingdisk(baseHouse);

@@ -43,7 +43,6 @@ public class BaseHouseController extends AbstractController {
 	
 	@Autowired
 	protected OperatorLogService operatorLogService;
-	
 	//房源列表
 	@RequestMapping(value = "/baseHouseList")
 	public String baseHouseSearch(HttpServletRequest request, ModelMap model, 
@@ -101,6 +100,68 @@ public class BaseHouseController extends AbstractController {
 			model.addAttribute("totalpage", totalPageNum);
 			
 			return "house/source/baseHouseList";
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	//经纪人房源列表
+	@RequestMapping(value = "/agentBaseHouseList")
+	public String agentBaseHouseSearch(HttpServletRequest request, ModelMap model, 
+			Long id,
+			String title,Integer type,
+		    String housename,Integer tradetype,Double price,
+		    Double rental,Double unitprice,Integer rentalpricetype,
+		    Integer floor,String room,Double acreage,String orientation,
+		    String officetag,String officetype, String paymentmethod,
+		    String seemethod,String source,String iskey,String remarks,
+		    String image, Date createtime,Date updatetime,String operator,
+		    String founder,String owner,String ownerphone,
+		    String propertycompany,String propertphone,
+			String startTime, String endTime, Long page) {
+		try{			
+			HttpSession session = request.getSession();
+			String groupName = (String) session.getAttribute(SessionConstant.GROUP_NAME);
+			String userKey = (String) session.getAttribute(SessionConstant.USER_NAME);
+
+			Date startDate = DateUtils.parseDate(startTime, "yyyy-MM-dd HH:mm:ss");
+			Date endDate = DateUtils.parseDate(endTime, "yyyy-MM-dd HH:mm:ss");
+
+			page = page == null || page < 0 ? 0 : page;
+
+			long totalNum = baseHouseService.searchCount(id,title, type,
+				     housename, tradetype, price,
+				     rental, unitprice, rentalpricetype,
+				     floor, room, acreage, orientation,
+				     officetag, officetype,  paymentmethod,
+				     seemethod, source, iskey, remarks,
+				     founder, owner, ownerphone,
+				     propertycompany, propertphone,operator,startDate, endDate);
+
+			long totalPageNum = totalNum / limit;
+			if(totalNum > totalPageNum * limit)
+				totalPageNum++;
+			if(page >= totalPageNum && totalPageNum != 0)
+				page = totalPageNum - 1;
+			long start = page * limit;
+			List<BaseHouse> baseHouseList = baseHouseService.searchList(id,title, type,
+				     housename, tradetype, price,
+				     rental, unitprice, rentalpricetype,
+				     floor, room, acreage, orientation,
+				     officetag, officetype,  paymentmethod,
+				     seemethod, source, iskey, remarks,
+				     founder, owner, ownerphone,
+				     propertycompany, propertphone,operator, startDate, endDate, start, limit);
+			model.addAttribute("housename", housename);
+			model.addAttribute("tradetype", tradetype);
+			model.addAttribute("remarks", remarks);
+			model.addAttribute("userKey", userKey);
+			model.addAttribute("baseHouseList", baseHouseList);
+			model.addAttribute("page", page);
+			model.addAttribute("totalNum", totalNum);
+			model.addAttribute("totalpage", totalPageNum);
+			
+			return "house/source/agentBaseHouseList";
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

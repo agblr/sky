@@ -20,7 +20,7 @@
 <meta http-equiv="expires" content="0">    
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<title>房源管理</title>
+<title>经纪人房源管理</title>
 <link type="image/x-icon" rel="shortcut icon" href="<%=basePath %>image/logo/favicon.ico">
 
 <link rel="stylesheet" href="<%=basePath %>css/bootstrap/bootstrap.3.3.5.min.css">
@@ -41,7 +41,7 @@
 	</script> 
 </head>
 <body>
-<c:set var="preUrl" value="baseHouseList
+<c:set var="preUrl" value="agentBaseHouseList
 							?id=${ id }&
 							housename=${ housename }&
 							mobile=${ mobile }&
@@ -59,7 +59,7 @@
 							startTime=${ startTime }&
 							endTime=${ endTime }&" />
 	<header class="ui-page-header">
-	<div class="mini-title">当前位置：房源管理</div>
+	<div class="mini-title">当前位置：经纪人房源管理</div>
 	</header>
 	<article class="container-fluid">
 		<form class="form-inline search-form">
@@ -167,9 +167,10 @@
 				 	    <td>${ baseHouseInfo.founderName }</td> 
 				 	    <td>${ baseHouseInfo.operatorName }</td>
 						<td>
-						    
+						    <c:if test="${ baseHouseInfo.founder ==  userKey}">
 		                    <a href="<%=basePath%>base/editBaseHouse?id=${baseHouseInfo.id}" class="btn btn-primary btn-xs ml10 edit-btn">编辑</a>
 							<!-- <button class="btn btn-primary btn-xs ml10 btn-del" data-id="${ baseHouseInfo.id }">删除</button> -->
+				            </c:if>
 						   <!-- <button class="btn btn-primary btn-xs ml10 reset-password-btn" data-toggle="modal"  data-target=".modal">删除</button> -->
 						</td>
 					</tr>

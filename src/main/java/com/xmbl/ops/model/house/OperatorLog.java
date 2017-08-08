@@ -16,6 +16,8 @@ public class OperatorLog {
     private String type;
 
     private String operator;
+    
+    private String operatorName;
 
     private String createtime;
 
