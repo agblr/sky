@@ -275,12 +275,23 @@ display: block;
 																	 <h4>${baseHouseInfo.ownerphone}</h4>">
 						查看电话				
 									 -->
-				       
+				      <c:if test="${ baseHouseInfo.sealingdisk ==  0}">
+		                  <a href="javascript:void(0)" type="button" class="btn btn-danger see-phone" title="<h2>电话</h2>"  see-id="${baseHouseInfo.id}"
+		                data-container="body" data-toggle="popover" data-content="
+						<h4>${baseHouseInfo.ownerphone}</h4>">
+						查看电话	
+		             </a>
+				       </c:if>
+				       <c:if test="${ baseHouseInfo.sealingdisk ==  1}">
+				         <c:if test="${ baseHouseInfo.founder ==  userKey}">
 		                <a href="javascript:void(0)" type="button" class="btn btn-danger see-phone" title="<h2>电话</h2>"  see-id="${baseHouseInfo.id}"
 		                data-container="body" data-toggle="popover" data-content="
 						<h4>${baseHouseInfo.ownerphone}</h4>">
 						查看电话	
 		                </a>
+		                </c:if>
+				       </c:if>
+					
 	                 </p>
 				</div>
 				</div>

@@ -133,7 +133,7 @@
 			<tbody id="user-list">
 				<c:forEach var="baseHouseInfo" items="${ baseHouseList }">
 					<tr data-user-id="${ baseHouseInfo.id }" >
-					    <td><a href="<%=basePath%>base/getHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.id }</a></td>
+					    <td><a href="<%=basePath%>base/getAgentHousereSources?id=${ baseHouseInfo.id }" >${ baseHouseInfo.id }</a></td>
 					  <!-- <td>${ baseHouseInfo.title }</td> -->
 					    <td>${ baseHouseInfo.typeStr }</td>
 					    <td>${ baseHouseInfo.sealingdiskStr }|${ baseHouseInfo.diskstatusStr }|${ baseHouseInfo.isstatusStr }|${ baseHouseInfo.housestatusStr }</td>
