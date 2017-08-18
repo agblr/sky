@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dic name="游戏类型">
+    <item key="G022" text="牛牛" icon="game-icon-2"/>
+    <item key="G011" text="红包接龙" icon="game-icon-1"/>
+    <!--<item key="G021" text="牛牛(定庄1)"/>-->
+    <item key="G03" text="幸运28" icon="game-icon-1"/>
+</dic>

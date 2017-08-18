@@ -1,0 +1,278 @@
+<ion-view view-title="{{room.name}}" class="chat-view" hide-tabs="true">
+    <ion-header-bar align-title="center" class="bar-dark bar-header-black">
+        <div class="buttons">
+            <button class="button button-icon icon ion-arrow-left-c" ng-click="back()"></button>
+        </div>
+        <div class="title">{{room.name}}</div>
+        <div class="buttons"><!--
+            <button class="button button-icon icon" ng-class="{false: 'ion-ios-play-outline', true: 'ion-ios-play'}[isGameBegin]"
+                    ng-click="handUp()" ng-if="user.id"></button>-->
+            <button class="button button-icon icon" ng-class="{'qz-status-forbidden disabled': isGameBegin}"
+                    ng-click="handUp()" ng-if="user && user.id">抢庄
+            </button>
+            <button class="button button-icon icon ion-navicon" ng-click="openRoomMenu($event)"
+                    ng-disabled="user == null || user.id == null || user.id == undefined"></button>
+        </div>
+    </ion-header-bar>
+    <div class="has-header room-alert-wrapper"
+         ng-class="{'room-alert-active': alert.active, '': !alert.active, 'room-alert-hide': alert.hide}"
+         ng-show="alert.content">
+        <div class="room-alert">
+            <span ng-bind="alert.content"></span>
+        </div>
+    </div>
+    <div class="room-menu-mask" ng-click="closeRoomMenu()" ng-style="menuMaskStyle">
+        <div class="room-menu" ng-style="menuStyle">
+            <ul>
+                <li class="room-menu-item" ng-click="gotoAccount()"><i class="ion-person room-menu-icon"></i>我的账户<span
+                        style="font-size:11px">(<span style="color:greenyellow">￥</span><span style="color:red">{{balance ? balance : '...'}}</span>)</span>
+                </li>
+                <li class="room-menu-item" ng-click="openMembersModal()"><i
+                        class="ion-person-stalker room-menu-icon"></i>成员列表
+                </li>
+                <li class="room-menu-item" ng-click="openDescModal()"><i
+                        class="ion-ios-game-controller-b room-menu-icon"></i>游戏说明
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="has-header result-p" ng-if="room.type == 'G03'">
+        <div class="timer-p">
+            <span>距离<i style="color:red;">177031</i>期还剩</span>
+            <span class="time-num">0</span><span class="time-num">0</span><span style="color: red;">:</span>
+            <span class="time-num">0</span><span class="time-num">0</span><span style="color: red;">:</span>
+            <span class="time-num">0</span><span class="time-num">0</span>
+        </div>
+        <div class="history-p">
+            第<span style="color:#F30124;font-weight: 400;">22021419</span>期:&nbsp;&nbsp;
+            <span style="font-weight: 400;">9+8+6=23</span>  极大,&nbsp;大单
+            <div class="history-10">
+                近10期开奖:
+                <span style="color:#F30124;font-size: 15px;margin-left: 5px;">9&nbsp;&nbsp;7&nbsp;&nbsp;19&nbsp;&nbsp;4&nbsp;&nbsp;10&nbsp;&nbsp;23&nbsp;&nbsp;19&nbsp;&nbsp;19&nbsp;&nbsp;13&nbsp;&nbsp;13&nbsp;&nbsp;</span>
+                <i class="expander" ng-click="toggleHistory()"
+                   ng-class="{true: 'ion-ios-arrow-down', false: 'ion-ios-arrow-up', undefined: 'ion-ios-arrow-up'}[historyListShow]"></i>
+                <div class="history-list" ng-show="historyListShow">
+                    <table>
+                        <tr>
+                            <td><span class="his-info">1770860</span>期</td>
+                            <td class="his-info">0+0+7=7 小, 单</td>
+                        </tr>
+                        <tr>
+                            <td><span class="his-info">1770860</span>期</td>
+                            <td class="his-info">0+0+7=7 小, 单</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<ion-scroll></ion-scroll>-->
+    <ion-content class="chat-content" ng-class="{'kb-open': emojiOpen, 'isG03': room.type == 'G03'}" delegate-handle="mainScroll"
+                 overflow-scroll="false" on-scroll-complete="scrollComplete()" on-hold="onHold()"
+                 on-release="onRelease()">
+        <ion-refresher on-refresh="loadMoreMessages()" paging="false"></ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="item in visibleMessages"
+                      ng-class="{'item-avatar':item.showAvatar&&item.align=='left','item-avatar-right':item.showAvatar&&item.align=='right'}"
+                      class="item-borderless chat-item">
+                <img ng-src="{{item.headImg}}" ng-if="item.showAvatar" ng-click="openPopover($event, item)">
+                <span class="chat-triangle-left" ng-if="item.align=='left'"
+                      ng-class="{'lottery':item.lottery, 'yellow-bg': item.sender>0, 'red-bg':item.sender==0}"></span>
+                <div align="{{item.align}}">
+                    <div class="chat-item-nick" ng-show="item.align=='left'"
+                         ng-class="{'room-owner': room.owner == item.sender}">
+                        <span ng-show="room.owner == item.sender">(房主)</span>
+                        <span>{{item.nickName}}</span>
+                    </div>
+                    <div class="chat-item-text {{item.style}}" ng-if="!item.lottery"
+                         ng-bind-html="item.content|trustHtml"></div>
+                    <div class="chat-item-lottery" ng-if="item.lottery"
+                         ng-class="{true:'yellow-bg', false:'red-bg'}[item.sender>0]"
+                         ng-click="openLottery(item.content.id, $event)">
+                        <div class="lottery-up">
+                            <img src="img/lottery/lottery.png" class="lottery-img {{item.style}}">
+                            <div class="lottery-content {{item.style}}">
+                                <div ng-class="{0: 'room-menu-icon'}[item.content.sender]">
+                                    {{item.content.description?item.content.description:'恭喜发财,大吉大利!'}}
+                                </div>
+                                <div ng-show="item.content.type=='2'">游戏红包</div>
+                                <div ng-show="item.content.type=='1'">福利红包</div>
+                            </div>
+                        </div>
+
+                        <div class="lottery-down">
+                            <div style="line-height: 30px; font-size: 14px; color: #808080; margin-left: 10px;">
+                                {{appTitle}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="chat-triangle-right" ng-if="item.align=='right'"
+                      ng-class="{'lottery':item.lottery}"></span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar keyboard-attach ng-class="{'kb-open': emojiOpen}">
+        <div class="buttons">
+            <button class="button"
+                    ng-class="{true: 'button-touzhu', false: 'button-icon icon ion-ios-plus-outline'}[room.type && room.type == 'G03']"
+                    ng-click="openModal($event)">
+            </button>
+        </div>
+        <div class="title msg-input" ng-style="{right: '40px', left: room.type == 'G03' ? '50px' : '33px'}">
+            <input id="chatMsgInput" class="chat-input" ng-model="content" ng-click="closeEmojiBoard($event)"
+                   ng-keydown="keyEnter($event)">
+        </div>
+        <div class="buttons">
+            <!--<button class="button button-icon icon ion-happy-outline" ng-click="toggleEmojiBoard()"-->
+            <!--ng-disabled="user.id == null || user.id == undefined"></button>-->
+            <button class="button button-icon icon ion-paper-airplane" ng-click="send()"></button>
+        </div>
+    </ion-footer-bar>
+    <!--<div class="emoji-board" ng-class="{'kb-close': !emojiOpen}">-->
+    <!--<i class="emoji" ng-repeat="emoji in emojiList" ng-bind="emoji" ng-click="insertEmoji(emoji)"></i>-->
+    <!--</div>-->
+</ion-view>
+<div class="touzhu-p" ng-if="touzhuPadShow">
+    <div class="touzhu-mask" ng-click="hideTouzhuPad()"></div>
+    <div class="touzhu-pad-all clearfix" ng-class="'show-' + (currentTouzhuPad ? currentTouzhuPad : 'c')">
+        <div class="touzhu-pad left">
+            <div class="mask" ng-click="switchToLeft();tzSelected=undefined;inputSelected=false;" ng-show="currentTouzhuPad != 'l'"></div>
+            <div class="title">
+                <div class="fk"></div>
+                <span>猜数字</span>
+                <div class="fk"></div>
+            </div>
+            <div class="tz-desc">和值为购买数字即中奖</div>
+            <table class="number">
+                <tr>
+                    <td ng-class="{'selected': currentTouzhuPad == 'l' && tzSelected == 0}" ng-click="tzSelected=0;"><p>0</p><p>1:66.0</p></td>
+                    <td ng-class="{'selected': currentTouzhuPad == 'l' && tzSelected == 1}" ng-click="tzSelected=1;"><p>1</p><p>1:50.0</p></td>
+                    <td ng-class="{'selected': currentTouzhuPad == 'l' && tzSelected == 2}" ng-click="tzSelected=2;"><p>2</p><p>1:40.0</p></td>
+                    <td ng-class="{'selected': currentTouzhuPad == 'l' && tzSelected == 3}" ng-click="tzSelected=3;"><p>3</p><p>1:34.0</p></td>
+                    <td><p>4</p><p>1:28.0</p></td>
+                </tr>
+                <tr>
+                    <td><p>5</p><p>1:24.0</p></td>
+                    <td><p>6</p><p>1:20.0</p></td>
+                    <td><p>7</p><p>1:18.0</p></td>
+                    <td><p>8</p><p>1:17.0</p></td>
+                    <td><p>9</p><p>1:16.0</p></td>
+                </tr>
+                <tr>
+                    <td><p>10</p><p>1:15.0</p></td>
+                    <td><p>11</p><p>1:14.0</p></td>
+                    <td><p>12</p><p>1:13.0</p></td>
+                    <td><p>13</p><p>1:12.0</p></td>
+                    <td><p>14</p><p>1:12.0</p></td>
+                </tr>
+            </table>
+            <div class="tz-btn-group">
+                <button class="button v50" ng-class="{'input-selected': currentTouzhuPad == 'l' && inputSelected}" ng-click="calculateAmount(0)">
+                    <span ng-if="currentTouzhuPad == 'l' && !inputSelected">立即充值</span>
+                </button>
+                <button class="button v100" ng-class="{'input-selected': currentTouzhuPad == 'l' && inputSelected}" ng-click="calculateAmount(1)">
+                    <span ng-if="currentTouzhuPad == 'l' && !inputSelected">最小投注</span>
+                </button>
+                <button class="button v200" ng-class="{'input-selected': currentTouzhuPad == 'l' && inputSelected}" ng-click="calculateAmount(2)">
+                    <span ng-if="currentTouzhuPad == 'l' && !inputSelected">加倍投注</span>
+                </button>
+            </div>
+            <div class="balance">
+                余额：0.000
+            </div>
+            <div class="result">
+                <input placeholder="最低：10, 最高：20000" ng-click="inputSelected = !inputSelected" ng-model="amount">
+                <button class="button button-touzhu" ng-click="openModal($event)"></button>
+            </div>
+        </div>
+        <div class="touzhu-pad center">
+            <div class="mask" ng-click="switchToCenter();tzSelected=undefined;inputSelected=undefined;" ng-show="currentTouzhuPad != 'c'"></div>
+            <div class="title">
+                <div class="fk"></div>
+                <span>大小单双</span>
+                <div class="fk"></div>
+            </div>
+            <div class="tz-desc">和值为单数即中奖</div>
+            <table class="number">
+                <tr>
+                    <td ng-class="{'selected': currentTouzhuPad == 'c' && tzSelected == 0}" ng-click="tzSelected=0;"><p>大</p><p>1:2.0</p></td>
+                    <td ng-class="{'selected': currentTouzhuPad == 'c' && tzSelected == 1}" ng-click="tzSelected=1;"><p>小</p><p>1:2.0</p></td>
+                    <td><p>单</p><p>1:2.0</p></td>
+                    <td><p>双</p><p>1:2.0</p></td>
+                    <td><p>大单</p><p>1:4.1</p></td>
+                </tr>
+                <tr>
+                    <td><p>小单</p><p>1:4.1</p></td>
+                    <td><p>大双</p><p>1:4.1</p></td>
+                    <td><p>小双</p><p>1:4.1</p></td>
+                    <td><p>极大</p><p>1:13.0</p></td>
+                    <td><p>极小</p><p>1:13.0</p></td>
+                </tr>
+            </table>
+            <div class="tz-btn-group">
+                <button class="button v50" ng-class="{'input-selected': currentTouzhuPad == 'c' &&inputSelected}" ng-click="calculateAmount(0)">
+                    <span ng-if="currentTouzhuPad == 'c' && !inputSelected">立即充值</span>
+                </button>
+                <button class="button v100" ng-class="{'input-selected': currentTouzhuPad == 'c' &&inputSelected}" ng-click="calculateAmount(1)">
+                    <span ng-if="currentTouzhuPad == 'c' && !inputSelected">最小投注</span>
+                </button>
+                <button class="button v200" ng-class="{'input-selected': currentTouzhuPad == 'c' &&inputSelected}" ng-click="calculateAmount(2)">
+                    <span ng-if="currentTouzhuPad == 'c' && !inputSelected">加倍投注</span>
+                </button>
+            </div>
+            <div class="balance">
+                余额：0.000
+            </div>
+            <div class="result">
+                <input placeholder="最低：10, 最高：20000" ng-click="inputSelected = !inputSelected" ng-model="amount">
+                <button class="button button-touzhu" ng-click="openModal($event)"></button>
+            </div>
+        </div>
+        <div class="touzhu-pad right">
+            <div class="mask" ng-click="switchToRight();tzSelected=undefined;inputSelected=undefined;" ng-show="currentTouzhuPad != 'r'"></div>
+            <div class="title">
+                <div class="fk"></div>
+                <span>特殊玩法</span>
+                <div class="fk"></div>
+            </div>
+            <div class="tz-desc">和值3,6,9,12,15,18,21,24即中奖</div>
+            <table class="number">
+                <tr>
+                    <td ng-class="{'selected': currentTouzhuPad == 'r' && tzSelected == 0}" ng-click="tzSelected=0;">
+                        <p style="color: rgb(255, 116, 116);">红</p><p>1:3.0</p>
+                    </td>
+                    <td ng-class="{'selected': currentTouzhuPad == 'r' && tzSelected == 1}" ng-click="tzSelected=1;">
+                        <p style="color: rgb(113, 222, 71);">绿</p><p>1:3.0</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td ng-class="{'selected': currentTouzhuPad == 'r' && tzSelected == 2}" ng-click="tzSelected=2;">
+                        <p style="color: rgb(94, 200, 255);">蓝</p><p>1:3.0</p>
+                    </td>
+                    <td ng-class="{'selected': currentTouzhuPad == 'r' && tzSelected == 3}" ng-click="tzSelected=3;">
+                        <p style="color: rgb(251, 231, 204);">豹子</p><p>1:50.0</p>
+                    </td>
+                </tr>
+            </table>
+            <div class="tz-btn-group">
+                <button class="button v50" ng-class="{'input-selected': currentTouzhuPad == 'r' && inputSelected}" ng-click="calculateAmount(0)">
+                    <span ng-if="currentTouzhuPad == 'r' && !inputSelected">立即充值</span>
+                </button>
+                <button class="button v100" ng-class="{'input-selected': currentTouzhuPad == 'r' && inputSelected}" ng-click="calculateAmount(1)">
+                    <span ng-if="currentTouzhuPad == 'r' && !inputSelected">最小投注</span>
+                </button>
+                <button class="button v200" ng-class="{'input-selected': currentTouzhuPad == 'r' && inputSelected}" ng-click="calculateAmount(2)">
+                    <span ng-if="currentTouzhuPad == 'r' && !inputSelected">加倍投注</span>
+                </button>
+            </div>
+            <div class="balance">
+                余额：0.000
+            </div>
+            <div class="result">
+                <input placeholder="最低：10, 最高：20000" ng-click="inputSelected = !inputSelected" ng-model="amount">
+                <button class="button button-touzhu" ng-click="openModal($event)"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dic name="下注字典">
+    <item key="G022" text="牛牛" />
+    <item key="G01" text="红包接龙" />
+    <!--<item key="G021" text="牛牛(定庄1)"/>-->
+    <item key="G06" text="幸运28" />
+</dic>
