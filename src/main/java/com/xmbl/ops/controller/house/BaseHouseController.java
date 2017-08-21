@@ -56,6 +56,8 @@ public class BaseHouseController extends AbstractController {
 		    String image, Date createtime,Date updatetime,String operator,
 		    String founder,String owner,String ownerphone,
 		    String propertycompany,String propertphone,
+		    String startAcreage,String endAcreage,String startRental,String endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk,
 			String startTime, String endTime, Long page) {
 		try{			
 			HttpSession session = request.getSession();
@@ -67,6 +69,24 @@ public class BaseHouseController extends AbstractController {
 
 			page = page == null || page < 0 ? 0 : page;
 
+			Double startA =0.0;
+			if(StringUtils.isNotEmpty(startAcreage)) {
+				startA = Double.valueOf(startAcreage);
+			}
+			
+			Double endA =0.0;
+			if(StringUtils.isNotEmpty(endAcreage)) {
+				endA = Double.valueOf(endAcreage);
+			}
+			Double startR =0.0;
+			if(StringUtils.isNotEmpty(startRental)) {
+				startR = Double.valueOf(startRental);
+			}
+			Double endR =0.0;
+			
+			if(StringUtils.isNotEmpty(endRental)) {
+				endR = Double.valueOf(endRental);
+			}
 			long totalNum = baseHouseService.searchCount(id,title, type,
 				     housename, tradetype, price,
 				     rental, unitprice, rentalpricetype,
@@ -74,7 +94,8 @@ public class BaseHouseController extends AbstractController {
 				     officetag, officetype,  paymentmethod,
 				     seemethod, source, iskey, remarks,
 				     founder, owner, ownerphone,
-				     propertycompany, propertphone,operator,startDate, endDate);
+				     propertycompany, propertphone,operator,startDate, endDate,
+				     startA,endA,startR,endR,housestatus,isstatus,diskstatus,sealingdisk);
 
 			long totalPageNum = totalNum / limit;
 			if(totalNum > totalPageNum * limit)
@@ -89,9 +110,24 @@ public class BaseHouseController extends AbstractController {
 				     officetag, officetype,  paymentmethod,
 				     seemethod, source, iskey, remarks,
 				     founder, owner, ownerphone,
-				     propertycompany, propertphone,operator, startDate, endDate, start, limit);
+				     propertycompany, propertphone,operator, startDate, endDate,
+				     startA,endA,startR,endR,housestatus,isstatus,diskstatus,sealingdisk, start, limit);
+			model.addAttribute("id", id);
+			model.addAttribute("title", title);
+			model.addAttribute("type", type);
 			model.addAttribute("housename", housename);
 			model.addAttribute("tradetype", tradetype);
+			model.addAttribute("startAcreage", startAcreage);
+			model.addAttribute("endAcreage", endAcreage);
+			model.addAttribute("startRental", startRental);
+			model.addAttribute("endRental", endRental);
+			
+			
+			model.addAttribute("housestatus", housestatus);
+			model.addAttribute("isstatus", isstatus);
+			model.addAttribute("diskstatus", diskstatus);
+			model.addAttribute("sealingdisk", sealingdisk);
+			
 			model.addAttribute("remarks", remarks);
 			model.addAttribute("userKey", userKey);
 			model.addAttribute("baseHouseList", baseHouseList);
@@ -118,6 +154,8 @@ public class BaseHouseController extends AbstractController {
 		    String image, Date createtime,Date updatetime,String operator,
 		    String founder,String owner,String ownerphone,
 		    String propertycompany,String propertphone,
+		    String startAcreage,String endAcreage,String startRental,String endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk,
 			String startTime, String endTime, Long page) {
 		try{			
 			HttpSession session = request.getSession();
@@ -129,6 +167,32 @@ public class BaseHouseController extends AbstractController {
 
 			page = page == null || page < 0 ? 0 : page;
 
+//			long totalNum = baseHouseService.searchCount(id,title, type,
+//				     housename, tradetype, price,
+//				     rental, unitprice, rentalpricetype,
+//				     floor, room, acreage, orientation,
+//				     officetag, officetype,  paymentmethod,
+//				     seemethod, source, iskey, remarks,
+//				     founder, owner, ownerphone,
+//				     propertycompany, propertphone,operator,startDate, endDate);
+			Double startA =0.0;
+			if(StringUtils.isNotEmpty(startAcreage)) {
+				startA = Double.valueOf(startAcreage);
+			}
+			
+			Double endA =0.0;
+			if(StringUtils.isNotEmpty(endAcreage)) {
+				endA = Double.valueOf(endAcreage);
+			}
+			Double startR =0.0;
+			if(StringUtils.isNotEmpty(startRental)) {
+				startR = Double.valueOf(startRental);
+			}
+			Double endR =0.0;
+			
+			if(StringUtils.isNotEmpty(endRental)) {
+				endR = Double.valueOf(endRental);
+			}
 			long totalNum = baseHouseService.searchCount(id,title, type,
 				     housename, tradetype, price,
 				     rental, unitprice, rentalpricetype,
@@ -136,14 +200,23 @@ public class BaseHouseController extends AbstractController {
 				     officetag, officetype,  paymentmethod,
 				     seemethod, source, iskey, remarks,
 				     founder, owner, ownerphone,
-				     propertycompany, propertphone,operator,startDate, endDate);
-
+				     propertycompany, propertphone,operator,startDate, endDate,
+				     startA,endA,startR,endR,housestatus,isstatus,diskstatus,sealingdisk);
+			
 			long totalPageNum = totalNum / limit;
 			if(totalNum > totalPageNum * limit)
 				totalPageNum++;
 			if(page >= totalPageNum && totalPageNum != 0)
 				page = totalPageNum - 1;
 			long start = page * limit;
+//			List<BaseHouse> baseHouseList = baseHouseService.searchList(id,title, type,
+//				     housename, tradetype, price,
+//				     rental, unitprice, rentalpricetype,
+//				     floor, room, acreage, orientation,
+//				     officetag, officetype,  paymentmethod,
+//				     seemethod, source, iskey, remarks,
+//				     founder, owner, ownerphone,
+//				     propertycompany, propertphone,operator, startDate, endDate, start, limit);
 			List<BaseHouse> baseHouseList = baseHouseService.searchList(id,title, type,
 				     housename, tradetype, price,
 				     rental, unitprice, rentalpricetype,
@@ -151,9 +224,24 @@ public class BaseHouseController extends AbstractController {
 				     officetag, officetype,  paymentmethod,
 				     seemethod, source, iskey, remarks,
 				     founder, owner, ownerphone,
-				     propertycompany, propertphone,operator, startDate, endDate, start, limit);
+				     propertycompany, propertphone,operator, startDate, endDate,
+				     startA,endA,startR,endR,housestatus,isstatus,diskstatus,sealingdisk, start, limit);
+			model.addAttribute("id", id);
+			model.addAttribute("title", title);
+			model.addAttribute("type", type);
 			model.addAttribute("housename", housename);
 			model.addAttribute("tradetype", tradetype);
+			model.addAttribute("startAcreage", startAcreage);
+			model.addAttribute("endAcreage", endAcreage);
+			model.addAttribute("startRental", startRental);
+			model.addAttribute("endRental", endRental);
+			
+			
+			model.addAttribute("housestatus", housestatus);
+			model.addAttribute("isstatus", isstatus);
+			model.addAttribute("diskstatus", diskstatus);
+			model.addAttribute("sealingdisk", sealingdisk);
+			
 			model.addAttribute("remarks", remarks);
 			model.addAttribute("userKey", userKey);
 			model.addAttribute("baseHouseList", baseHouseList);

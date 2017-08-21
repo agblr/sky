@@ -518,6 +518,39 @@
 			<if test="endDate != null">
 				AND createtime &lt;= #{endDate,jdbcType=TIMESTAMP}
 			</if>
+			  <if test="founder != null and founder != ''">
+				AND founder = #{founder,jdbcType=VARCHAR}
+			 </if>
+			   <if test="owner != null and owner != ''">
+				AND owner = #{owner,jdbcType=VARCHAR}
+			 </if>
+			   <if test="ownerphone != null and ownerphone != ''">
+				AND ownerphone = #{ownerphone,jdbcType=VARCHAR}
+			 </if>
+	         <if test="startAcreage != null and startAcreage !=0.0">
+				AND acreage &gt;  #{startAcreage,jdbcType=DOUBLE}
+			 </if>
+			  <if test="endAcreage != null and endAcreage !=0.0">
+				AND acreage &lt; #{endAcreage,jdbcType=DOUBLE}
+			 </if>
+			 	<if test="startRental != null and startRental !=0.0">
+				AND rental &gt;  #{startRental,jdbcType=DOUBLE}
+			 </if>
+			  <if test="endRental != null and endRental !=0.0">
+				AND rental &lt; #{endRental,jdbcType=DOUBLE}
+			 </if>
+			  <if test="housestatus != null ">
+				AND housestatus = #{housestatus,jdbcType=INTEGER}
+			 </if>
+			   <if test="isstatus != null ">
+				AND isstatus = #{isstatus,jdbcType=INTEGER}
+			 </if>
+			   <if test="diskstatus != null ">
+				AND diskstatus = #{diskstatus,jdbcType=INTEGER}
+			 </if>
+			   <if test="sealingdisk != null ">
+				AND sealingdisk = #{sealingdisk,jdbcType=INTEGER}
+			 </if>
 		</where>
 		order by createtime desc
 		<if test="offset != null and limit != null">
@@ -550,6 +583,39 @@
 			<if test="endDate != null">
 				AND createtime &lt;= #{endDate,jdbcType=TIMESTAMP}
 			</if>
+			<if test="founder != null and founder != ''">
+				AND founder = #{founder,jdbcType=VARCHAR}
+			 </if>
+			   <if test="owner != null and owner != ''">
+				AND owner = #{owner,jdbcType=VARCHAR}
+			 </if>
+			   <if test="ownerphone != null and ownerphone != ''">
+				AND ownerphone = #{ownerphone,jdbcType=VARCHAR}
+			 </if>
+			   <if test="startAcreage != null and startAcreage !=0.0">
+				AND acreage &gt;  #{startAcreage,jdbcType=DOUBLE}
+			 </if>
+			  <if test="endAcreage != null and endAcreage !=0.0">
+				AND acreage &lt; #{endAcreage,jdbcType=DOUBLE}
+			 </if>
+			 	<if test="startRental != null and startRental !=0.0">
+				AND rental &gt;  #{startRental,jdbcType=DOUBLE}
+			 </if>
+			  <if test="endRental != null and endRental !=0.0">
+				AND rental &lt; #{endRental,jdbcType=DOUBLE}
+			 </if>
+			  <if test="housestatus != null ">
+				AND housestatus = #{housestatus,jdbcType=INTEGER}
+			 </if>
+			   <if test="isstatus != null ">
+				AND isstatus = #{isstatus,jdbcType=INTEGER}
+			 </if>
+			   <if test="diskstatus != null ">
+				AND diskstatus = #{diskstatus,jdbcType=INTEGER}
+			 </if>
+			   <if test="sealingdisk != null ">
+				AND sealingdisk = #{sealingdisk,jdbcType=INTEGER}
+			 </if>
 		</where>
 	</select>
   

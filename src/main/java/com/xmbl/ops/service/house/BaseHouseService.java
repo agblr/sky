@@ -22,7 +22,6 @@ import com.xmbl.ops.enumeration.EnumSeeMethod;
 import com.xmbl.ops.enumeration.EnumHouseRentalPriceType;
 import com.xmbl.ops.enumeration.EnumHousePaymentMethod;
 import com.xmbl.ops.enumeration.EnumHouseOrientation;
-
 import com.xmbl.ops.enumeration.EnumHouseStatus;
 import com.xmbl.ops.enumeration.EnumHouseIsstatus;
 import com.xmbl.ops.enumeration.EnumHouseDiskstatus;
@@ -261,6 +260,49 @@ public class BaseHouseService {
 		return baseHouseList;
 	}
 	
+	public List<BaseHouse> searchList(Long id,String title,Integer type,
+		    String housename,Integer tradetype,Double price,
+		    Double rental,Double unitprice,Integer rentalpricetype,
+		    Integer floor,String room,Double acreage,String orientation,
+		    String officetag,String officetype, String paymentmethod,
+		    String seemethod,String source,String iskey,String remarks,
+		    String founder,String owner,String ownerphone,
+		    String propertycompany,String propertphone,String operator,Date startDate,Date endDate,
+		    Double startAcreage,Double endAcreage,Double startRental,Double endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk,
+			Long page, int limit) {
+		List<BaseHouse> baseHouseList = baseHouseDao.searchList( id,title, type,
+			     housename, tradetype, price,
+			     rental, unitprice, rentalpricetype,
+			     floor, room, acreage, orientation,
+			     officetag, officetype,  paymentmethod,
+			     seemethod, source, iskey, remarks,
+			     founder, owner, ownerphone,
+			     propertycompany, propertphone,operator,startDate, endDate ,
+			     startAcreage,endAcreage,startRental,endRental,housestatus,isstatus,diskstatus,sealingdisk, page, limit);
+		for(BaseHouse baseHouse: baseHouseList){
+			setEnumIsKey(baseHouse);
+			setEnumType(baseHouse);
+			setEnumTradeType(baseHouse);
+			setEnumHouseSourceType(baseHouse);
+			setEnumHouseOrientation(baseHouse);
+			setEnumHousePaymentMethod(baseHouse);
+			setEnumSeeMethod(baseHouse);
+			setEnumHouseRentalPriceType(baseHouse);
+			setEnumOfficeTag(baseHouse);
+			setUserName(baseHouse);
+			setFounderName(baseHouse);
+			
+			setEnumHouseStatus(baseHouse);
+			setEnumHouseSealingdisk(baseHouse);
+			setEnumHouseIsstatus(baseHouse);
+			setEnumHouseDiskstatus(baseHouse);
+		}
+		
+		
+		return baseHouseList;
+	}
+	
 		
 	public long searchCount(Long id,String title,Integer type,
 		    String housename,Integer tradetype,Double price,
@@ -278,6 +320,28 @@ public class BaseHouseService {
 			     seemethod, source, iskey, remarks,
 			     founder, owner, ownerphone,
 			     propertycompany, propertphone,operator,startDate, endDate);
+	}
+	
+	
+	public long searchCount(Long id,String title,Integer type,
+		    String housename,Integer tradetype,Double price,
+		    Double rental,Double unitprice,Integer rentalpricetype,
+		    Integer floor,String room,Double acreage,String orientation,
+		    String officetag,String officetype, String paymentmethod,
+		    String seemethod,String source,String iskey,String remarks,
+		    String founder,String owner,String ownerphone,
+		    String propertycompany,String propertphone,String operator,Date startDate,Date endDate,
+		    Double startAcreage,Double endAcreage,Double startRental,Double endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk) {
+		return baseHouseDao.searchCount(id,title, type,
+			     housename, tradetype, price,
+			     rental, unitprice, rentalpricetype,
+			     floor, room, acreage, orientation,
+			     officetag, officetype,  paymentmethod,
+			     seemethod, source, iskey, remarks,
+			     founder, owner, ownerphone,
+			     propertycompany, propertphone,operator,startDate, endDate,
+			     startAcreage,endAcreage,startRental,endRental,housestatus,isstatus,diskstatus,sealingdisk);
 	}
 	
 	public BaseHouse addBaseHouse(String title,Integer type,

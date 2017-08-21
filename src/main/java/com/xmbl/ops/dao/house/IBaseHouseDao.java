@@ -28,5 +28,29 @@ public interface IBaseHouseDao extends IEntityDao<BaseHouse>{
 		    String propertycompany,String propertphone,String operator,Date startDate,Date endDate,
 			Long page, int limit);
 	
+	
+	public long searchCount(Long id,String title,Integer type,
+		    String housename,Integer tradetype,Double price,
+		    Double rental,Double unitprice,Integer rentalpricetype,
+		    Integer floor,String room,Double acreage,String orientation,
+		    String officetag,String officetype, String paymentmethod,
+		    String seemethod,String source,String iskey,String remarks,
+		    String founder,String owner,String ownerphone,
+		    String propertycompany,String propertphone,String operator,Date startDate,Date endDate,
+		    Double startAcreage,Double endAcreage,Double startRental,Double endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk);
+	
+	public List<BaseHouse> searchList(Long id,String title,Integer type,
+		    String housename,Integer tradetype,Double price,
+		    Double rental,Double unitprice,Integer rentalpricetype,
+		    Integer floor,String room,Double acreage,String orientation,
+		    String officetag,String officetype, String paymentmethod,
+		    String seemethod,String source,String iskey,String remarks,
+		    String founder,String owner,String ownerphone,
+		    String propertycompany,String propertphone,String operator,Date startDate,Date endDate,
+		    Double startAcreage,Double endAcreage,Double startRental,Double endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk,
+			Long page, int limit);
+	
 	public int deleteBaseHouse(Long id);
 }
