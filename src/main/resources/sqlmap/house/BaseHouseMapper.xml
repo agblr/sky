@@ -539,34 +539,34 @@
 			  <if test="endRental != null and endRental !=0.0">
 				AND rental &lt; #{endRental,jdbcType=DOUBLE}
 			 </if>
-			  <if test="housestatus != null ">
+			  <if test="housestatus != null and housestatus != ''">
 				AND housestatus = #{housestatus,jdbcType=INTEGER}
 			 </if>
-			   <if test="isstatus != null ">
+			   <if test="isstatus != null and isstatus != ''">
 				AND isstatus = #{isstatus,jdbcType=INTEGER}
 			 </if>
-			   <if test="diskstatus != null ">
+			   <if test="diskstatus != null and diskstatus != ''">
 				AND diskstatus = #{diskstatus,jdbcType=INTEGER}
 			 </if>
-			   <if test="sealingdisk != null ">
+			   <if test="sealingdisk != null and sealingdisk != ''">
 				AND sealingdisk = #{sealingdisk,jdbcType=INTEGER}
 			 </if>
-			  <if test="type != null ">
+			  <if test="type != null and type != ''">
 				AND type = #{type,jdbcType=INTEGER}
 			 </if>
-			 <if test="orientation != null ">
+			 <if test="orientation != null and orientation != ''">
 				AND orientation = #{orientation,jdbcType=INTEGER}
 			 </if>
-			 <if test="paymentmethod != null ">
+			 <if test="paymentmethod != null and paymentmethod != ''">
 				AND paymentmethod = #{paymentmethod,jdbcType=INTEGER}
 			 </if>
-			 <if test="source != null ">
+			 <if test="source != null and source != ''">
 				AND source = #{source,jdbcType=INTEGER}
 			 </if>
-			 <if test="seemethod != null ">
+			 <if test="seemethod != null and seemethod != ''">
 				AND seemethod = #{seemethod,jdbcType=INTEGER}
 			 </if>
-			 <if test="rentalpricetype != null ">
+			 <if test="rentalpricetype != null and rentalpricetype != ''">
 				AND rentalpricetype = #{rentalpricetype,jdbcType=INTEGER}
 			 </if>
 			 
@@ -623,34 +623,34 @@
 			  <if test="endRental != null and endRental !=0.0">
 				AND rental &lt; #{endRental,jdbcType=DOUBLE}
 			 </if>
-			  <if test="housestatus != null ">
+			 <if test="housestatus != null and housestatus != ''">
 				AND housestatus = #{housestatus,jdbcType=INTEGER}
 			 </if>
-			   <if test="isstatus != null ">
+			   <if test="isstatus != null and isstatus != ''">
 				AND isstatus = #{isstatus,jdbcType=INTEGER}
 			 </if>
-			   <if test="diskstatus != null ">
+			   <if test="diskstatus != null and diskstatus != ''">
 				AND diskstatus = #{diskstatus,jdbcType=INTEGER}
 			 </if>
-			   <if test="sealingdisk != null ">
+			   <if test="sealingdisk != null and sealingdisk != ''">
 				AND sealingdisk = #{sealingdisk,jdbcType=INTEGER}
 			 </if>
-			 <if test="type != null ">
+			  <if test="type != null and type != ''">
 				AND type = #{type,jdbcType=INTEGER}
 			 </if>
-			 <if test="orientation != null ">
+			 <if test="orientation != null and orientation != ''">
 				AND orientation = #{orientation,jdbcType=INTEGER}
 			 </if>
-			 <if test="paymentmethod != null ">
+			 <if test="paymentmethod != null and paymentmethod != ''">
 				AND paymentmethod = #{paymentmethod,jdbcType=INTEGER}
 			 </if>
-			 <if test="source != null ">
+			 <if test="source != null and source != ''">
 				AND source = #{source,jdbcType=INTEGER}
 			 </if>
-			 <if test="seemethod != null ">
+			 <if test="seemethod != null and seemethod != ''">
 				AND seemethod = #{seemethod,jdbcType=INTEGER}
 			 </if>
-			 <if test="rentalpricetype != null ">
+			 <if test="rentalpricetype != null and rentalpricetype != ''">
 				AND rentalpricetype = #{rentalpricetype,jdbcType=INTEGER}
 			 </if>
 			 

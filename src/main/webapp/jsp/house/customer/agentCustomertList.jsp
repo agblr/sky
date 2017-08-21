@@ -82,7 +82,7 @@
 		     </div>
 		     <br>
 		     <div class="form-group">
-				<select class="form-control status">
+				<select class="form-control status" name="status">
 				<option value="">状态</option>
 				<c:set var="EnumCustomerStatuss" value="<%=EnumCustomerStatus.values()%>"/>
 						<c:forEach var="EnumCustomerStatus" items="${ EnumCustomerStatuss }">
@@ -92,7 +92,7 @@
 				</select>
 				</div>
 				<div class="form-group">
-				<select class="form-control source">
+				<select class="form-control source" name="source">
 				<option value="">来源</option>
 				 <c:set var="enumSoureTypes" value="<%=EnumSourceType.values()%>"/>
 						<c:forEach var="enumSoureType" items="${ enumSoureTypes }">

@@ -99,18 +99,21 @@
 			    <label>租金</label>
 					<input type="text"  class="form-control  startRental" name="startRental " value="${startRental}"> -
 					<input type="text"  class="form-control  endRental" name="endRental" value="${endRental}">
-				<select class="form-control rentalpricetype">
+								<select class="form-control rentalpricetype" name="rentalpricetype">
 				<option value="">请选择单位</option>
-				 <c:set var="enumHouseRentalPrices" value="<%=EnumHouseRentalPriceType.values()%>"/>
-						<c:forEach var="enumHouseRentalPrice" items="${ enumHouseRentalPrices }">
-						<option value="${ enumHouseRentalPrice.id }" <c:if test="${ enumHouseRentalPrice.id == baseHouseInfo.rentalpricetype }">selected = "selected"</c:if>>${ enumHouseRentalPrice.desc }</option>
-						</c:forEach>
-			    </select></label>
+				<option value="0">元/日</option>
+				<option value="1">元/月</option>
+				<option value="2">元/季度</option>
+				<option value="3">元/半年</option>
+				<option value="4">元/年</option>
+				<option value="5">元/平米/天</option>
+				<option value="6">热毯</option>
+				</select>
 				</div>
-				</br>
+								</br>
 			   <div class="form-group">
 			    <label>更多条件:</label>
-				<select class="form-control sealingdisk">
+				<select class="form-control sealingdisk" name="sealingdisk">
 				<option value="">封盘状态</option>
 				 <c:set var="EnumHouseSealingdisks" value="<%=EnumHouseSealingdisk.values()%>"/>
 						<c:forEach var="EnumHouseSealingdisk" items="${ EnumHouseSealingdisks }">
@@ -118,7 +121,7 @@
 						</c:forEach>
 			    </select></label>
 			  <div class="form-group">
-				<select class="form-control diskstatus">
+				<select class="form-control diskstatus" name="diskstatus">
 				<option value="">公私状态</option>
 				<c:set var="EnumHouseDiskstatuss" value="<%=EnumHouseDiskstatus.values()%>"/>
 						<c:forEach var="EnumHouseDiskstatus" items="${ EnumHouseDiskstatuss }">
@@ -127,7 +130,7 @@
 			    </select></label>
 				</div>
 				<div class="form-group">
-				<select class="form-control isstatus">
+				<select class="form-control isstatus" name="isstatus">
 				<option value="">请房源状态</option>
 				 <c:set var="EnumHouseIsstatuss" value="<%=EnumHouseIsstatus.values()%>"/>
 						<c:forEach var="EnumHouseIsstatus" items="${ EnumHouseIsstatuss }">
@@ -136,7 +139,7 @@
 			    </select></label>
 				</div>
 						<div class="form-group">
-				<select class="form-control housestatus">
+				<select class="form-control housestatus" name="housestatus">
 				<option value="">租售状态</option>
 				<c:set var="EnumHouseStatuss" value="<%=EnumHouseStatus.values()%>"/>
 						<c:forEach var="EnumHouseStatus" items="${ EnumHouseStatuss }">
@@ -145,7 +148,7 @@
 			    </select></label>
 				</div>
 						<div class="form-group">
-				<select class="form-control type">
+				<select class="form-control type" name="type">
 				<option value="">房源类型</option>
 				<c:set var="enumTypes" value="<%=EnumHouseType.values()%>"/>
 						<c:forEach var="enumType" items="${ enumTypes }">
@@ -154,7 +157,7 @@
 			    </select></label>
 				</div>
 						<div class="form-group">
-				<select class="form-control tradetype">
+				<select class="form-control tradetype" name="tradetype">
 				<option value="">交易类型</option>
 				<c:set var="enumTradeTypes" value="<%=EnumTradeType.values()%>"/>
 						<c:forEach var="enumTradeType" items="${ enumTradeTypes }">
@@ -163,7 +166,7 @@
 			    </select></label>
 				</div>
 						<div class="form-group">
-				<select class="form-control orientation">
+				<select class="form-control orientation" name="orientation">
 				<option value="">朝向</option>
 				 <c:set var="enumHouseOrientations" value="<%=EnumHouseOrientation.values()%>"/>
 						<c:forEach var="enumHouseOrientation" items="${ enumHouseOrientations }">
@@ -173,7 +176,7 @@
 			    </select>
 				</div>
 					<div class="form-group">
-				<select class="form-control paymentmethod">
+				<select class="form-control paymentmethod" name="paymentmethod">
 				<option value="">付款方式</option>
 					<c:set var="EnumHousePaymentMethods" value="<%=EnumHousePaymentMethod.values()%>"/>
 						<c:forEach var="EnumHousePaymentMethod" items="${ EnumHousePaymentMethods }">
@@ -183,7 +186,7 @@
 				</select>
 				</div>
 				<div class="form-group">
-				<select class="form-control seemethod">
+				<select class="form-control seemethod" name="seemethod">
 				<option value="">看房方式</option>
 				<c:set var="EnumSeeMethods" value="<%=EnumSeeMethod.values()%>"/>
 						<c:forEach var="EnumSeeMethod" items="${ EnumSeeMethods }">
@@ -193,7 +196,7 @@
 				</select>
 				</div>
 				<div class="form-group">
-				<select class="form-control source">
+				<select class="form-control source" name="source">
 				<option value="">来源</option>
 				 <c:set var="enumSoureTypes" value="<%=EnumHouseSourceType.values()%>"/>
 						<c:forEach var="enumSoureType" items="${ enumSoureTypes }">
