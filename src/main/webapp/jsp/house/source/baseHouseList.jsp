@@ -2,6 +2,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="com.xmbl.ops.enumeration.EnumPersonStatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumOfficeTag" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseSourceType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumIsKey" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumTradeType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseOrientation" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseRentalPriceType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseProperties" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseDiskstatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseIsstatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseSealingdisk" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseStatus" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHousePaymentMethod" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseRentalPriceType" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumHouseOrientation" %>
+<%@ page import="com.xmbl.ops.enumeration.EnumSeeMethod" %>
 <%@ taglib uri="/WEB-INF/tlds/Functions" prefix="func"%>
 <%
 	String path = request.getContextPath();
@@ -44,15 +60,21 @@
 <c:set var="preUrl" value="baseHouseList
 							?id=${ id }&
 							housename=${ housename }&
-							mobile=${ mobile }&
-							nickname=${ nickname }&
-							phone=${ phone }&
-							gender=${ gender }&
-							qq=${ qq }&
-							wechat=${ wechat }&
-							email=${ email }&
+							startAcreage=${ startAcreage }&
+							endAcreage=${ endAcreage }&
+							startRental=${ startRental }&
+							endRental=${ endRental }&
+							rentalpricetype=${ rentalpricetype }&
+							sealingdisk=${ sealingdisk }&
+							diskstatus=${ diskstatus }&
+							isstatus=${ isstatus }&
+							housestatus=${ housestatus }&
+							type=${ type }&
+							tradetype=${ tradetype }&
+							orientation=${ orientation }&
+							paymentmethod=${ paymentmethod }&
+							seemethod=${ seemethod }&
 							source=${ source }&
-							address=${ address }&
 							operator=${ operator }&
 							status=${ status }&
 							remarks=${ remarks }&
@@ -88,6 +110,101 @@
 				<option value="6">热毯</option>
 				</select>
 				</div>
+								</br>
+			   <div class="form-group">
+			    <label>更多条件:</label>
+				<select class="form-control sealingdisk">
+				<option value="">封盘状态</option>
+				 <c:set var="EnumHouseSealingdisks" value="<%=EnumHouseSealingdisk.values()%>"/>
+						<c:forEach var="EnumHouseSealingdisk" items="${ EnumHouseSealingdisks }">
+						<option value="${ EnumHouseSealingdisk.id }" <c:if test="${ EnumHouseSealingdisk.id == sealingdisk }">selected = "selected"</c:if>>${ EnumHouseSealingdisk.desc }</option>
+						</c:forEach>
+			    </select></label>
+			  <div class="form-group">
+				<select class="form-control diskstatus">
+				<option value="">公私状态</option>
+				<c:set var="EnumHouseDiskstatuss" value="<%=EnumHouseDiskstatus.values()%>"/>
+						<c:forEach var="EnumHouseDiskstatus" items="${ EnumHouseDiskstatuss }">
+						<option value="${ EnumHouseDiskstatus.id }" <c:if test="${ EnumHouseDiskstatus.id == diskstatus }">selected = "selected"</c:if>>${ EnumHouseDiskstatus.desc }</option>
+					</c:forEach>
+			    </select></label>
+				</div>
+				<div class="form-group">
+				<select class="form-control isstatus">
+				<option value="">请房源状态</option>
+				 <c:set var="EnumHouseIsstatuss" value="<%=EnumHouseIsstatus.values()%>"/>
+						<c:forEach var="EnumHouseIsstatus" items="${ EnumHouseIsstatuss }">
+						<option value="${ EnumHouseIsstatus.id }" <c:if test="${ EnumHouseIsstatus.id == isstatus }">selected = "selected"</c:if>>${ EnumHouseIsstatus.desc }</option>
+					</c:forEach>
+			    </select></label>
+				</div>
+						<div class="form-group">
+				<select class="form-control housestatus">
+				<option value="">租售状态</option>
+				<c:set var="EnumHouseStatuss" value="<%=EnumHouseStatus.values()%>"/>
+						<c:forEach var="EnumHouseStatus" items="${ EnumHouseStatuss }">
+						<option value="${ EnumHouseStatus.id }" <c:if test="${ EnumHouseStatus.id == housestatus }">selected = "selected"</c:if>>${ EnumHouseStatus.desc }</option>
+						</c:forEach>
+			    </select></label>
+				</div>
+						<div class="form-group">
+				<select class="form-control type">
+				<option value="">房源类型</option>
+				<c:set var="enumTypes" value="<%=EnumHouseType.values()%>"/>
+						<c:forEach var="enumType" items="${ enumTypes }">
+						<option value="${ enumType.id }" <c:if test="${ enumType.id == baseHouseInfo.type }">selected = "selected"</c:if>>${ enumType.desc }</option>
+						</c:forEach>
+			    </select></label>
+				</div>
+						<div class="form-group">
+				<select class="form-control tradetype">
+				<option value="">交易类型</option>
+				<c:set var="enumTradeTypes" value="<%=EnumTradeType.values()%>"/>
+						<c:forEach var="enumTradeType" items="${ enumTradeTypes }">
+						<option value="${ enumTradeType.id }" <c:if test="${ enumTradeType.id == baseHouseInfo.tradetype }">selected = "selected"</c:if>>${ enumTradeType.desc }</option>
+					</c:forEach>
+			    </select></label>
+				</div>
+						<div class="form-group">
+				<select class="form-control orientation">
+				<option value="">朝向</option>
+				 <c:set var="enumHouseOrientations" value="<%=EnumHouseOrientation.values()%>"/>
+						<c:forEach var="enumHouseOrientation" items="${ enumHouseOrientations }">
+						<option value="${ enumHouseOrientation.id }" <c:if test="${ enumHouseOrientation.id == baseHouseInfo.orientation }">selected = "selected"</c:if>>${ enumHouseOrientation.desc }</option>
+						</c:forEach>
+			    </select></label>
+			    </select>
+				</div>
+					<div class="form-group">
+				<select class="form-control paymentmethod">
+				<option value="">付款方式</option>
+					<c:set var="EnumHousePaymentMethods" value="<%=EnumHousePaymentMethod.values()%>"/>
+						<c:forEach var="EnumHousePaymentMethod" items="${ EnumHousePaymentMethods }">
+						<option value="${ EnumHousePaymentMethod.id }" <c:if test="${ EnumHousePaymentMethod.id == paymentmethod }">selected = "selected"</c:if>>${ EnumHousePaymentMethod.desc }</option>
+					</c:forEach>
+			    </select></label>
+				</select>
+				</div>
+				<div class="form-group">
+				<select class="form-control seemethod">
+				<option value="">看房方式</option>
+				<c:set var="EnumSeeMethods" value="<%=EnumSeeMethod.values()%>"/>
+						<c:forEach var="EnumSeeMethod" items="${ EnumSeeMethods }">
+						<option value="${ EnumSeeMethod.id }" <c:if test="${ EnumSeeMethod.id == seemethod }">selected = "selected"</c:if>>${ EnumSeeMethod.desc }</option>
+					</c:forEach>
+			    </select></label>
+				</select>
+				</div>
+				<div class="form-group">
+				<select class="form-control source">
+				<option value="">来源</option>
+				 <c:set var="enumSoureTypes" value="<%=EnumHouseSourceType.values()%>"/>
+						<c:forEach var="enumSoureType" items="${ enumSoureTypes }">
+						<option value="${ enumSoureType.id }" <c:if test="${ enumSoureType.id == baseHouseInfo.source }">selected = "selected"</c:if>>${ enumSoureType.desc }</option>
+						</c:forEach>
+			    </select></label>
+				</div>
+			<br>
 			<div class="form-group">
 				<button class="btn btn-primary">搜索</button>
 			</div>

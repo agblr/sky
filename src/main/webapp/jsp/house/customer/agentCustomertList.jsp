@@ -80,6 +80,26 @@
 				<input type="text" class="form-control" value="${ email }" name="email"/>	
 		
 		     </div>
+		     <br>
+		     <div class="form-group">
+				<select class="form-control status">
+				<option value="">状态</option>
+				<c:set var="EnumCustomerStatuss" value="<%=EnumCustomerStatus.values()%>"/>
+						<c:forEach var="EnumCustomerStatus" items="${ EnumCustomerStatuss }">
+						<option value="${ EnumCustomerStatus.id }" <c:if test="${ EnumCustomerStatus.id == status }">selected = "selected"</c:if>>${ EnumCustomerStatus.desc }</option>
+					</c:forEach>
+			    </select></label>
+				</select>
+				</div>
+				<div class="form-group">
+				<select class="form-control source">
+				<option value="">来源</option>
+				 <c:set var="enumSoureTypes" value="<%=EnumSourceType.values()%>"/>
+						<c:forEach var="enumSoureType" items="${ enumSoureTypes }">
+						<option value="${ enumSoureType.id }" <c:if test="${ enumSoureType.id == soure }">selected = "selected"</c:if>>${ enumSoureType.desc }</option>
+						</c:forEach>
+			    </select></label>
+				</div>
 			<div class="form-group">
 				<button class="btn btn-primary">搜索</button>
 			</div>

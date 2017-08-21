@@ -218,6 +218,7 @@ display: block;
 						<option value="${ enumHouseOrientation.id }" <c:if test="${ enumHouseOrientation.id == baseHouseInfo.orientation }">selected = "selected"</c:if>>${ enumHouseOrientation.desc }</option>
 						</c:forEach>
 			    </select></label>
+			    </select>
 				</div>
 				<label class="col-sm-1 control-label">付款方式</label>
 				<div class="col-sm-1">

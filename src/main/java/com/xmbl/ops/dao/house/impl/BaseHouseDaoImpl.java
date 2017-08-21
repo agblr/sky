@@ -97,6 +97,13 @@ public class BaseHouseDaoImpl extends EntityDaoMPDBImpl<BaseHouse> implements IB
 		para.put("sealingdisk", sealingdisk);
 		
 		
+		para.put("type", type);
+		para.put("tradetype", tradetype);
+		para.put("orientation", orientation);
+		para.put("paymentmethod", paymentmethod);
+		para.put("source", source);
+		para.put("seemethod", seemethod);
+		para.put("rentalpricetype", rentalpricetype);
 		
 		
 		long count = getSqlSessionTemplate().selectOne(getNameSpace() + ".searchCount", para);
@@ -138,6 +145,13 @@ public class BaseHouseDaoImpl extends EntityDaoMPDBImpl<BaseHouse> implements IB
 		para.put("diskstatus", diskstatus);
 		para.put("sealingdisk", sealingdisk);
 		
+		
+		para.put("type", type);
+		para.put("orientation", orientation);
+		para.put("paymentmethod", paymentmethod);
+		para.put("source", source);
+		para.put("seemethod", seemethod);
+		para.put("rentalpricetype", rentalpricetype);
 		
 		para.put("offset", page);
 		para.put("limit", limit);

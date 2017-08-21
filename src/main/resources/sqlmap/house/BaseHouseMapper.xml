@@ -551,6 +551,25 @@
 			   <if test="sealingdisk != null ">
 				AND sealingdisk = #{sealingdisk,jdbcType=INTEGER}
 			 </if>
+			  <if test="type != null ">
+				AND type = #{type,jdbcType=INTEGER}
+			 </if>
+			 <if test="orientation != null ">
+				AND orientation = #{orientation,jdbcType=INTEGER}
+			 </if>
+			 <if test="paymentmethod != null ">
+				AND paymentmethod = #{paymentmethod,jdbcType=INTEGER}
+			 </if>
+			 <if test="source != null ">
+				AND source = #{source,jdbcType=INTEGER}
+			 </if>
+			 <if test="seemethod != null ">
+				AND seemethod = #{seemethod,jdbcType=INTEGER}
+			 </if>
+			 <if test="rentalpricetype != null ">
+				AND rentalpricetype = #{rentalpricetype,jdbcType=INTEGER}
+			 </if>
+			 
 		</where>
 		order by createtime desc
 		<if test="offset != null and limit != null">
@@ -616,6 +635,27 @@
 			   <if test="sealingdisk != null ">
 				AND sealingdisk = #{sealingdisk,jdbcType=INTEGER}
 			 </if>
+			 <if test="type != null ">
+				AND type = #{type,jdbcType=INTEGER}
+			 </if>
+			 <if test="orientation != null ">
+				AND orientation = #{orientation,jdbcType=INTEGER}
+			 </if>
+			 <if test="paymentmethod != null ">
+				AND paymentmethod = #{paymentmethod,jdbcType=INTEGER}
+			 </if>
+			 <if test="source != null ">
+				AND source = #{source,jdbcType=INTEGER}
+			 </if>
+			 <if test="seemethod != null ">
+				AND seemethod = #{seemethod,jdbcType=INTEGER}
+			 </if>
+			 <if test="rentalpricetype != null ">
+				AND rentalpricetype = #{rentalpricetype,jdbcType=INTEGER}
+			 </if>
+			 
+			 
+			 
 		</where>
 	</select>
   
