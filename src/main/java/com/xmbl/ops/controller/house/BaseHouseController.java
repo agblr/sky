@@ -255,6 +255,124 @@ public class BaseHouseController extends AbstractController {
 			return null;
 		}
 	}
+	
+	
+	
+	//淘宝池房源列表---失效房源列表
+	@RequestMapping(value = "/taobaoBaseHouseList")
+	public String taobaoBaseHouseSearch(HttpServletRequest request, ModelMap model, 
+			Long id,
+			String title,Integer type,
+		    String housename,Integer tradetype,Double price,
+		    Double rental,Double unitprice,Integer rentalpricetype,
+		    Integer floor,String room,Double acreage,String orientation,
+		    String officetag,String officetype, String paymentmethod,
+		    String seemethod,String source,String iskey,String remarks,
+		    String image, Date createtime,Date updatetime,String operator,
+		    String founder,String owner,String ownerphone,
+		    String propertycompany,String propertphone,
+		    String startAcreage,String endAcreage,String startRental,String endRental,
+		    String housestatus,String isstatus,String diskstatus,String sealingdisk,
+			String startTime, String endTime, Long page) {
+		try{			
+			HttpSession session = request.getSession();
+			String groupName = (String) session.getAttribute(SessionConstant.GROUP_NAME);
+			String userKey = (String) session.getAttribute(SessionConstant.USER_NAME);
+
+			Date startDate = DateUtils.parseDate(startTime, "yyyy-MM-dd HH:mm:ss");
+			Date endDate = DateUtils.parseDate(endTime, "yyyy-MM-dd HH:mm:ss");
+
+			page = page == null || page < 0 ? 0 : page;
+
+//			long totalNum = baseHouseService.searchCount(id,title, type,
+//				     housename, tradetype, price,
+//				     rental, unitprice, rentalpricetype,
+//				     floor, room, acreage, orientation,
+//				     officetag, officetype,  paymentmethod,
+//				     seemethod, source, iskey, remarks,
+//				     founder, owner, ownerphone,
+//				     propertycompany, propertphone,operator,startDate, endDate);
+			Double startA =0.0;
+			if(StringUtils.isNotEmpty(startAcreage)) {
+				startA = Double.valueOf(startAcreage);
+			}
+			
+			Double endA =0.0;
+			if(StringUtils.isNotEmpty(endAcreage)) {
+				endA = Double.valueOf(endAcreage);
+			}
+			Double startR =0.0;
+			if(StringUtils.isNotEmpty(startRental)) {
+				startR = Double.valueOf(startRental);
+			}
+			Double endR =0.0;
+			
+			if(StringUtils.isNotEmpty(endRental)) {
+				endR = Double.valueOf(endRental);
+			}
+			long totalNum = baseHouseService.searchCount(id,title, type,
+				     housename, tradetype, price,
+				     rental, unitprice, rentalpricetype,
+				     floor, room, acreage, orientation,
+				     officetag, officetype,  paymentmethod,
+				     seemethod, source, iskey, remarks,
+				     founder, owner, ownerphone,
+				     propertycompany, propertphone,operator,startDate, endDate,
+				     startA,endA,startR,endR,housestatus,"2",diskstatus,sealingdisk);
+			
+			long totalPageNum = totalNum / limit;
+			if(totalNum > totalPageNum * limit)
+				totalPageNum++;
+			if(page >= totalPageNum && totalPageNum != 0)
+				page = totalPageNum - 1;
+			long start = page * limit;
+//			List<BaseHouse> baseHouseList = baseHouseService.searchList(id,title, type,
+//				     housename, tradetype, price,
+//				     rental, unitprice, rentalpricetype,
+//				     floor, room, acreage, orientation,
+//				     officetag, officetype,  paymentmethod,
+//				     seemethod, source, iskey, remarks,
+//				     founder, owner, ownerphone,
+//				     propertycompany, propertphone,operator, startDate, endDate, start, limit);
+			List<BaseHouse> baseHouseList = baseHouseService.searchList(id,title, type,
+				     housename, tradetype, price,
+				     rental, unitprice, rentalpricetype,
+				     floor, room, acreage, orientation,
+				     officetag, officetype,  paymentmethod,
+				     seemethod, source, iskey, remarks,
+				     founder, owner, ownerphone,
+				     propertycompany, propertphone,operator, startDate, endDate,
+				     startA,endA,startR,endR,housestatus,"2",diskstatus,sealingdisk, start, limit);
+			model.addAttribute("id", id);
+			model.addAttribute("title", title);
+			model.addAttribute("type", type);
+			model.addAttribute("housename", housename);
+			model.addAttribute("tradetype", tradetype);
+			model.addAttribute("startAcreage", startAcreage);
+			model.addAttribute("endAcreage", endAcreage);
+			model.addAttribute("startRental", startRental);
+			model.addAttribute("endRental", endRental);
+			
+			
+			model.addAttribute("housestatus", housestatus);
+			model.addAttribute("isstatus", isstatus);
+			model.addAttribute("diskstatus", diskstatus);
+			model.addAttribute("sealingdisk", sealingdisk);
+			
+			model.addAttribute("remarks", remarks);
+			model.addAttribute("userKey", userKey);
+			model.addAttribute("baseHouseList", baseHouseList);
+			model.addAttribute("page", page);
+			model.addAttribute("totalNum", totalNum);
+			model.addAttribute("totalpage", totalPageNum);
+			
+			return "house/source/taobaoBaseHouseList";
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	   //添加
 		@RequestMapping(value = "/addBaseHouse")
 		public String addBaseHouse(HttpServletRequest request) {
@@ -439,6 +557,40 @@ public class BaseHouseController extends AbstractController {
 			model.addAttribute("seeCNT", seeCNT);
 			
 			return "house/source/agentBaseHouseDetail";
+		}
+		
+		
+		//详细--失效房源
+		@RequestMapping(value = "/getTaobaoHousereSources")
+		public String getTaobaoHousereSources(HttpServletRequest request,ModelMap model,  Long id) {
+			if(id == null) {
+				return "房源存在！";
+			}
+			HttpSession session = request.getSession();
+			String operator = (String) session
+					.getAttribute(SessionConstant.USER_NAME);
+			
+			
+			
+			BaseHouse baseHouseInfo = baseHouseService.getById(id);
+			
+			model.addAttribute("baseHouseInfo", baseHouseInfo);
+			
+			
+			
+			
+			OperatorLog operatorLog = new OperatorLog(String.valueOf(id), "浏览房源ID:"+id+"详情", "查看",
+					operator,baseHouseInfo.toString());
+			operatorLogService.insertOperatorLog(operatorLog);
+			
+			long seeCNT = operatorLogService.searchCount(id);
+			
+			List<OperatorLog> operatorLogList = operatorLogService.searchList(id);
+			
+			model.addAttribute("operatorLogList", operatorLogList);
+			model.addAttribute("seeCNT", seeCNT);
+			
+			return "house/source/taobaoBaseHouseDetail";
 		}
 		
 		//详细
