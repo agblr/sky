@@ -504,7 +504,9 @@
 				AND title = #{title,jdbcType=VARCHAR}
 			 </if>
 			  <if test="housename != null and housename != ''">
-				AND housename = #{housename,jdbcType=VARCHAR}
+			<!-- like CONCAT('%',#{housename,jdbcType=VARCHAR},'%') 	
+			     AND housename = #{housename,jdbcType=VARCHAR}-->
+			      AND housename like CONCAT('%',#{housename,jdbcType=VARCHAR},'%')
 			 </if>
 			 <if test="tradetype != null and tradetype != ''">
 				AND tradetype = #{tradetype,jdbcType=INTEGER}
@@ -588,7 +590,7 @@
 				AND title = #{title,jdbcType=VARCHAR}
 			 </if>
 			  <if test="housename != null and housename != ''">
-				AND housename = #{housename,jdbcType=VARCHAR}
+				  AND housename like CONCAT('%',#{housename,jdbcType=VARCHAR},'%')
 			 </if>
 			 <if test="tradetype != null and tradetype != ''">
 				AND tradetype = #{tradetype,jdbcType=INTEGER}

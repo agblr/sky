@@ -107,7 +107,7 @@
 				<a href="#" class="btn btn-success ml10" id="add-member-btn">创建客户</a>
 			</div>-->
 			<div class="form-group">
-				<a href="<%=basePath%>customer/instertCustomer" class="btn btn-success ml10">创建客户</a>
+				<a href="<%=basePath%>customer/instertAgentCustomer" class="btn btn-success ml10">创建客户</a>
 			</div>
 		</form>
 		<table class="table table-hover table-bordered table-condensed" >

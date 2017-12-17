@@ -342,12 +342,60 @@ public class CustomerController extends AbstractController {
 		return errorJson(EnumResCode.SERVER_ERROR.value(), "新增客户失败");
 	}
 	
+	   //添加经纪人客户
+		@RequestMapping(value = "/addAgentCustomer")
+		public @ResponseBody ResponseResult addAgentCustomer(HttpServletRequest request, String usename, String gender, String mobile, String phone, String nickname, String qq, String wechat, String email ,String source, String address, String remarks, Integer status) {
+			try {
+				if (StringUtils.isEmpty(usename))
+					return errorJson(EnumResCode.SERVER_ERROR.value(), "客户名称不能为空");
+//				usename = new String(usename.getBytes("ISO-8859-1"), "UTF-8");
+				
+				if (StringUtils.isEmpty(mobile))
+					return errorJson(EnumResCode.SERVER_ERROR.value(), "电话不能为空");
+				
+				if (StringUtils.isNotEmpty(qq)) {
+					Pattern pattern = Pattern.compile("^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?$");   
+			        Matcher isNum = pattern.matcher(qq.trim());  
+			        if( !isNum.matches() ){  
+			        	   return errorJson(EnumResCode.SERVER_ERROR.value(), "qq必须是数字"); 
+			        }
+				}		
+//				nickname = new String(nickname.getBytes("ISO-8859-1"), "UTF-8");
+//				email = new String(email.getBytes("ISO-8859-1"), "UTF-8");
+//				gender = new String(gender.getBytes("ISO-8859-1"), "UTF-8");
+//				source = new String(source.getBytes("ISO-8859-1"), "UTF-8");
+//				remarks = new String(remarks.getBytes("ISO-8859-1"), "UTF-8");
+//				address = new String(address.getBytes("ISO-8859-1"), "UTF-8");
+				
+				HttpSession session = request.getSession();
+				String operator = (String) session.getAttribute(SessionConstant.USER_NAME);
+				if(StringUtils.isNotEmpty(usename))
+					usename = usename.replaceAll("'&nbsp';", "&nbsp");
+				Customer customer = new Customer(usename,gender, mobile,
+					     phone,nickname,qq,
+					     wechat, email,source,
+					     address,status, 
+					     remarks,operator);
+				customer = customerService.insertSelective(customer);
+				if(customer != null)
+					return successJson();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return errorJson(EnumResCode.SERVER_ERROR.value(), "新增经纪人客户失败");
+		}
+	
 	   //添加客户
 		@RequestMapping(value = "/instertCustomer")
 		public String instertCustomer(HttpServletRequest request, String usename, String gender, String mobile, String phone, String nickname, String qq, String wechat, String email ,String source, String address, String remarks, Integer status) {
 			return "house/customer/addCustomer";
 		}
 	
+		 //添加客户
+			@RequestMapping(value = "/instertAgentCustomer")
+			public String instertAgentCustomer(HttpServletRequest request, String usename, String gender, String mobile, String phone, String nickname, String qq, String wechat, String email ,String source, String address, String remarks, Integer status) {
+				return "house/customer/addAgentCustomer";
+			}
 		
 		//详细
 		@RequestMapping(value = "/getCustomer")
@@ -368,6 +416,24 @@ public class CustomerController extends AbstractController {
 			return "house/customer/customerDetail";
 		}
 		
+		//详细
+		@RequestMapping(value = "/getAgentCustomer")
+		public String getAgentCustomer(HttpServletRequest request,ModelMap model,  Integer id) {
+			if(id == null) {
+				return "客户存在！";
+			}
+			HttpSession session = request.getSession();
+			String operator = (String) session
+					.getAttribute(SessionConstant.USER_NAME);
+			
+			
+			Customer customerInfo = customerService.getById(id);
+			
+			model.addAttribute("customerInfo", customerInfo);
+			
+			
+			return "house/customer/agentCustomerDetail";
+		}
 		
 		/**
 		 * 编辑
